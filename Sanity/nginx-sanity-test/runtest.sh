@@ -38,6 +38,8 @@ DOCROOT=/var/www/rhts-nginx-root
 URL=http://127.0.0.1:81/
 RPURL=http://127.0.0.1:81/rp/
 
+LOGROOT=/var/log/nginx
+
 PHPURL=http://127.0.0.1:81/info.php
 FPMSVC=php-fpm
 
@@ -65,6 +67,9 @@ rlJournalStart
         rlRun "curl $URL/rp/ > output2.html"
         rlAssertNotDiffer output2.html $DOCROOT/index.html
 
+        rlAssertExists "$LOGROOT/access.log"
+        rlAssertExists "$LOGROOT/error.log"
+
         rlRun "ab -c 100 -n 10000 $URL"
         rlRun "ab -c 100 -n 10000 $RPURL"
 
@@ -73,6 +78,8 @@ rlJournalStart
         rlRun "curl $PHPURL > php.html"
         rlAssertGrep 'PHP Version' php.html
         rlRun "ab -c 20 -n 10000 $PHPURL"
+
+        rlAssertGrep "/info.php" "$LOGROOT/access.log"
 
 #        rlRun "sleep 1h"
         rlRun "rlServiceStop $SERVICE"
@@ -85,7 +92,7 @@ rlJournalStart
         rlRun "popd"
         rlRun "rm -r $TmpDir" 0 "Removing tmp directory"
         rlRun "rm -rf ${DOCROOT}"
-        rlRun "rm -f ${MCONF}"
+        rlRun "rm -f ${MYCONF}"
     rlPhaseEnd
 rlJournalPrintText
 rlJournalEnd
