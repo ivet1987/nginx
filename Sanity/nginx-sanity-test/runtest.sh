@@ -33,7 +33,6 @@
 PACKAGE="nginx"
 SERVICE="nginx"
 CONFDIR=/etc/nginx/conf.d
-MYCONF=${CONFDIR}/rhts-nginx-sanity.conf
 DOCROOT=/var/www/rhts-nginx-root
 URL=http://127.0.0.1:81/
 RPURL=http://127.0.0.1:81/rp/
@@ -42,10 +41,25 @@ LOGROOT=/var/log/nginx
 
 PHPURL=http://127.0.0.1:81/info.php
 FPMSVC=php-fpm
+FPMPKG=php-fpm
+
+if test -d /opt/rh/php54; then
+    FPMSVC=php54-php-fpm
+    FPMPKG=php54-php-fpm
+fi
+if test -d /opt/rh/nginx14; then
+    SERVICE=nginx14-nginx
+    PACKAGE=nginx14-nginx
+    CONFDIR=/opt/rh/nginx14/root/etc/nginx/conf.d
+    LOGROOT=/opt/rh/nginx14/root/var/log/nginx
+fi
+
+MYCONF=${CONFDIR}/rhts-nginx-sanity.conf
 
 rlJournalStart
     rlPhaseStartSetup
         rlAssertRpm $PACKAGE
+        rlAssertRpm $FPMPKG
 
         rlRun "mkdir ${DOCROOT} ${PHPROOT}"
         rlRun "echo this is the index > ${DOCROOT}/index.html"
