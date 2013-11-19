@@ -1,0 +1,3 @@
+PURPOSE of /CoreOS/nginx/Regression/nginx-upstream-testsuite
+Description: Upstream nginx test suite
+Author: Joe Orton <jorton@redhat.com>
