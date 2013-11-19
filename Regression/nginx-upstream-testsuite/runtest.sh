@@ -49,7 +49,11 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest
-        rlRun "TEST_NGINX_BINARY=${NGINX} xargs prove < whitelist.txt" 0 "Run test suite"
+        # Uncomment this to run entire test suite:
+        #rlRun "TEST_NGINX_BINARY=${NGINX} prove ." 0 "Run whole test suite"
+    
+        # Run whitelisted tests is known to pass with 1.4.x
+        rlRun "TEST_NGINX_BINARY=${NGINX} xargs prove < whitelist.txt" 0 "Run test suite w/whitelist"
     rlPhaseEnd
 
     rlPhaseStartCleanup
