@@ -55,7 +55,6 @@ if test -d /opt/rh/nginx14; then
     SERVICE=nginx14-nginx
     PACKAGE=nginx14-nginx
     CONFDIR=/opt/rh/nginx14/root/etc/nginx/conf.d
-    LOGROOT=/opt/rh/nginx14/root/var/log/nginx
 fi
 
 MYCONF=${CONFDIR}/rhts-nginx-sanity.conf
