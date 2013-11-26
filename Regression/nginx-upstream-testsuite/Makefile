@@ -41,7 +41,7 @@ $(METADATA): Makefile
 	@echo "Type:            Regression" >> $(METADATA)
 	@echo "TestTime:        5m" >> $(METADATA)
 	@echo "RunFor:          nginx nginx14-nginx" >> $(METADATA)
-	@echo "Requires:        nginx nginx14-nginx perl-FCGI perl-Test-Harness" >> $(METADATA)
+	@echo "Requires:        nginx nginx14-nginx perl-FCGI perl-Test-Harness perl(IO::Socket::SSL)" >> $(METADATA)
 	@echo "Priority:        Normal" >> $(METADATA)
 	@echo "License:         BSD" >> $(METADATA)
 	@echo "Confidential:    yes" >> $(METADATA)
