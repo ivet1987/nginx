@@ -32,6 +32,8 @@ PACKAGE="nginx"
 SERVICE="nginx"
 NGINX=/usr/sbin/nginx
 
+WHITELIST=$PWD/whitelist.txt
+
 if test -d /opt/rh/nginx14; then
     SERVICE=nginx14-nginx
     PACKAGE=nginx14-nginx
@@ -53,7 +55,7 @@ rlJournalStart
         #rlRun "TEST_NGINX_BINARY=${NGINX} prove ." 0 "Run whole test suite"
     
         # Run whitelisted tests is known to pass with 1.4.x
-        rlRun "TEST_NGINX_BINARY=${NGINX} xargs prove < whitelist.txt" 0 "Run test suite w/whitelist"
+        rlRun "TEST_NGINX_BINARY=${NGINX} xargs prove < ${WHITELIST}" 0 "Run test suite w/whitelist"
     rlPhaseEnd
 
     rlPhaseStartCleanup
