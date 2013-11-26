@@ -47,6 +47,10 @@ if test -d /opt/rh/php54; then
     FPMSVC=php54-php-fpm
     FPMPKG=php54-php-fpm
 fi
+if test -d /opt/rh/php55; then
+    FPMSVC=php55-php-fpm
+    FPMPKG=php55-php-fpm
+fi
 if test -d /opt/rh/nginx14; then
     SERVICE=nginx14-nginx
     PACKAGE=nginx14-nginx
