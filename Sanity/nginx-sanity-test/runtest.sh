@@ -30,39 +30,38 @@
 . /usr/bin/rhts-environment.sh || exit 1
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 
-PACKAGE="nginx"
-SERVICE="nginx"
 CONFDIR=/etc/nginx/conf.d
 DOCROOT=/var/www/rhts-nginx-root
-URL=http://127.0.0.1:81/
-RPURL=http://127.0.0.1:81/rp/
-
 LOGROOT=/var/log/nginx
 
+if echo $COLLECTIONS | grep php55; then
+    FPM="php55-php-fpm"
+elif echo $COLLECTIONS | grep php54; then
+    FPM="php54-php-fpm"
+else
+    FPM="php-fpm"
+fi
+
+if echo $COLLECTIONS | grep nginx14; then
+    NGINX="nginx14-nginx"
+    CONFDIR=/opt/rh/nginx14/root/${CONFDIR}
+else
+    NGINX="nginx"
+fi
+
+URL=http://127.0.0.1:81/
+RPURL=http://127.0.0.1:81/rp/
 PHPURL=http://127.0.0.1:81/info.php
-FPMSVC=php-fpm
-FPMPKG=php-fpm
 
-if test -d /opt/rh/php54; then
-    FPMSVC=php54-php-fpm
-    FPMPKG=php54-php-fpm
-fi
-if test -d /opt/rh/php55; then
-    FPMSVC=php55-php-fpm
-    FPMPKG=php55-php-fpm
-fi
-if test -d /opt/rh/nginx14; then
-    SERVICE=nginx14-nginx
-    PACKAGE=nginx14-nginx
-    CONFDIR=/opt/rh/nginx14/root/etc/nginx/conf.d
-fi
-
+PACKAGES=${PACKAGES:-"$NGINX $FPM"}
 MYCONF=${CONFDIR}/rhts-nginx-sanity.conf
 
 rlJournalStart
     rlPhaseStartSetup
-        rlAssertRpm $PACKAGE
-        rlAssertRpm $FPMPKG
+        rlAssertRpm --all
+        rlAssertBinaryOrigin nginx
+        rlAssertExists ${CONFDIR}
+        rlAssertExists ${LOGROOT}
 
         rlRun "mkdir ${DOCROOT} ${PHPROOT}"
         rlRun "echo this is the index > ${DOCROOT}/index.html"
@@ -76,7 +75,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest
-        rlRun "rlServiceStart $SERVICE" 
+        rlRun "rlServiceStart $NGINX" 
         rlRun "sleep 2"
 
         rlRun "curl $URL > output.html"
@@ -90,7 +89,7 @@ rlJournalStart
         rlRun "ab -c 100 -n 10000 $URL"
         rlRun "ab -c 100 -n 10000 $RPURL"
 
-        rlRun "rlServiceStart $FPMSVC"
+        rlRun "rlServiceStart $FPM"
 
         rlRun "curl $PHPURL > php.html"
         rlAssertGrep 'PHP Version' php.html
@@ -99,8 +98,8 @@ rlJournalStart
         rlAssertGrep "/info.php" "$LOGROOT/access.log"
 
 #        rlRun "sleep 1h"
-        rlRun "rlServiceStop $SERVICE"
-        rlRun "rlServiceStop $FPMSVC"
+        rlRun "rlServiceStop $NGINX"
+        rlRun "rlServiceStop $FPM"
         rlRun "sleep 2"
 
     rlPhaseEnd
