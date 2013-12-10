@@ -18,31 +18,21 @@
 . /usr/bin/rhts-environment.sh || exit 1
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 
-PACKAGE="nginx"
-LOOKASIDE=
 TARVERSION=fb366c51eac6
 LOOKASIDE=${LOOKASIDE:-http://download.eng.bos.redhat.com/qa/rhts/lookaside/}
 
-TARVERSION=fb366c51eac6
 TARSTUB=nginx-tests-${TARVERSION}
 TARBALL=${TARSTUB}.tar.gz
 TARURL=${LOOKASIDE}/${TARBALL}
 
-PACKAGE="nginx"
-SERVICE="nginx"
-NGINX=/usr/sbin/nginx
-
 WHITELIST=$PWD/whitelist.txt
 
-if test -d /opt/rh/nginx14; then
-    SERVICE=nginx14-nginx
-    PACKAGE=nginx14-nginx
-    NGINX=/opt/rh/nginx14/root/usr/sbin/nginx
-fi
+PACKAGES=${PACKAGES:-nginx14-nginx}
 
 rlJournalStart
     rlPhaseStartSetup
-        rlAssertRpm $PACKAGE
+        rlAssertRpm --all
+        rlAssertBinaryOrigin nginx
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
         rlRun "wget $TARURL"
@@ -52,10 +42,10 @@ rlJournalStart
 
     rlPhaseStartTest
         # Uncomment this to run entire test suite:
-        #rlRun "TEST_NGINX_BINARY=${NGINX} prove ." 0 "Run whole test suite"
+        #rlRun "TEST_NGINX_BINARY=\$(which nginx) prove ." 0 "Run whole test suite"
     
         # Run whitelisted tests is known to pass with 1.4.x
-        rlRun "TEST_NGINX_BINARY=${NGINX} xargs prove < ${WHITELIST}" 0 "Run test suite w/whitelist"
+        rlRun "TEST_NGINX_BINARY=\$(which nginx) xargs prove < ${WHITELIST}" 0 "Run test suite w/whitelist"
     rlPhaseEnd
 
     rlPhaseStartCleanup
