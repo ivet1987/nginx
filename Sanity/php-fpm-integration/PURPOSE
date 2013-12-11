@@ -1,0 +1,3 @@
+PURPOSE of /CoreOS/nginx/Sanity/php-fpm-integration
+Description: Sanity test for nginx with php-fpm
+Author: Joe Orton <jorton@redhat.com>
