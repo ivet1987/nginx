@@ -34,14 +34,6 @@ CONFDIR=/etc/nginx/conf.d
 DOCROOT=/var/www/rhts-nginx-root
 LOGROOT=/var/log/nginx
 
-if echo $COLLECTIONS | grep php55; then
-    FPM="php55-php-fpm"
-elif echo $COLLECTIONS | grep php54; then
-    FPM="php54-php-fpm"
-else
-    FPM="php-fpm"
-fi
-
 if echo $COLLECTIONS | grep nginx14; then
     NGINX="nginx14-nginx"
     CONFDIR=/opt/rh/nginx14/root/${CONFDIR}
@@ -53,7 +45,7 @@ URL=http://127.0.0.1:81/
 RPURL=http://127.0.0.1:81/rp/
 PHPURL=http://127.0.0.1:81/info.php
 
-PACKAGES=${PACKAGES:-"$NGINX $FPM"}
+PACKAGES=${PACKAGES:-"$NGINX"}
 MYCONF=${CONFDIR}/rhts-nginx-sanity.conf
 
 rlJournalStart
@@ -89,17 +81,7 @@ rlJournalStart
         rlRun "ab -c 100 -n 10000 $URL"
         rlRun "ab -c 100 -n 10000 $RPURL"
 
-        rlRun "rlServiceStart $FPM"
-
-        rlRun "curl $PHPURL > php.html"
-        rlAssertGrep 'PHP Version' php.html
-        rlRun "ab -c 20 -n 10000 $PHPURL"
-
-        rlAssertGrep "/info.php" "$LOGROOT/access.log"
-
-#        rlRun "sleep 1h"
         rlRun "rlServiceStop $NGINX"
-        rlRun "rlServiceStop $FPM"
         rlRun "sleep 2"
 
     rlPhaseEnd
