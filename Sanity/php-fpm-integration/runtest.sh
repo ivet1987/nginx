@@ -63,7 +63,7 @@ rlJournalStart
         rlAssertExists ${CONFDIR}
         rlAssertExists ${LOGROOT}
 
-        rlRun "mkdir ${DOCROOT} ${PHPROOT}"
+        rlRun "mkdir ${DOCROOT}"
         rlRun "echo '<?php echo phpinfo();' > ${DOCROOT}/info.php"
 
         rlRun "cp nginx.conf ${MYCONF}"
@@ -80,6 +80,14 @@ rlJournalStart
 
         rlRun "curl $PHPURL > php.html"
         rlAssertGrep 'PHP Version' php.html
+        rlRun "PHPVER=\$(php -v|head -1|awk '{print \$2}')"\
+            0 "getting PHP version from php command"
+        rlRun "PHPVER2=\$(grep -o 'PHP Version [0-9]*\.[0-9]*\.[0-9]*' php.html | awk '{print \$3}')"\
+            0 "getting PHP version from downloaded page"
+        rlRun " [ $PHPVER = $PHPVER2 ] " 0 "checking PHP version"
+        rlLog "PHP version from php command:$PHPVER"
+        rlLog "PHP version from downloaded page: $PHPVER2"
+
         rlRun "ab -c 20 -n 10000 $PHPURL"
 
         rlAssertGrep "/info.php" "$LOGROOT/access.log"
