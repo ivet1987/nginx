@@ -1,0 +1,3 @@
+PURPOSE of /CoreOS/nginx/Sanity/daemon-selinux-context
+Description: test selinux context of all squid's processes
+Author: Ondrej Ptak <optak@redhat.com>
