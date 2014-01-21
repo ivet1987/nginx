@@ -30,7 +30,7 @@
 . /usr/bin/rhts-environment.sh || exit 1
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 
-PACKAGES="nginx"
+PACKAGES="nginx14-nginx"
 
 rlJournalStart
     rlPhaseStartSetup
@@ -47,7 +47,8 @@ rlJournalStart
     for p in $nginx_pids;
         do
             rlRun "ps -Z $p > ps_log" 0 "getting selinux context of process $p"
-            rlAssertGrep "(system_u|unconfined_u):system_r:httpd_exec_t:s0" ps_log -E
+            rlAssertGrep "(system_u|unconfined_u):system_r:httpd_t:s0" ps_log -E || \
+                rlLogInfo "$p's context is: \"$(cat ps_log|grep nginx|awk '{print $1}')\""
         done
     rlPhaseEnd
 
