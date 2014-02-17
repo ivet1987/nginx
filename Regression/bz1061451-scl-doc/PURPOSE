@@ -1,0 +1,7 @@
+PURPOSE of /CoreOS/nginx/Regression/bz1061451-scl-doc
+Description: check if LICENCE, README and man page are in collection runtime package
+
+Every collection should have LICENCE, README and man page in <collection-name>-runtime package. README and man page should contain RHSCL relevant informations and examples.
+Also, version of collection meta package should be same as version of rhscl (manual check).
+
+Author: Ondrej Ptak <optak@redhat.com>
