@@ -1,0 +1,6 @@
+PURPOSE of /CoreOS/nginx/Regression/bz1066056-variable-expansion-in-man
+Description: check if there is no unexpanded variable in man page
+
+Check for '%%.*%%' pattern in man page.
+
+Author: Ondrej Ptak <optak@redhat.com>
