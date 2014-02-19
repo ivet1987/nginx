@@ -1,0 +1,8 @@
+PURPOSE of /CoreOS/nginx/Regression/bz1065981-redhat-in-error-pages
+Description: check 404.html and 50x.html, there should be Red Hat, not Fedora
+Test check {index,404,50x}.html pages:
+* Red Hat shoud be in page
+* Fedora shoud not be in page
+poweredby.png shall be checked manualy if there is Red Hat, not Fedora logo
+
+Author: Ondrej Ptak <optak@redhat.com>
