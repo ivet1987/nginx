@@ -32,7 +32,7 @@
 
 CONFDIR=/etc/nginx/conf.d
 DOCROOT=/var/www/rhts-nginx-root
-LOGROOT=/var/log/nginx
+LOGROOT=/var/log/nginx14
 
 if echo $COLLECTIONS | grep nginx14; then
     NGINX="nginx14-nginx"
