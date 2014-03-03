@@ -32,7 +32,7 @@
 
 CONFDIR=/etc/nginx/conf.d
 DOCROOT=/var/www/rhts-nginx-root
-LOGROOT=/var/log/nginx
+LOGROOT=/var/log/nginx14
 
 if echo $COLLECTIONS | grep php55; then
     FPM="php55-php-fpm"
