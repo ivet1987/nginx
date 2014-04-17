@@ -44,13 +44,14 @@ rlJournalStart
     rlPhaseStartTest
         rlRun "ls -d --scontext \$(rpm -ql $NGINX_RPM) > files_context.log"\
             0 "getting selinux context of rpm's files"
-        rlAssertNotGrep "initrc_exec_t" files_context.log
-        rlAssertGrep "httpd_exec_t.*/usr/sbin/nginx" files_context.log
-        rlAssertGrep "httpd_config_t.*/etc/nginx" files_context.log
-        rlAssertGrep "httpd_log_t.*/var/log/nginx" files_context.log
-        rlAssertGrep "httpd_var_lib_t.*/var/lib/nginx" files_context.log
-        rlAssertGrep "httpd_log_t.*/var/log/nginx" files_context.log
-        rlAssertGrep "httpd_var_run_t.*/var/run/nginx" files_context.log
+        rlAssertNotGrep ":initrc_exec_t" files_context.log
+        rlAssertGrep ":httpd_initrc_exec_t.*/etc/init.d/nginx" files_context.log
+        rlAssertGrep ":httpd_exec_t.*/usr/sbin/nginx" files_context.log
+        rlAssertGrep ":httpd_config_t.*/etc/nginx" files_context.log
+        rlAssertGrep ":httpd_log_t.*/var/log/nginx14" files_context.log
+        rlAssertGrep ":httpd_var_lib_t.*/var/lib/nginx" files_context.log
+        rlAssertGrep ":httpd_var_run_t.*/var/run/nginx" files_context.log
+        cat files_context.log
     rlPhaseEnd
 
     rlPhaseStartCleanup
