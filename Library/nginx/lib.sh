@@ -1,0 +1,329 @@
+#!/bin/bash
+# vim: dict+=/usr/share/beakerlib/dictionary.vim cpt=.,w,b,u,t,i,k
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+#   lib.sh of /CoreOS/nginx/Library/nginx
+#   Description: library for testing nginx
+#   Author: Ondrej Ptak <optak@redhat.com>
+#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+#   Copyright (c) 2014 Red Hat, Inc.
+#
+#   This copyrighted material is made available to anyone wishing
+#   to use, modify, copy, or redistribute it subject to the terms
+#   and conditions of the GNU General Public License version 2.
+#
+#   This program is distributed in the hope that it will be
+#   useful, but WITHOUT ANY WARRANTY; without even the implied
+#   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+#   PURPOSE. See the GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public
+#   License along with this program; if not, write to the Free
+#   Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+#   Boston, MA 02110-1301, USA.
+#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   library-prefix = nginx
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+true <<'=cut'
+=pod
+
+=head1 NAME
+
+nginx/nginx - Basic library for nginx testing.
+
+=head1 DESCRIPTION
+
+This library provides basic functions for easy testing ninx.
+Main goal of this library is to simplify starting
+http server in various environments.
+
+Library makes sure that no nginx server is running
+before starting and after stopping web server.
+
+If you find a bug in library or you want some changes or improvements, please
+contact author.
+
+=cut
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   Variables
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+true <<'=cut'
+=pod
+
+=head1 VARIABLES
+
+Below is the list of global variables which affects library's functions.
+
+=over
+
+=item nginxROOTDIR
+
+Directory where web pages are stored.
+
+=item nginxCONFDIR
+
+Directory where nginx's config files and modules are stored.
+
+=item nginxLOGDIR
+
+Path to the directory where nginx logs are stored.
+
+=item nginxNSS_DBDIR
+
+Directory where mod_nss batabases with certificates are stored.
+
+=item nginxHTTPD
+
+Name of web server's executable file.
+This is also name of main rpm package.
+
+=item nginxSSL_O
+
+SSL oraganization name.
+Default value is server's hostname.
+
+=item nginxSSL_CN
+
+SSL common name.
+Default value is server's hostname.
+
+=item nginxSSL_CRT
+
+Path to server certificate (.crt).
+Function nginxsStart will copy a certificate into this location.
+
+=item nginxSSL_KEY
+
+Path to private key to server certificate (.key).
+Function nginxsStart will copy a private key into this location.
+
+=item nginxSSL_PEM
+
+Path to pem file with trusted certificates.
+Default value is /etc/pki/tls/certs/ca-bundle.crt.
+Certificate is available at http://SERVER_HOSTNAME/ca.crt
+and function nginxInstallCa can download and install it into nginxSSL_PEM. 
+
+
+=item nginxCOLLECTION
+
+This variable indicate (0/1) whether nginx24 collection is enabled.
+
+=item nginxCOLLECTION_NAME
+
+Name of collectionw when using nginx from rhscl.
+
+=item nginxROOTPREFIX
+
+Prefix of web server root directory.
+If running in nginx collection, it contain prefix of path to root directory,
+for example "/opt/rt/nginx16/root".
+If not in collection, this variable contain empty string
+
+=back
+
+=cut
+
+nginxROOTDIR=${nginxROOTDIR:-/var/www/html}
+nginxROOTPREFIX=${nginxROOTPREFIX:-""}
+nginxCONFDIR=${nginxCONFDIR:-/etc/nginx}
+#nginxNSS_DBDIR=${nginxNSS_DBDIR:-/etc/nginx/alias}
+nginxHTTPD=${nginxHTTPD:-nginx}
+nginxSSL_CRT=${nginxSSL_CRT:-/etc/pki/tls/certs/localhost.crt}
+nginxSSL_KEY=${nginxSSL_KEY:-/etc/pki/tls/private/localhost.key}
+nginxSSL_PEM=${nginxSSL_PEM:-/etc/pki/tls/cert.pem}
+nginxSSL_O=${nginxSSL_O:-`hostname`}
+nginxSSL_CN=${nginxSSL_CN:-`hostname`}
+nginxLOGDIR=${nginxLOGDIR:-/var/log/nginx}
+nginxCOLLECTION=0
+nginxCOLLECTION_NAME=""
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   Functions
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+true <<'=cut'
+=pod
+
+=head1 FUNCTIONS
+
+=head2 nginxStart
+
+Starts nginx server and create file $nginxROOTDIR/nginx_tesitfile
+containging 'ok' string.
+
+This function disable mod_ssl and mod_nss if available.
+
+=head2 nginxStop
+
+Stop nginx server and delete file $nginxROOTDIR/nginx_testfile.
+
+=head2 nginxStatus
+
+Check whether nginx server is running
+by downloading http://SERVER_HOSTNAME/nginx_tesfile.
+
+Returns 0 when nginx_testfile is successfully downloaded, 1 otherwise.
+
+=cut
+
+__nginxKillNginx() {
+    # make sure that no nginx process is running
+    rlServiceStop $nginxHTTPD
+    if ! ps -e --format comm  | grep -q '^nginx$';then
+        return 0;
+    fi
+    if ps -e --format comm | grep -q '^nginx$';then
+        rlLogWarning "nginx already running"
+        rlLogInfo "`ps -e|grep 'nginx'`"
+        #killall -q nginx
+        sleep 5
+    fi
+    if ps -e --format comm  | grep -q '^nginx$';then
+        killall -qs 9 nginx
+        sleep 5
+    fi
+    for i in {1..10};do
+        if ps -e --format comm  | grep -q '^nginx$';then
+           sleep 5
+       else
+           rlLog "no nginx process is running now"
+           break  # no nginx running, OK
+        fi
+    done
+    if ps -e --format comm  | grep -q '^nginx$';then
+        rlFail "nginx killing faild"
+        rlLogInfo "`ps -e|grep 'nginx'`"
+        return 1
+    fi
+}
+
+nginxStart() {
+    __nginxKillNginx
+    # start server
+    rlRun "rlServiceStart $nginxHTTPD" 0 "starting nginx service"|| return 1
+    # create testfile
+    rlRun "echo 'ok' > $nginxROOTDIR/nginx_testfile" 0 "Creating test file"
+    return $?
+}
+
+nginxStop() {
+    #remove testfile
+    rlRun "rm -f $nginxROOTDIR/nginx_testfile" 0 "Deleting test file"
+
+    # stop server
+    rlRun "rlServiceStop $nginxHTTPD" 0 "stoping nginx service" || return 1
+
+    __nginxKillNginx
+    return 0
+}
+
+nginxStatus() {
+    # ?? is this relevant test ??
+    # try to download a testfile from running server
+    local tmpdir
+    local ret=0
+    rlRun "tmpdir=`mktemp -d`" 0 "create tmp dir" || return 1
+    rlRun "pushd $tmpdir"
+    rlRun "wget --timeout=10 -t 2 -q http://`hostname`/nginx_testfile" 0 "download test file" || ret=1
+    rlAssertGrep ok nginx_testfile || ret=1
+    rlRun "popd"
+    rlRun "rm -rf $tmpdir" 0 "remove tmp dir"
+    return $ret
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   Execution
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+true <<'=cut'
+=pod
+
+=head1 EXECUTION
+
+This library supports direct execution. When run as a task, phases
+provided in the PHASE environment variable will be executed.
+Supported phases are:
+
+=over
+
+=item Test
+
+Run the self test suite.
+
+=back
+
+=cut
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   Verification
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+#   This is a verification callback which will be called by
+#   rlImport after sourcing the library to make sure everything is
+#   all right.
+#   In this case there is a test whether it is posible to start and stop nginx.
+
+nginxLibraryLoaded() {
+    # setup path variables if running in collection
+    if echo $COLLECTIONS|grep "nginx";then
+        nginxCOLLECTION_NAME=`echo $COLLECTIONS|grep -o nginx[0-9]*`
+        nginxCOLLECTION=1
+        nginxHTTPD=${nginxCOLLECTION_NAME}-nginx
+        nginxCONFDIR=/opt/rh/$nginxCOLLECTION_NAME/root$nginxCONFDIR
+        nginxLOGDIR=/var/log/$nginxCOLLECTION_NAME
+    fi
+    rlRun "rpm -q $nginxHTTPD" 0 "checking $nginxHTTPD rpm"
+
+    # setup path variables from configuration file
+    rlRun "nginxROOTDIR=\$(grep '^[ \t]*root[ \t]*/' ${nginxCONFDIR}/nginx.conf|head -1|\
+        awk '{print \$2}'|sed -e 's/\"//g;s/;//')" 0 "setup nginxROOTDIR"
+    rlRun "nginxROOTPREFIX=\$(echo $nginxROOTDIR|sed -e 's/\/usr.*//')" 0 "parsing prefix from nginxROOTDIR"
+
+    # print variables
+    #rlLogInfo "PACKAGES=$PACKAGES"
+    #rlLogInfo "REQUIRES=$REQUIRES"
+    rlLogInfo "COLLECTIONS=$COLLECTIONS"
+    rlLogInfo "nginxCOLLECTION=$nginxCOLLECTION"
+    rlLogInfo "nginxCOLLECTION_NAME=$nginxCOLLECTION_NAME"
+    rlLogInfo "nginxHTTPD=$nginxHTTPD"
+    rlLogInfo "nginxROOTDIR=$nginxROOTDIR"
+    rlLogInfo "nginxROOTPREFIX=$nginxROOTPREFIX"
+    rlLogInfo "nginxCONFDIR=$nginxCONFDIR"
+    rlLogInfo "nginxLOGDIR=$nginxLOGDIR"
+    rlLogInfo "nginxSSL_CRT=$nginxSSL_CRT"
+    rlLogInfo "nginxSSL_KEY=$nginxSSL_KEY"
+    rlLogInfo "nginxSSL_PEM=$nginxSSL_PEM"
+    rlLogInfo "nginxSSL_O=$nginxSSL_O"
+    rlLogInfo "nginxSSL_CN=$nginxSSL_CN"
+
+    rlAssertExists $nginxROOTDIR
+    # TODO: read paths to ssl certificates vrom config files?
+
+    return 0
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   Authors
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+true <<'=cut'
+=pod
+
+=head1 AUTHORS
+
+=over
+
+=item *
+
+Ondrej Ptak <optak@redhat.com>
+
+=back
+
+=cut
