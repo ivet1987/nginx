@@ -30,16 +30,14 @@
 . /usr/bin/rhts-environment.sh || exit 1
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 
-NGINX=$(echo "$COLLECTIONS"|grep -o "\bnginx\w*")      # parsing any version of nginx in rhscl
-NGINX=$(echo $NGINX|sed -e 's/\(nginx\w*\)/\1-nginx/')  # add -nginx when in collection
-NGINX=${NGINX:-nginx}                                   # just nginx if not running in collection
-PACKAGES=${PACKAGES-$NGINX}
+PACKAGES=${PACKAGES:-nginx}
 rlJournalStart
     rlPhaseStartSetup
         rlAssertRpm --all
+        rlRun "rlImport nginx/nginx"
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
-        rlRun "rlServiceStart $NGINX"
+        rlRun "rlServiceStart $nginxHTTPD"
     rlPhaseEnd
 
     rlPhaseStartTest
@@ -55,7 +53,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartCleanup
-        rlRun "rlServiceStop $NGINX"
+        rlRun "rlServiceStop $nginxHTTPD"
         rlRun "popd"
         rlRun "rm -r $TmpDir" 0 "Removing tmp directory"
     rlPhaseEnd
