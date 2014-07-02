@@ -273,7 +273,12 @@ Run the self test suite.
 nginxLibraryLoaded() {
     # setup path variables if running in collection
     if echo $COLLECTIONS|grep "nginx";then
-        nginxCOLLECTION_NAME=`echo $COLLECTIONS|grep -o nginx[0-9]*`
+        nginxCOLLECTION_NAME=`echo $COLLECTIONS|grep -o nginx[0-9]\*`
+        if [ "$nginxCOLLECTION_NAME" == "" ];then
+            rlFail "Failed to detect nginx collection name"
+            rlLog "COLLECTIONS=$COLLECTIONS"
+            return 1
+        fi
         nginxCOLLECTION=1
         nginxHTTPD=${nginxCOLLECTION_NAME}-nginx
         nginxCONFDIR=/opt/rh/$nginxCOLLECTION_NAME/root$nginxCONFDIR
