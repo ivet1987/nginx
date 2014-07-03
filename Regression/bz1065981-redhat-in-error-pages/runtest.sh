@@ -30,12 +30,13 @@
 . /usr/bin/rhts-environment.sh || exit 1
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 
-PACKAGES=${PACKAGES:-"nginx14"}
-NGINX_HTML_DIR=/opt/rh/nginx14/root/usr/share/nginx/html/
+PACKAGES=${PACKAGES:-"nginx"}
 
 rlJournalStart
     rlPhaseStartSetup
         rlAssertRpm --all
+        rlRun "rlImport nginx/nginx"
+        NGINX_HTML_DIR=$nginxROOTPREFIX/usr/share/nginx/html/
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
     rlPhaseEnd
