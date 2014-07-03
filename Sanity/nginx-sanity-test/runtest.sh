@@ -30,36 +30,29 @@
 . /usr/bin/rhts-environment.sh || exit 1
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 
-CONFDIR=/etc/nginx/conf.d
-DOCROOT=/var/www/rhts-nginx-root
-LOGROOT=/var/log/nginx14
-
-if echo $COLLECTIONS | grep nginx14; then
-    NGINX="nginx14-nginx"
-    CONFDIR=/opt/rh/nginx14/root/${CONFDIR}
-else
-    NGINX="nginx"
-fi
 
 URL=http://127.0.0.1:81/
 RPURL=http://127.0.0.1:81/rp/
 PHPURL=http://127.0.0.1:81/info.php
 
-PACKAGES=${PACKAGES:-"$NGINX"}
-MYCONF=${CONFDIR}/rhts-nginx-sanity.conf
+PACKAGES=${PACKAGES:-"nginx"}
 
 rlJournalStart
     rlPhaseStartSetup
         rlAssertRpm --all
+        rlRun "rlImport nginx/nginx"
+        MYCONF=${nginxCONFDIR}/conf.d/rhts-nginx-sanity.conf
+        DOCROOT=$nginxROOTDIR/rhts-nginx-root
         rlAssertBinaryOrigin nginx
-        rlAssertExists ${CONFDIR}
-        rlAssertExists ${LOGROOT}
+        rlAssertExists ${nginxCONFDIR}
+        rlAssertExists ${nginxLOGDIR}
 
-        rlRun "mkdir ${DOCROOT} ${PHPROOT}"
+        rlRun "mkdir ${DOCROOT}"
         rlRun "echo this is the index > ${DOCROOT}/index.html"
         rlRun "echo '<?php echo phpinfo();' > ${DOCROOT}/info.php"
 
         rlRun "cp nginx.conf ${MYCONF}"
+        rlRun "sed -i 's|ROOTDIR|$nginxROOTDIR|' ${MYCONF}"
 
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
@@ -67,21 +60,20 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest
-        rlRun "rlServiceStart $NGINX" 
+        rlRun "rlServiceStart $nginxHTTPD" 
         rlRun "sleep 2"
-
         rlRun "curl $URL > output.html"
         rlAssertNotDiffer output.html $DOCROOT/index.html
         rlRun "curl $URL/rp/ > output2.html"
         rlAssertNotDiffer output2.html $DOCROOT/index.html
 
-        rlAssertExists "$LOGROOT/access.log"
-        rlAssertExists "$LOGROOT/error.log"
+        rlAssertExists "$nginxLOGDIR/access.log"
+        rlAssertExists "$nginxLOGDIR/error.log"
 
         rlRun "ab -c 100 -n 10000 $URL"
         rlRun "ab -c 100 -n 10000 $RPURL"
 
-        rlRun "rlServiceStop $NGINX"
+        rlRun "rlServiceStop $nginxHTTPD"
         rlRun "sleep 2"
 
     rlPhaseEnd
