@@ -30,10 +30,6 @@
 . /usr/bin/rhts-environment.sh || exit 1
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 
-CONFDIR=/etc/nginx/conf.d
-DOCROOT=/var/www/rhts-nginx-root
-LOGROOT=/var/log/nginx14
-
 if echo $COLLECTIONS | grep php55; then
     FPM="php55-php-fpm"
 elif echo $COLLECTIONS | grep php54; then
@@ -42,31 +38,27 @@ else
     FPM="php-fpm"
 fi
 
-if echo $COLLECTIONS | grep nginx14; then
-    NGINX="nginx14-nginx"
-    CONFDIR=/opt/rh/nginx14/root/${CONFDIR}
-else
-    NGINX="nginx"
-fi
-
 URL=http://127.0.0.1:81/
 RPURL=http://127.0.0.1:81/rp/
 PHPURL=http://127.0.0.1:81/info.php
 
-PACKAGES=${PACKAGES:-"$NGINX $FPM"}
-MYCONF=${CONFDIR}/rhts-nginx-sanity.conf
+PACKAGES=${PACKAGES:-"nginx $FPM"}
 
 rlJournalStart
     rlPhaseStartSetup
+        rlRun "rlImport nginx/nginx"
         rlAssertRpm --all
         rlAssertBinaryOrigin nginx
-        rlAssertExists ${CONFDIR}
-        rlAssertExists ${LOGROOT}
+        rlAssertExists ${nginxCONFDIR}
+        rlAssertExists ${nginxLOGDIR}
+        DOCROOT=$nginxROOTDIR/rhts-nginx-root
+        MYCONF=${nginxCONFDIR}/conf.d/rhts-nginx-sanity.conf
 
         rlRun "mkdir ${DOCROOT}"
         rlRun "echo '<?php echo phpinfo();' > ${DOCROOT}/info.php"
 
         rlRun "cp nginx.conf ${MYCONF}"
+        rlRun "sed -i 's|ROOTDIR|$nginxROOTDIR|' ${MYCONF}"
 
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
@@ -74,7 +66,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest
-        rlRun "rlServiceStart $NGINX" 
+        rlRun "rlServiceStart $nginxHTTPD" 
         rlRun "rlServiceStart $FPM"
         rlRun "sleep 2"
 
@@ -90,9 +82,9 @@ rlJournalStart
 
         rlRun "ab -c 20 -n 10000 $PHPURL"
 
-        rlAssertGrep "/info.php" "$LOGROOT/access.log"
+        rlAssertGrep "/info.php" "$nginxLOGDIR/access.log"
 
-        rlRun "rlServiceStop $NGINX"
+        rlRun "rlServiceStop $nginxHTTPD"
         rlRun "rlServiceStop $FPM"
         rlRun "sleep 2"
 
