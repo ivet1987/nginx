@@ -30,18 +30,19 @@
 . /usr/bin/rhts-environment.sh || exit 1
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 
-PACKAGES=${PACKAGES:-"nginx14"}
+PACKAGES=${PACKAGES:-"nginx"}
 NGINX_SCL=${NGINX_SCL:-"nginx14"}
 
 rlJournalStart
     rlPhaseStartSetup
         rlAssertRpm --all
+        rlRun "rlImport nginx/nginx"
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
     rlPhaseEnd
 
     rlPhaseStartTest
-        rlRun "scl enable $NGINX_SCL 'man nginx > nginx_man'" 0\
+        rlRun "scl enable $nginxCOLLECTION_NAME 'man nginx > nginx_man'" 0\
             " getting content of man page"
         rlAssertNotGrep "%%.*%%" nginx_man
     rlPhaseEnd
