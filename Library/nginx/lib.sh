@@ -130,19 +130,19 @@ If not in collection, this variable contain empty string
 
 =cut
 
-nginxROOTDIR=${nginxROOTDIR:-/var/www/html}
-nginxROOTPREFIX=${nginxROOTPREFIX:-""}
-nginxCONFDIR=${nginxCONFDIR:-/etc/nginx}
-#nginxNSS_DBDIR=${nginxNSS_DBDIR:-/etc/nginx/alias}
-nginxHTTPD=${nginxHTTPD:-nginx}
-nginxSSL_CRT=${nginxSSL_CRT:-/etc/pki/tls/certs/localhost.crt}
-nginxSSL_KEY=${nginxSSL_KEY:-/etc/pki/tls/private/localhost.key}
-nginxSSL_PEM=${nginxSSL_PEM:-/etc/pki/tls/cert.pem}
-nginxSSL_O=${nginxSSL_O:-`hostname`}
-nginxSSL_CN=${nginxSSL_CN:-`hostname`}
-nginxLOGDIR=${nginxLOGDIR:-/var/log/nginx}
-nginxCOLLECTION=0
-nginxCOLLECTION_NAME=""
+export nginxROOTDIR=${nginxROOTDIR:-/var/www/html}
+export nginxROOTPREFIX=${nginxROOTPREFIX:-""}
+export nginxCONFDIR=${nginxCONFDIR:-/etc/nginx}
+#export nginxNSS_DBDIR=${nginxNSS_DBDIR:-/etc/nginx/alias}
+export nginxHTTPD=${nginxHTTPD:-nginx}
+export nginxSSL_CRT=${nginxSSL_CRT:-/etc/pki/tls/certs/localhost.crt}
+export nginxSSL_KEY=${nginxSSL_KEY:-/etc/pki/tls/private/localhost.key}
+export nginxSSL_PEM=${nginxSSL_PEM:-/etc/pki/tls/cert.pem}
+export nginxSSL_O=${nginxSSL_O:-`hostname`}
+export nginxSSL_CN=${nginxSSL_CN:-`hostname`}
+export nginxLOGDIR=${nginxLOGDIR:-/var/log/nginx}
+export nginxCOLLECTION=0
+export nginxCOLLECTION_NAME=""
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #   Functions
@@ -170,6 +170,23 @@ Check whether nginx server is running
 by downloading http://SERVER_HOSTNAME/nginx_tesfile.
 
 Returns 0 when nginx_testfile is successfully downloaded, 1 otherwise.
+
+=head2 nginxVarExpand
+
+Expand variables in specified configuration file. Only sequences in the form
+%%VAR_NAME%% are taken for variables. Each variable %%VAR_NAME%% is replaced
+with the contents of the corresponfing environment variable $VAR_NAME.
+
+{{{
+    nginxVarExpand config_file
+}}}
+
+=over
+
+=item config_file
+
+Path to the configuration file in which variables are to be expanded. The result
+is saved to the same file.
 
 =cut
 
@@ -236,6 +253,13 @@ nginxStatus() {
     rlRun "popd"
     rlRun "rm -rf $tmpdir" 0 "remove tmp dir"
     return $ret
+}
+
+nginxVarExpand() {
+    rlAssertExists $1 || return 1
+    rlRun "perl -i -pe 's/%%(.*?)%%/\$ENV{\$1}/g' $1" 0 \
+          "Expanding variables in configuration files"
+    return $?
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
