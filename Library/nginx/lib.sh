@@ -175,7 +175,7 @@ Returns 0 when nginx_testfile is successfully downloaded, 1 otherwise.
 
 Expand variables in specified configuration file. Only sequences in the form
 %%VAR_NAME%% are taken for variables. Each variable %%VAR_NAME%% is replaced
-with the contents of the corresponfing environment variable $VAR_NAME.
+with the contents of the corresponding environment variable $VAR_NAME.
 
 {{{
     nginxVarExpand config_file
