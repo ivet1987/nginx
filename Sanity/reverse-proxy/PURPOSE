@@ -1,0 +1,3 @@
+PURPOSE of /CoreOS/nginx/Sanity/reverse-proxy
+Description: Checks the reverse proxy use case
+Author: Martin Frodl <mfrodl@redhat.com>
