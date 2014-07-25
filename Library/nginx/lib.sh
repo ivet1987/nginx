@@ -311,8 +311,10 @@ nginxLibraryLoaded() {
     rlRun "rpm -q $nginxHTTPD" 0 "checking $nginxHTTPD rpm"
 
     # setup path variables from configuration file
-    rlRun "nginxROOTDIR=\$(grep '^[ \t]*root[ \t]*/' ${nginxCONFDIR}/nginx.conf|head -1|\
+    rlRun "nginxROOTDIR_tmp=\$(grep '^[ \t]*root[ \t]*/' ${nginxCONFDIR}/nginx.conf|head -1|\
         awk '{print \$2}'|sed -e 's/\"//g;s/;//')" 0 "setup nginxROOTDIR"
+    [ "$nginxROOTDIR_tmp" != "" ] && nginxROOTDIR=$nginxROOTDIR_tmp  # this is for preventing this var to be "" when detection from nginx.conf fails
+    unset -v nginxROOTDIR_tmp
     rlRun "nginxROOTPREFIX=\$(echo $nginxROOTDIR|sed -e 's/\/usr.*//')" 0 "parsing prefix from nginxROOTDIR"
 
     # print variables
