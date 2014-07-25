@@ -59,8 +59,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartCleanup
-        rlRun "rm -rf $nginxROOTDIR/*/" 0 \
-              "Removing created files and directories"
+        #rlRun "rm -rf $nginxROOTDIR/*/" 0 \
+        #      "Removing created files and directories"
         rlRun "popd"
         rlRun "rm -r $TmpDir" 0 "Removing tmp directory"
     rlPhaseEnd
