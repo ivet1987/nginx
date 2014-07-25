@@ -40,12 +40,14 @@ rlJournalStart
               "Copying nginx.conf to conf.d"
 
         # Prepare directories and files to be tested
-        for DIR in default images scripts; do
-            rlRun "mkdir -p $nginxROOTDIR/$DIR" 0 "Creating directory $nginxROOTDIR/$DIR"
-        done
-        rlRun "touch $nginxROOTDIR/default/test.html" 0 "Creating test.html"
-        rlRun "touch $nginxROOTDIR/images/test.png" 0 "Creating test.png"
-        rlRun "touch $nginxROOTDIR/scripts/test.js" 0 "Creating test.js"
+        rlAssertExists "$nginxROOTDIR" && {
+            for DIR in default images scripts; do
+                rlRun "mkdir -p $nginxROOTDIR/$DIR" 0 "Creating directory $nginxROOTDIR/$DIR"
+            done
+            rlRun "touch $nginxROOTDIR/default/test.html" 0 "Creating test.html"
+            rlRun "touch $nginxROOTDIR/images/test.png" 0 "Creating test.png"
+            rlRun "touch $nginxROOTDIR/scripts/test.js" 0 "Creating test.js"
+        }
 
         rlRun "pushd $TmpDir"
     rlPhaseEnd
@@ -59,8 +61,12 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartCleanup
-        #rlRun "rm -rf $nginxROOTDIR/*/" 0 \
-        #      "Removing created files and directories"
+        rlAssertExists "$nginxROOTDIR" && {
+            for DIR in default images scripts; do
+                rlRun "rm -r $nginxROOTDIR/$DIR/" 0 \
+                    "Removing $nginxROOTDIR/$DIR/"
+            done
+        }
         rlRun "popd"
         rlRun "rm -r $TmpDir" 0 "Removing tmp directory"
     rlPhaseEnd
