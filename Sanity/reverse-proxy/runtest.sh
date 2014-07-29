@@ -35,9 +35,6 @@ rlJournalStart
     rlPhaseStartSetup
         rlRun "rlImport nginx/nginx" 0 "Import nginx library"
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
-        rlRun "nginxVarExpand nginx.conf" 0 "Expanding variables in nginx.conf"
-        rlRun "cp nginx.conf $nginxCONFDIR/conf.d" 0 \
-              "Copying nginx.conf to conf.d"
 
         # Prepare directories and files to be tested
         rlAssertExists "$nginxROOTDIR" && {
@@ -49,7 +46,11 @@ rlJournalStart
             rlRun "touch $nginxROOTDIR/scripts/test.js" 0 "Creating test.js"
         }
 
+        rlRun "cp nginx.conf $nginxCONFDIR/conf.d" 0 \
+              "Copying nginx.conf to conf.d"
         rlRun "pushd $TmpDir"
+        rlRun "nginxVarExpand $nginxCONFDIR/conf.d/nginx.conf" 0 \
+              "Expanding variables in nginx.conf"
     rlPhaseEnd
 
     rlPhaseStartTest
