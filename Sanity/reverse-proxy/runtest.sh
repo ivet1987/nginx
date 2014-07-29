@@ -51,6 +51,9 @@ rlJournalStart
         rlRun "pushd $TmpDir"
         rlRun "nginxVarExpand $nginxCONFDIR/conf.d/nginx.conf" 0 \
               "Expanding variables in nginx.conf"
+        for PORT in 8080 8081 8082 8083; do
+            rlSEPortAdd tcp $PORT http_port_t
+        done
     rlPhaseEnd
 
     rlPhaseStartTest
@@ -62,6 +65,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartCleanup
+        rlSEPortRestore
         rlAssertExists "$nginxROOTDIR" && {
             for DIR in default images scripts; do
                 rlRun "rm -r $nginxROOTDIR/$DIR/" 0 \
