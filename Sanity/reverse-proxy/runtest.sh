@@ -34,7 +34,7 @@ PACKAGE=${PACKAGE:-nginx}
 rlJournalStart
     rlPhaseStartSetup
         rlRun "rlImport nginx/nginx" 0 "Import nginx library"
-        rlRun "rlImport selinux-policy/common" 0 "Import nginx library"
+        rlRun "rlImport selinux-policy/common" 0 "Import selinux library"
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
 
         # Prepare directories and files to be tested
