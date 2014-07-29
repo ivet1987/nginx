@@ -130,7 +130,7 @@ If not in collection, this variable contain empty string
 
 =cut
 
-export nginxROOTDIR=${nginxROOTDIR:-/var/www/html}
+export nginxROOTDIR=${nginxROOTDIR:-/usr/share/nginx/html}
 export nginxROOTPREFIX=${nginxROOTPREFIX:-""}
 export nginxCONFDIR=${nginxCONFDIR:-/etc/nginx}
 #export nginxNSS_DBDIR=${nginxNSS_DBDIR:-/etc/nginx/alias}
@@ -295,6 +295,7 @@ Run the self test suite.
 #   In this case there is a test whether it is posible to start and stop nginx.
 
 nginxLibraryLoaded() {
+    ret=0
     # setup path variables if running in collection
     if echo $COLLECTIONS|grep "nginx";then
         nginxCOLLECTION_NAME=`echo $COLLECTIONS|grep -o nginx[0-9]\*`
@@ -315,6 +316,12 @@ nginxLibraryLoaded() {
         awk '{print \$2}'|sed -e 's/\"//g;s/;//')" 0 "setup nginxROOTDIR"
     [ "$nginxROOTDIR_tmp" != "" ] && nginxROOTDIR=$nginxROOTDIR_tmp  # this is for preventing this var to be "" when detection from nginx.conf fails
     unset -v nginxROOTDIR_tmp
+    if ! [ -d $nginxROOTDIR ]; then
+        nginxROOTDIR=/dev/null  # this should be safe value for any potencionaly destructive tests
+        rlFail "Library is unable to get document rootdir from configuration file: $nginxCONFDIR/nginx.conf"
+        ret=1
+    fi
+
     rlRun "nginxROOTPREFIX=\$(echo $nginxROOTDIR|sed -e 's/\/usr.*//')" 0 "parsing prefix from nginxROOTDIR"
 
     # print variables
@@ -337,7 +344,7 @@ nginxLibraryLoaded() {
     rlAssertExists $nginxROOTDIR
     # TODO: read paths to ssl certificates vrom config files?
 
-    return 0
+    return $ret
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
