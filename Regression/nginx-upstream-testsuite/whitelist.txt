@@ -24,7 +24,9 @@
 ./proxy_upgrade.t
 ./referer.t
 ./rewrite_unescape.t
+./scgi.t
 ./ssl_sni.t
 ./upstream.t
 ./upstream_ip_hash.t
 ./upstream_least_conn.t
+./uwsgi.t
