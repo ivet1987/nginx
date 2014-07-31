@@ -25,15 +25,15 @@ TARSTUB=nginx-tests-${TARVERSION}
 TARBALL=${TARSTUB}.tar.gz
 TARURL=${LOOKASIDE}/${TARBALL}
 
-SCGIVERSION=0.6
-SCGISTUB=SCGI-${SCGIVERSION}
-SCGITARBALL=${SCGISTUB}.tar.gz
-SCGIURL=${LOOKASIDE}/${SCGITARBALL}
-
 UWSGIVERSION=2.0.6
 UWSGISTUB=uwsgi-${UWSGIVERSION}
 UWSGITARBALL=${UWSGISTUB}.tar.gz
 UWSGIURL=${LOOKASIDE}/${UWSGITARBALL}
+
+SSLVERSION=1.997
+SSLSTUB=IO-Socket-SSL-${SSLVERSION}
+SSLTARBALL=${SSLSTUB}.tar.gz
+SSLURL=${LOOKASIDE}/${SSLTARBALL}
 
 WHITELIST=$PWD/whitelist.txt
 
@@ -46,43 +46,32 @@ rlJournalStart
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
 
-        for MODULE in Module::Build FCGI SCGI; do
+        # Install Perl modules to test them with nginx
+        for MOD in Module::Build FCGI SCGI; do
             perl -e "use $MOD" ||
             rlRun "yes | perl -MCPAN -e 'install $MOD'" 0 "Installing $MOD"
         done
 
-        # Manual installation in case the automated way above should fail
-        #
-        # install SCGI to test if it works with nginx
-        #perl -e 'use Module::Build;' || 
-        #rlRun "yes | perl -MCPAN -e 'install Module::Build'" 0 \
-        #    "Installing Module::Build"
+        # Same for IO-Socket-SSL Perl module (we need a newer version that the
+        # one currently available in repository, so it has to be installed
+        # manually)
+        rlRun "wget $SSLURL" 0 "Downloading IO-Socket-SSL module"
+        rlRun "tar -xvf $SSLTARBALL" 0 "Extracting archive"
+        rlRun "pushd $SSLSTUB"
+        rlRun "perl Makefile.PL"
+        rlRun "make"
+        rlRun "make install"
+        rlRun "popd"
 
-        #perl -e 'use SCGI;' || {
-        #    rlRun "wget $SCGIURL" 0 "Downloading SCGI package"
-        #    rlRun "tar -xvf $SCGITARBALL" 0 "Extracting archive"
-        #    rlRun "pushd $SCGISTUB"
-        #    rlRun "perl Build.PL"
-        #    rlRun "./Build"
-        #    rlRun "./Build test"
-        #    rlRun "./Build install"
-        #    rlRun "popd"
-        #}
-
-        # same for uWSGI
+        # Same for uWSGI
         rlRun "wget $UWSGIURL" 0 "Downloading uWSGI package"
         rlRun "tar -xvf $UWSGITARBALL" 0 "Extracting archive"
-        rlRun "pushd uwsgi-2.0.6"
-        # I am not sure if this is necessary; feel free to remove this
-        # commented section if the test does not make any trouble; uncomment
-        # otherwise:
-        #rlRun "yum groupinstall \"Development Tools\"" 0 \
-        #    "Installing Development Tools"
+        rlRun "pushd $UWSGISTUB"
         rlRun "make"
         rlRun "export PATH=$PATH:$(pwd)"
         rlRun "popd"
 
-        # download upstream test suite
+        # Download upstream test suite
         rlRun "wget $TARURL"
         rlRun "tar -xzvf ${TARBALL}"
         rlRun "pushd ${TARSTUB}"
