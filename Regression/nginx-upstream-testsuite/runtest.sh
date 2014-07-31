@@ -58,7 +58,7 @@ rlJournalStart
         rlRun "wget $SSLURL" 0 "Downloading IO-Socket-SSL module"
         rlRun "tar -xvf $SSLTARBALL" 0 "Extracting archive"
         rlRun "pushd $SSLSTUB"
-        rlRun "perl Makefile.PL"
+        rlRun "yes | perl Makefile.PL"
         rlRun "make"
         rlRun "make install"
         rlRun "popd"
