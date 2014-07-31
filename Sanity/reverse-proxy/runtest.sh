@@ -59,9 +59,17 @@ rlJournalStart
 
     rlPhaseStartTest
         rlRun "nginxStart" 0 "Starting nginx server"
+
+        # Test if the reverse proxy correctly resolves paths based on URI
         rlRun "wget http://$(hostname):8080/test.html"
         rlRun "wget http://$(hostname):8080/img/test.png"
         rlRun "wget http://$(hostname):8080/test.js"
+
+        # A simple stress test with concurrency. Note that the IP 127.0.0.1 is
+        # used instead of hostname here because of a bug in ab (BZ#1125269)
+        # which causes troubles when host name is resolved to IPv6
+        rlRun "ab -n 10000 -c 100 http://127.0.0.1:8080/test.html"
+
         rlRun "nginxStop" 0 "Stopping nginx server"
     rlPhaseEnd
 
