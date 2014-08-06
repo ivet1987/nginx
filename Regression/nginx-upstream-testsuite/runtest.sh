@@ -84,11 +84,17 @@ rlJournalStart
         # Run whitelisted tests is known to pass with 1.4.x
         rlRun "TEST_NGINX_BINARY=\$(which nginx) xargs prove < ${WHITELIST} | tee test.log" 0 "Run test suite w/whitelist"
 
-        # Make sure that all the tests actually passed and were not merely
-        # skipped
+        # For each test, check whether it ran successfully (PASS), was skipped
+        # (WARN) or failed (FAIL).
         sed -i -n '/\.\/.*\.t/p' test.log
         while read line; do
-            rlRun "echo $line | grep 'ok\s*$'" 0 "$line"
+            if (echo $line | grep 'ok\s*$'); then
+                rlPass $line
+            elif (echo $line | grep 'skipped'); then
+                rlWarn $line
+            else
+                rlFail $line
+            fi
         done < test.log
     rlPhaseEnd
 
