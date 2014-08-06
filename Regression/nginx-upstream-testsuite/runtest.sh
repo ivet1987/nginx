@@ -88,12 +88,12 @@ rlJournalStart
         # (WARN) or failed (FAIL).
         sed -i -n '/\.\/.*\.t/p' test.log
         while read line; do
-            if (echo $line | grep 'ok\s*$'); then
-                rlPass $line
-            elif (echo $line | grep 'skipped'); then
-                rlWarn $line
+            if (echo "$line" | grep 'ok\s*$'); then
+                rlPass "$line"
+            elif (echo "$line" | grep 'skipped'); then
+                rlLogWarning "$line"
             else
-                rlFail $line
+                rlFail "$line"
             fi
         done < test.log
     rlPhaseEnd
