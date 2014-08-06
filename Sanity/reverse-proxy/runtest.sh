@@ -85,7 +85,6 @@ rlJournalStart
             rlAssertGrep "Complete requests:\s*$NUM_REQ" $LOG
         done
 
-        less $ERR_LOG
         if [[ -s $ERR_LOG ]]; then
             rlLogWarning "There have been error messages"
             rlLogWarning "Please check the attached log in error_log.tar.gz"
