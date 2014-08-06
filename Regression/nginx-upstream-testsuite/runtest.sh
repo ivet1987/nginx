@@ -47,7 +47,7 @@ rlJournalStart
         rlRun "pushd $TmpDir"
 
         # Install Perl modules to test them with nginx
-        for MOD in Module::Build FCGI SCGI; do
+        for MOD in Module::Build Net::SSLeay FCGI SCGI; do
             perl -e "use $MOD" ||
             rlRun "yes | perl -MCPAN -e 'install $MOD'" 0 "Installing $MOD"
         done
