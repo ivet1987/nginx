@@ -31,6 +31,7 @@
 
 PACKAGE=${PACKAGE:-nginx}
 
+
 rlJournalStart
     rlPhaseStartSetup
         rlRun "rlImport nginx/nginx" 0 "Import nginx library"
@@ -55,6 +56,10 @@ rlJournalStart
         for PORT in 8080 8081 8082 8083; do
             rlSEPortAdd tcp $PORT http_port_t
         done
+
+        ERR_LOG=$nginxLOGDIR/error.log
+        rlRun "cp $ERR_LOG error.log" 0 "Stashing current nginx error log"
+        rlRun "> $ERR_LOG" 0 "Cleaning nginx error log"
     rlPhaseEnd
 
     rlPhaseStartTest
@@ -68,12 +73,30 @@ rlJournalStart
         # A simple stress test with concurrency. Note that the IP 127.0.0.1 is
         # used instead of hostname here because of a bug in ab (BZ#1125269)
         # which causes troubles when host name is resolved to IPv6
-        rlRun "ab -n 10000 -c 100 http://127.0.0.1:8080/test.html"
+        NUM_REQ=500000
+        CONC=10
+
+        rlRun "ab -n $NUM_REQ -c $CONC http://127.0.0.1:8080/test.html | tee first.log &"
+        rlRun "ab -n $NUM_REQ -c $CONC http://127.0.0.1:8080/img/test.png | tee second.log &"
+        rlRun "ab -n $NUM_REQ -c $CONC http://127.0.0.1:8080/test.js | tee third.log &"
+        rlRun "wait" 0 "Waiting for ab to finish"
+
+        for LOG in first.log second.log third.log; do
+            rlAssertGrep "Complete requests:\s*$NUM_REQ" $LOG
+        done
+
+        less $ERR_LOG
+        if [[ -s $ERR_LOG ]]; then
+            rlLogWarning "There have been error messages"
+            rlLogWarning "Please check the attached log in error_log.tar.gz"
+            rlBundleLogs error_log error.log
+        fi
 
         rlRun "nginxStop" 0 "Stopping nginx server"
     rlPhaseEnd
 
     rlPhaseStartCleanup
+        rlRun "cp error.log $ERR_LOG" 0 "Restoring the original error log"
         rlSEPortRestore
         rlAssertExists "$nginxROOTDIR" && {
             for DIR in default images scripts; do
