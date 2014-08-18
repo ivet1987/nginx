@@ -34,7 +34,7 @@ PACKAGE=${PACKAGE:-nginx}
 
 rlJournalStart
     rlPhaseStartSetup
-        rlRun "rlImport nginx/nginx" 0 "Import nginx library"
+        rlRun "rlImport nginx/nginx" 0 "Import nginx library" || rlDie
         rlRun "rlImport selinux-policy/common" 0 "Import selinux library"
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
 
@@ -58,7 +58,7 @@ rlJournalStart
         done
 
         ERR_LOG=$nginxLOGDIR/error.log
-        rlRun "cp $ERR_LOG error.log" 0 "Stashing current nginx error log"
+        rlRun "rlFileBackup $nginxLOGDIR/error.log" 0,8
         rlRun "> $ERR_LOG" 0 "Cleaning nginx error log"
     rlPhaseEnd
 
@@ -88,14 +88,14 @@ rlJournalStart
         if [[ -s $ERR_LOG ]]; then
             rlLogWarning "There have been error messages"
             rlLogWarning "Please check the attached log in error_log.tar.gz"
-            rlBundleLogs error_log error.log
+            rlBundleLogs error_log $ERR_LOG
         fi
 
         rlRun "nginxStop" 0 "Stopping nginx server"
     rlPhaseEnd
 
     rlPhaseStartCleanup
-        rlRun "cp error.log $ERR_LOG" 0 "Restoring the original error log"
+        rlRun "rlFileRestore" 0,2
         rlSEPortRestore
         rlAssertExists "$nginxROOTDIR" && {
             for DIR in default images scripts; do
