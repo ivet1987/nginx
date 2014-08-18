@@ -335,13 +335,14 @@ nginxLibraryLoaded() {
     rlLogInfo "nginxROOTPREFIX=$nginxROOTPREFIX"
     rlLogInfo "nginxCONFDIR=$nginxCONFDIR"
     rlLogInfo "nginxLOGDIR=$nginxLOGDIR"
-    rlLogInfo "nginxSSL_CRT=$nginxSSL_CRT"
-    rlLogInfo "nginxSSL_KEY=$nginxSSL_KEY"
-    rlLogInfo "nginxSSL_PEM=$nginxSSL_PEM"
-    rlLogInfo "nginxSSL_O=$nginxSSL_O"
-    rlLogInfo "nginxSSL_CN=$nginxSSL_CN"
+    #rlLogInfo "nginxSSL_CRT=$nginxSSL_CRT"
+    #rlLogInfo "nginxSSL_KEY=$nginxSSL_KEY"
+    #rlLogInfo "nginxSSL_PEM=$nginxSSL_PEM"
+    #rlLogInfo "nginxSSL_O=$nginxSSL_O"
+    #rlLogInfo "nginxSSL_CN=$nginxSSL_CN"
 
     rlAssertExists $nginxROOTDIR
+    rlAssertRpm $nginxHTTPD || ret=1
     # TODO: read paths to ssl certificates vrom config files?
 
     return $ret
