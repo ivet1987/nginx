@@ -103,6 +103,7 @@ rlJournalStart
                     "Removing $nginxROOTDIR/$DIR/"
             done
         }
+        rlRun "rm -f $nginxCONFDIR/conf.d/nginx.conf"
         rlRun "popd"
         rlRun "rm -r $TmpDir" 0 "Removing tmp directory"
     rlPhaseEnd
