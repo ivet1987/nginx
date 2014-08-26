@@ -49,7 +49,7 @@ rlJournalStart
         # Install Perl modules to test them with nginx
         for MOD in Net::SSLeay FCGI SCGI; do
             perl -e "use $MOD" ||
-            rlRun "yes | perl -MCPAN -e 'install $MOD'" 0 "Installing $MOD"
+            rlRun "yes '' | perl -MCPAN -e 'install $MOD'" 0 "Installing $MOD"
         done
 
         # Same for IO-Socket-SSL Perl module (we need a newer version that the
