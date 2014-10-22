@@ -51,7 +51,7 @@ $(METADATA): Makefile
 	@echo "Path:            $(TEST_DIR)" >> $(METADATA)
 	@echo "Description:     Checks the reverse proxy use case" >> $(METADATA)
 	@echo "Type:            Sanity" >> $(METADATA)
-	@echo "TestTime:        15m" >> $(METADATA)
+	@echo "TestTime:        30m" >> $(METADATA)
 	@echo "RunFor:          nginx" >> $(METADATA)
 	@echo "Requires:        nginx httpd-tools" >> $(METADATA)
 	@echo "RhtsRequires:    library(nginx/nginx)" >> $(METADATA)
