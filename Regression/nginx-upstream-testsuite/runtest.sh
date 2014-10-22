@@ -59,13 +59,15 @@ rlJournalStart
         # Same for IO-Socket-SSL Perl module (we need a newer version that the
         # one currently available in repository, so it has to be installed
         # manually)
-        rlRun "wget $SSLURL" 0 "Downloading IO-Socket-SSL module"
-        rlRun "tar -xvf $SSLTARBALL" 0 "Extracting archive"
-        rlRun "pushd $SSLSTUB"
-        rlRun "yes | perl Makefile.PL"
-        rlRun "make"
-        rlRun "make install"
-        rlRun "popd"
+        if ! perl -e "use IO::Socket::SSL"; then
+            rlRun "wget $SSLURL" 0 "Downloading IO-Socket-SSL module"
+            rlRun "tar -xvf $SSLTARBALL" 0 "Extracting archive"
+            rlRun "pushd $SSLSTUB"
+            rlRun "yes | perl Makefile.PL"
+            rlRun "make"
+            rlRun "make install"
+            rlRun "popd"
+        fi
 
         # Same for uWSGI
         rlRun "wget $UWSGIURL" 0 "Downloading uWSGI package"
