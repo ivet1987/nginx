@@ -53,7 +53,7 @@ rlJournalStart
             rlRun "cp Config.pm /usr/share/perl5/CPAN/Config.pm" 0
                   "Copying CPAN configuration file"
         else
-            rlRun "yes '' | cpan -v" 0 "Running CPAN auto-configuration"
+            rlRun "yes '' | cpan -v" 0-255 "Running CPAN auto-configuration"
         fi
 
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
