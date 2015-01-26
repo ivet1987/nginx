@@ -17,7 +17,7 @@ export TESTVERSION=1.0
 
 BUILT_FILES=
 
-FILES=$(METADATA) runtest.sh Makefile PURPOSE whitelist.txt
+FILES=$(METADATA) runtest.sh Makefile PURPOSE whitelist.txt Config.pm
 
 .PHONY: all install download clean
 

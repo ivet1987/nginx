@@ -43,15 +43,21 @@ rlJournalStart
     rlPhaseStartSetup
         rlAssertRpm --all
         rlAssertBinaryOrigin nginx
-        rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
-        rlRun "pushd $TmpDir"
 
         # Deactivate Perl module local::lib, which is sometimes activated by
         # default and makes an unpleasant mess in search paths
         rlRun "eval $(perl -Mlocal::lib=--deactivate-all)" 0-255 \
               "Deactivating local::lib"
 
-        rlRun "yes '' | cpan -v" 0 "Running CPAN auto-configuration"
+        if rlIsRHEL 6; then
+            rlRun "cp Config.pm /usr/share/perl5/CPAN/Config.pm" 0
+                  "Copying CPAN configuration file"
+        else
+            rlRun "yes '' | cpan -v" 0 "Running CPAN auto-configuration"
+        fi
+
+        rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
+        rlRun "pushd $TmpDir"
 
         # Install Perl modules to test them with nginx
         for MOD in Net::SSLeay FCGI SCGI; do
