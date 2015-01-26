@@ -48,12 +48,14 @@ rlJournalStart
 
         # Deactivate Perl module local::lib, which is sometimes activated by
         # default and makes an unpleasant mess in search paths
-        rlRun "eval $(perl -Mlocal::lib=--deactivate-all)"
+        rlRun "eval $(perl -Mlocal::lib=--deactivate-all)" 0-255 \
+              "Deactivating local::lib"
+
+        rlRun "yes '' | cpan -v" 0 "Running CPAN auto-configuration"
 
         # Install Perl modules to test them with nginx
         for MOD in Net::SSLeay FCGI SCGI; do
-            perl -e "use $MOD" ||
-            rlRun "yes '' | cpan -i $MOD" 0 "Installing $MOD"
+            perl -e "use $MOD" || rlRun "cpan $MOD" 0 "Installing $MOD"
         done
 
         # Same for IO-Socket-SSL Perl module (we need a newer version that the
