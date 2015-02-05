@@ -29,7 +29,7 @@ export TESTVERSION=1.0
 
 BUILT_FILES=
 
-FILES=$(METADATA) runtest.sh Makefile lib.sh
+FILES=$(METADATA) runtest.sh Makefile lib.sh ssl.conf
 
 .PHONY: all install download clean
 

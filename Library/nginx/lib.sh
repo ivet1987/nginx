@@ -255,10 +255,113 @@ nginxStatus() {
     return $ret
 }
 
+nginxsStart() {
+    __nginxKillNginx
+
+    local tmpdir
+    rlRun "tmpdir=`mktemp -d`" 0 "create tmp dir" || return 1
+    rlRun "pushd $tmpdir"
+
+    # prepare certificates
+    rlRun "openssl req -new -x509 -days 365 -out ca.crt -keyout ca.key \
+           -passout pass:nothing -subj '/O=test/CN=test'" \
+          0 "Creating self-signed CA key & certificate"
+    rlRun "openssl req -new -keyout server.key -out server.csr \
+           -passout pass:nothing -subj '/O=$nginxSSL_O/CN=$nginxSSL_CN'" \
+          0 "Creating server key & certificate request"
+    rlRun "openssl x509 -req -days 365 -in server.csr -CA ca.crt -CAkey ca.key \
+           -set_serial 04 -out server.crt -passin pass:nothing" \
+          0 "Signing server certificate"
+    rlRun "openssl rsa -in server.key -out server.key -passin pass:nothing" \
+          0 "Removing pass phrase from server key"
+
+    # backup certificates
+    rlFileBackup --namespace nginx $nginxSSL_CRT
+    rlFileBackup --namespace nginx $nginxSSL_KEY
+
+    # copy certificates
+    rlRun "cat server.crt > $nginxSSL_CRT"
+    rlRun "cat server.key > $nginxSSL_KEY"
+
+    # copy ca into nginx rootdir
+    rlRun "cp ca.crt $nginxROOTDIR/" 0 "copy ca.crt into $nginxROOTDIR"
+
+    #s tart server
+    rlRun "popd"
+    rlRun "rm -rf $tmpdir"
+
+    # create testfile
+    rlRun "echo 'ok' > $nginxROOTDIR/nginx_testfile" 0 "Creating test file"
+
+    # expand variables $nginxSSL_CRT and $nginxKEY in ssl.conf and apply the
+    # new configuration
+    local nginxSSLCONF=$nginxCONFDIR/conf.d/ssl.conf
+    rlRun "cp $nginxLIBDIR/ssl.conf $nginxSSLCONF" 0 "Copying ssl.conf"
+    rlRun "nginxVarExpand $nginxSSLCONF"
+
+    rlRun "rlServiceStart $nginxHTTPD" 0 "starting nginx service"
+}
+
+nginxsStop() {
+    rlRun "rlServiceStop $nginxHTTPD" 0 "stopping nginx service"
+
+    # remove created files
+    rlRun "rm -f $nginxSSL_CRT"
+    rlRun "rm -f $nginxSSL_KEY"
+    rlRun "rm -f $nginxROOTDIR/nginx_testfile"
+    rlRun "rm -f $nginxROOTDIR/ca.crt"
+    rlRun "rm -f $nginxCONFDIR/conf.d/ssl.conf"
+
+    # restore certificates
+    rlRun "rlFileRestore --namespace nginx" 0 "restoring certificate files"
+
+    __nginxKillNginx
+}
+
+nginxsStatus() {
+    local tmpdir
+    local ret=0
+    rlRun "tmpdir=`mktemp -d`" 0 "create tmp dir" || return 1
+    rlRun "pushd $tmpdir"
+    rlRun "wget --timeout=10 -t 2 -q https://`hostname`/nginx_testfile" 0 "download test file" || ret=1
+    rlAssertGrep ok nginx_testfile || ret=1
+    rlRun "popd"
+    rlRun "rm -rf $tmpdir" 0 "remove tmp dir"
+    return $ret
+}
+
+nginxInstallCa() {
+    # download ca.crt from server and add it into local file with trusted ca's
+    local tmpdir
+    local ret=0
+    rlRun "tmpdir=`mktemp -d`" 0 "create tmp dir" || return 1
+    rlRun "pushd $tmpdir"
+    if [ -z $1 ];then
+        rlFail "nginxInstallCa: no server url as argument"
+        ret=1
+    fi
+    rlRun "wget --timeout=10 -t 2 $1/ca.crt" 0 "download certificate" || ret=1
+    rlAssertExists ca.crt || ret=1
+
+    rlRun "rlFileBackup --namespace nginx_ca $nginxSSL_PEM" 0 \
+        "creating backup of $nginxSSL_PEM"
+    rlRun "cat ca.crt >> $nginxSSL_PEM" 0 \
+        "adding certificate to file with trusted ca's" || ret=1
+
+    rlRun "popd"
+    rlRun "rm -rf $tmpdir" 0 "remove tmp dir"
+    return $ret
+}
+
+nginxRemoveCa() {
+    # remove installed ca by restoring $nginxSSL_PEM file
+    rlRun "rlFileRestore --namespace nginx_ca"
+}
+
 nginxVarExpand() {
     rlAssertExists $1 || return 1
     rlRun "perl -i -pe 's/%%(.*?)%%/\$ENV{\$1}/g' $1" 0 \
-          "Expanding variables in configuration files"
+          "Expanding variables in file $1"
     return $?
 }
 
@@ -324,6 +427,11 @@ nginxLibraryLoaded() {
 
     rlRun "nginxROOTPREFIX=\$(echo $nginxROOTDIR|sed -e 's/\/usr.*//')" 0 "parsing prefix from nginxROOTDIR"
 
+    # follow symlinks to certificates
+    rlRun "nginxSSL_CRT=\$(readlink -f $nginxSSL_CRT)" 0 "following posible symlink of $nginxSSL_CRT"
+    rlRun "nginxSSL_KEY=\$(readlink -f $nginxSSL_KEY)" 0 "following posible symlink of $nginxSSL_KEY"
+    rlRun "nginxSSL_PEM=\$(readlink -f $nginxSSL_PEM)" 0 "following posible symlink of $nginxSSL_PEM"
+
     # print variables
     #rlLogInfo "PACKAGES=$PACKAGES"
     #rlLogInfo "REQUIRES=$REQUIRES"
@@ -335,15 +443,19 @@ nginxLibraryLoaded() {
     rlLogInfo "nginxROOTPREFIX=$nginxROOTPREFIX"
     rlLogInfo "nginxCONFDIR=$nginxCONFDIR"
     rlLogInfo "nginxLOGDIR=$nginxLOGDIR"
-    #rlLogInfo "nginxSSL_CRT=$nginxSSL_CRT"
-    #rlLogInfo "nginxSSL_KEY=$nginxSSL_KEY"
-    #rlLogInfo "nginxSSL_PEM=$nginxSSL_PEM"
-    #rlLogInfo "nginxSSL_O=$nginxSSL_O"
-    #rlLogInfo "nginxSSL_CN=$nginxSSL_CN"
+    rlLogInfo "nginxSSL_CRT=$nginxSSL_CRT"
+    rlLogInfo "nginxSSL_KEY=$nginxSSL_KEY"
+    rlLogInfo "nginxSSL_PEM=$nginxSSL_PEM"
+    rlLogInfo "nginxSSL_O=$nginxSSL_O"
+    rlLogInfo "nginxSSL_CN=$nginxSSL_CN"
 
     rlAssertExists $nginxROOTDIR
     rlAssertRpm $nginxHTTPD || ret=1
     # TODO: read paths to ssl certificates vrom config files?
+
+    # Remember the path to the library in order to comfortably access the file
+    # ssl.conf later (and possibly other files too in the future)
+    nginxLIBDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
     return $ret
 }

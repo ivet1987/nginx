@@ -47,6 +47,14 @@ rlJournalStart
             rlRun "nginxStatus" 0 "nginxStatus"
             rlRun "nginxStop" 0 "stoping nginx server"
         rlPhaseEnd
+
+        rlPhaseStartTest "Test nginx with SSL"
+            rlRun "nginxsStart" 0 "starting nginx server"
+            rlRun "nginxInstallCa `hostname`" 0 "Installing certificate"
+            rlRun "nginxsStatus" 0 "nginxsStatus"
+            rlRun "nginxRemoveCa" 0 "Removing certificate"
+            rlRun "nginxsStop" 0 "stoping nginx server"
+        rlPhaseEnd
     fi
 
     rlPhaseStartCleanup
