@@ -313,7 +313,7 @@ nginxsStop() {
     rlRun "rm -f $nginxCONFDIR/conf.d/ssl.conf"
 
     # restore certificates
-    rlRun "rlFileRestore --namespace nginx" 0 "restoring certificate files"
+    rlFileRestore --namespace nginx
 
     __nginxKillNginx
 }
@@ -355,7 +355,7 @@ nginxInstallCa() {
 
 nginxRemoveCa() {
     # remove installed ca by restoring $nginxSSL_PEM file
-    rlRun "rlFileRestore --namespace nginx_ca"
+    rlFileRestore --namespace nginx_ca
 }
 
 nginxVarExpand() {
