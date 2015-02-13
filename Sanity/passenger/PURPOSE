@@ -1,0 +1,5 @@
+PURPOSE of /CoreOS/nginx16/Sanity/passenger
+Description: Sanity test for passenger module
+Author: Martin Frodl <mfrodl@redhat.com>
+Bug summary: nginx16 should include Passenger module
+Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1178082
