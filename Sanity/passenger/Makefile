@@ -1,6 +1,6 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-#   Makefile of /CoreOS/nginx16/Sanity/passenger
+#   Makefile of /CoreOS/nginx/Sanity/passenger
 #   Description: Sanity test for passenger module
 #   Author: Martin Frodl <mfrodl@redhat.com>
 #
@@ -23,7 +23,7 @@
 #
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-export TEST=/CoreOS/nginx16/Sanity/passenger
+export TEST=/CoreOS/nginx/Sanity/passenger
 export TESTVERSION=1.0
 
 BUILT_FILES=

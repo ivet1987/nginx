@@ -2,7 +2,7 @@
 # vim: dict+=/usr/share/beakerlib/dictionary.vim cpt=.,w,b,u,t,i,k
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-#   runtest.sh of /CoreOS/nginx16/Sanity/passenger
+#   runtest.sh of /CoreOS/nginx/Sanity/passenger
 #   Description: Sanity test for passenger module
 #   Author: Martin Frodl <mfrodl@redhat.com>
 #
