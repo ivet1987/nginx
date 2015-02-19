@@ -33,7 +33,7 @@ PACKAGES=${PACKAGES:-"nginx"}
 
 rlJournalStart
     rlPhaseStartSetup
-        rlRun "rlImport nginx/nginx" 0 "Importing nginx library" || rlDie
+        rlRun "rlImport --all" 0 "Importing Beaker libraries" || rlDie
         rlAssertRpm --all
 
         rlFileBackup --clean $nginxCONFDIR/conf.d/
@@ -55,9 +55,11 @@ rlJournalStart
             rlRun "pushd $TESTDIR/app$PORT"
             rlRun "sed -i 's/%%PORT%%/$PORT/' passenger_wsgi.py"
             rlRun "passenger start --daemonize --port $PORT"
+            rlRun "rlSEPortAdd tcp $PORT http_port_t"
             rlRun "popd"
         done
-        rlRun "nginx"
+        rlRun 
+        rlRun "systemctl start nginx16-nginx"
     rlPhaseEnd
 
     rlPhaseStartTest
@@ -68,12 +70,13 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartCleanup
-        rlRun "nginx -s stop"
+        rlRun "systemctl stop nginx16-nginx"
         for PORT in {4000..4002}; do
             rlRun "pushd $TESTDIR/app$PORT"
             rlRun "passenger stop --port $PORT"
             rlRun "popd"
         done
+        rlRun "rlSEPortRestore" 0 "Restoring port SELinux contexts"
         rlFileRestore
     rlPhaseEnd
 rlJournalPrintText

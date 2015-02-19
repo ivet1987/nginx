@@ -55,6 +55,7 @@ $(METADATA): Makefile
 	@echo "RunFor:          nginx" >> $(METADATA)
 	@echo "Requires:        nginx passenger ruby" >> $(METADATA)
 	@echo "RhtsRequires:    library(nginx/nginx)" >> $(METADATA)
+	@echo "RhtsRequires:    library(selinux-policy/common)" >> $(METADATA)
 	@echo "Priority:        Normal" >> $(METADATA)
 	@echo "License:         GPLv2+" >> $(METADATA)
 	@echo "Confidential:    no" >> $(METADATA)
