@@ -401,7 +401,7 @@ nginxLibraryLoaded() {
     ret=0
     # setup path variables if running in collection
     if echo $COLLECTIONS|grep "nginx";then
-        nginxCOLLECTION_NAME=`echo $COLLECTIONS|grep -o nginx[0-9]\*`
+        nginxCOLLECTION_NAME=`echo $COLLECTIONS|grep -o '\bnginx[0-9]*\b'|tail -1`
         if [ "$nginxCOLLECTION_NAME" == "" ];then
             rlFail "Failed to detect nginx collection name"
             rlLog "COLLECTIONS=$COLLECTIONS"
