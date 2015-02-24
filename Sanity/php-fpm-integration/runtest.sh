@@ -30,7 +30,9 @@
 . /usr/bin/rhts-environment.sh || exit 1
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 
-if echo $COLLECTIONS | grep php55; then
+if echo $COLLECTIONS | grep php56; then
+    FPM="rh-php56-php-fpm"
+elif echo $COLLECTIONS | grep php55; then
     FPM="php55-php-fpm"
 elif echo $COLLECTIONS | grep php54; then
     FPM="php54-php-fpm"
