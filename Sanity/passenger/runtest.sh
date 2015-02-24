@@ -59,7 +59,7 @@ rlJournalStart
             rlRun "popd"
         done
         rlRun 
-        rlRun "systemctl start nginx16-nginx"
+        rlRun "rlServiceStart $nginxHTTPD"
     rlPhaseEnd
 
     rlPhaseStartTest
@@ -70,7 +70,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartCleanup
-        rlRun "systemctl stop nginx16-nginx"
+        rlRun "rlServiceStop $nginxHTTPD"
         for PORT in {4000..4002}; do
             rlRun "pushd $TESTDIR/app$PORT"
             rlRun "passenger stop --port $PORT"
@@ -78,6 +78,7 @@ rlJournalStart
         done
         rlRun "rlSEPortRestore" 0 "Restoring port SELinux contexts"
         rlFileRestore
+        rlRun "rlServiceRestore $nginxHTTPD"
     rlPhaseEnd
 rlJournalPrintText
 rlJournalEnd
