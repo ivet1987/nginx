@@ -55,10 +55,9 @@ rlJournalStart
             rlRun "pushd $TESTDIR/app$PORT"
             rlRun "sed -i 's/%%PORT%%/$PORT/' passenger_wsgi.py"
             rlRun "passenger start --daemonize --port $PORT"
-            rlRun "rlSEPortAdd tcp $PORT http_port_t"
             rlRun "popd"
         done
-        rlRun 
+        rlRun "rlSEPortAdd tcp 4000-4002 http_port_t" 0 "Allowing ports 4000-4002"
         rlRun "rlServiceStart $nginxHTTPD"
     rlPhaseEnd
 

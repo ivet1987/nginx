@@ -51,7 +51,7 @@ $(METADATA): Makefile
 	@echo "Path:            $(TEST_DIR)" >> $(METADATA)
 	@echo "Description:     Sanity test for passenger module" >> $(METADATA)
 	@echo "Type:            Sanity" >> $(METADATA)
-	@echo "TestTime:        5m" >> $(METADATA)
+	@echo "TestTime:        10m" >> $(METADATA)
 	@echo "RunFor:          nginx" >> $(METADATA)
 	@echo "Requires:        nginx passenger ruby" >> $(METADATA)
 	@echo "RhtsRequires:    library(nginx/nginx)" >> $(METADATA)
