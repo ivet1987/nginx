@@ -54,7 +54,7 @@ rlJournalStart
             rlRun "cp passenger_wsgi.py $TESTDIR/app$PORT"
             rlRun "pushd $TESTDIR/app$PORT"
             rlRun "sed -i 's/%%PORT%%/$PORT/' passenger_wsgi.py"
-            rlRun "passenger start --daemonize --port $PORT"
+            rlRun "passenger start --daemonize --port $PORT 2>&1 > $TESTDIR/output_$PORT"
             rlRun "popd"
         done
         rlRun "rlSEPortAdd tcp 4000-4002 http_port_t" 0 "Allowing ports 4000-4002"
@@ -65,11 +65,15 @@ rlJournalStart
         for PORT in {4000..4002}; do
             rlRun -s "curl http://www.app${PORT}.com"
             rlAssertGrep "port $PORT" $rlRun_LOG
+            head output_$PORT
+            rlAssertNotGrep "No passenger_native_support.so found for current Ruby interpreter" $TESTDIR/output_$PORT || \
+                cat $TESTDIR/output_$PORT
         done
     rlPhaseEnd
 
     rlPhaseStartCleanup
         rlRun "rlServiceStop $nginxHTTPD"
+        rlRun "rm -f $TESTDIR/output*"
         for PORT in {4000..4002}; do
             rlRun "pushd $TESTDIR/app$PORT"
             rlRun "passenger stop --port $PORT"
