@@ -37,9 +37,9 @@ nginx/nginx - Basic library for nginx testing.
 
 =head1 DESCRIPTION
 
-This library provides basic functions for easy testing ninx.
+This library provides basic functions for easy testing of nginx.
 Main goal of this library is to simplify starting
-http server in various environments.
+http(s) server in various environments.
 
 Library makes sure that no nginx server is running
 before starting and after stopping web server.
@@ -58,7 +58,7 @@ true <<'=cut'
 
 =head1 VARIABLES
 
-Below is the list of global variables which affects library's functions.
+Below is the list of global variables which affect library's functions.
 
 =over
 
@@ -76,7 +76,7 @@ Path to the directory where nginx logs are stored.
 
 =item nginxNSS_DBDIR
 
-Directory where mod_nss batabases with certificates are stored.
+Directory where mod_nss databases with certificates are stored.
 
 =item nginxHTTPD
 
@@ -113,18 +113,18 @@ and function nginxInstallCa can download and install it into nginxSSL_PEM.
 
 =item nginxCOLLECTION
 
-This variable indicate (0/1) whether nginx24 collection is enabled.
+This variable indicates (0/1) whether nginx16 collection is enabled.
 
 =item nginxCOLLECTION_NAME
 
-Name of collectionw when using nginx from rhscl.
+Name of collection when using nginx from rhscl.
 
 =item nginxROOTPREFIX
 
 Prefix of web server root directory.
-If running in nginx collection, it contain prefix of path to root directory,
-for example "/opt/rt/nginx16/root".
-If not in collection, this variable contain empty string
+If running in nginx collection, it contains prefix of path to root directory,
+for example "/opt/rh/nginx16/root".
+If not in collection, this variable contains empty string
 
 =back
 
@@ -171,15 +171,37 @@ by downloading http://SERVER_HOSTNAME/nginx_tesfile.
 
 Returns 0 when nginx_testfile is successfully downloaded, 1 otherwise.
 
+=head2 nginxsStart
+
+Create self-signed SSL certificate, copy it into $nginxROOTDIR, create the file $nginxROOTDIR/nginx_testfile and start nginx service (restart if running) configured with HTTPS support.
+
+=head2 nginxsStop
+
+Stop nginx service, remove $nginxROOTDIR/nginx_testfile and restore SSL certificate file to the original state before the last nginxsStart call.
+
+=head2 nginxsStatus
+
+Check if nginx HTTPS server is running normally by downloading file https://SERVER_HOSTNAME/nginx_testfile.
+
+Return 0 if nginx_testfile was successfully downloaded, 1 otherwise.
+
+=head2 nginxInstallCa
+
+Install certificate downloaded from SERVER_URL/ca.crt into local file with trusted CA's.
+
+ nginxInstallCa SERVER_URL/ca.crt 
+
+=head2 nginxRemoveCa
+
+Remove installed CA by restoring the $nginxSSL_PERM file.
+
 =head2 nginxVarExpand
 
 Expand variables in specified configuration file. Only sequences in the form
 %%VAR_NAME%% are taken for variables. Each variable %%VAR_NAME%% is replaced
 with the contents of the corresponding environment variable $VAR_NAME.
 
-{{{
-    nginxVarExpand config_file
-}}}
+ nginxVarExpand config_file
 
 =over
 
@@ -187,6 +209,8 @@ with the contents of the corresponding environment variable $VAR_NAME.
 
 Path to the configuration file in which variables are to be expanded. The result
 is saved to the same file.
+
+=back
 
 =cut
 
@@ -286,7 +310,7 @@ nginxsStart() {
     # copy ca into nginx rootdir
     rlRun "cp ca.crt $nginxROOTDIR/" 0 "copy ca.crt into $nginxROOTDIR"
 
-    #s tart server
+    # start server
     rlRun "popd"
     rlRun "rm -rf $tmpdir"
 
