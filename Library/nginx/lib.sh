@@ -425,7 +425,7 @@ nginxLibraryLoaded() {
     ret=0
     # setup path variables if running in collection
     if echo $COLLECTIONS|grep "nginx";then
-        nginxCOLLECTION_NAME=`echo $COLLECTIONS|grep -o '\bnginx[0-9]*\b'|tail -1`
+        nginxCOLLECTION_NAME=`echo $COLLECTIONS|grep -Eo '(rh-)?\bnginx[0-9]*\b'|tail -1`
         if [ "$nginxCOLLECTION_NAME" == "" ];then
             rlFail "Failed to detect nginx collection name"
             rlLog "COLLECTIONS=$COLLECTIONS"
@@ -433,7 +433,13 @@ nginxLibraryLoaded() {
         fi
         nginxCOLLECTION=1
         nginxHTTPD=${nginxCOLLECTION_NAME}-nginx
-        nginxCONFDIR=/opt/rh/$nginxCOLLECTION_NAME/root$nginxCONFDIR
+        if echo $nginxCOLLECTION_NAME | grep '^rh-'; then
+            # new collection, conf in /etc/opt/rh
+            nginxCONFDIR=/etc/opt/rh/$nginxCOLLECTION_NAME/nginx
+        else
+            # old collection, conf in /opt/rh
+            nginxCONFDIR=/opt/rh/$nginxCOLLECTION_NAME/root/etc/nginx
+        fi
         nginxLOGDIR=/var/log/$nginxCOLLECTION_NAME
     fi
     rlRun "rpm -q $nginxHTTPD" 0 "checking $nginxHTTPD rpm"
