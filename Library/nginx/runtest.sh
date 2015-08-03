@@ -35,7 +35,7 @@ PHASE=${PHASE:-Test}
 
 rlJournalStart
     rlPhaseStartSetup
-        rlRun "rlImport nginx/nginx"
+        rlRun "rlImport nginx/nginx" || rlDie
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
     rlPhaseEnd
