@@ -434,13 +434,14 @@ nginxLibraryLoaded() {
         nginxCOLLECTION=1
         nginxHTTPD=${nginxCOLLECTION_NAME}-nginx
         if echo $nginxCOLLECTION_NAME | grep '^rh-'; then
-            # new collection, conf in /etc/opt/rh
+            # new collection, conf in /etc/opt/rh, logs in /var/opt/rh
             nginxCONFDIR=/etc/opt/rh/$nginxCOLLECTION_NAME/nginx
+            nginxLOGDIR=/var/opt/rh/$nginxCOLLECTION_NAME/log
         else
-            # old collection, conf in /opt/rh
+            # old collection, conf in /opt/rh, logs in /var/log
             nginxCONFDIR=/opt/rh/$nginxCOLLECTION_NAME/root/etc/nginx
+            nginxLOGDIR=/var/log/$nginxCOLLECTION_NAME
         fi
-        nginxLOGDIR=/var/log/$nginxCOLLECTION_NAME
     fi
     rlRun "rpm -q $nginxHTTPD" 0 "checking $nginxHTTPD rpm"
 
