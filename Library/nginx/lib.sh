@@ -436,7 +436,7 @@ nginxLibraryLoaded() {
         if echo $nginxCOLLECTION_NAME | grep '^rh-'; then
             # new collection, conf in /etc/opt/rh, logs in /var/opt/rh
             nginxCONFDIR=/etc/opt/rh/$nginxCOLLECTION_NAME/nginx
-            nginxLOGDIR=/var/opt/rh/$nginxCOLLECTION_NAME/log
+            nginxLOGDIR=/var/opt/rh/$nginxCOLLECTION_NAME/log/nginx
         else
             # old collection, conf in /opt/rh, logs in /var/log
             nginxCONFDIR=/opt/rh/$nginxCOLLECTION_NAME/root/etc/nginx
