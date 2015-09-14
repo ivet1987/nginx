@@ -47,6 +47,7 @@ rlJournalStart
             >> /etc/hosts" 0 "Configuring hosts file"
 
         TESTDIR=$nginxROOTPREFIX/usr/share/nginx
+        NGINXBIN="$(which nginx)"
         rlFileBackup --clean $TESTDIR
         for PORT in {4000..4002}; do
             rlRun "mkdir -p $TESTDIR/app$PORT/public"
@@ -54,7 +55,8 @@ rlJournalStart
             rlRun "cp passenger_wsgi.py $TESTDIR/app$PORT"
             rlRun "pushd $TESTDIR/app$PORT"
             rlRun "sed -i 's/%%PORT%%/$PORT/' passenger_wsgi.py"
-            rlRun "passenger start --daemonize --port $PORT 2>&1 > $TESTDIR/output_$PORT"
+            rlRun "passenger start --daemonize --port $PORT --nginx-bin $NGINXBIN \
+                &> $TESTDIR/output_$PORT"
             rlRun "popd"
         done
         rlRun "rlSEPortAdd tcp 4000-4002 http_port_t" 0 "Allowing ports 4000-4002"
