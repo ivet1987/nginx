@@ -60,6 +60,10 @@ rlJournalStart
             rlRun "popd"
         done
         rlRun "rlSEPortAdd tcp 4000-4002 http_port_t" 0 "Allowing ports 4000-4002"
+        # Temporary workaround for BZ#1249945 and BZ#1249949, remove when solved
+        if [[ ${COLLECTIONS} =~ rh-nginx18 ]]; then
+            rlRun "chcon -Rvt httpd_var_lib_t /var/opt/rh/rh-nginx18/lib/nginx"
+        fi
         rlRun "rlServiceStart $nginxHTTPD"
     rlPhaseEnd
 
@@ -83,6 +87,10 @@ rlJournalStart
         done
         rlRun "rlSEPortRestore" 0 "Restoring port SELinux contexts"
         rlFileRestore
+        # Temporary workaround for BZ#1249945 and BZ#1249949, remove when solved
+        if [[ "${COLLECTIONS}" =~ rh-nginx18 ]]
+            rlRun "restorecon -Rv /var/opt/rh/rh-nginx18/lib/nginx"
+        fi
         rlRun "rlServiceRestore $nginxHTTPD"
     rlPhaseEnd
 rlJournalPrintText
