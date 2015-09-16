@@ -40,11 +40,12 @@ rlJournalStart
         rlRun "cp passenger.conf $nginxCONFDIR/conf.d/" 0 \
             "Configuring nginx with passenger support"
         rlRun "nginxVarExpand $nginxCONFDIR/conf.d/passenger.conf"
-        rlRun "nginxStop" 0 "Ensuring nginx is not running"
+        rlRun "nginxStop" 0 "Stopping nginx"
 
         rlFileBackup /etc/hosts
         rlRun "echo '127.0.0.1   www.app4000.com www.app4001.com www.app4002.com' \
             >> /etc/hosts" 0 "Configuring hosts file"
+        rlRun "rlSEPortAdd tcp 4000-4002 http_port_t" 0 "Allowing ports 4000-4002"
 
         TESTDIR=$nginxROOTPREFIX/usr/share/nginx
         NGINXBIN="$(which nginx)"
@@ -59,12 +60,12 @@ rlJournalStart
                 &> $TESTDIR/output_$PORT"
             rlRun "popd"
         done
-        rlRun "rlSEPortAdd tcp 4000-4002 http_port_t" 0 "Allowing ports 4000-4002"
+        rlRun "service $nginxHTTPD restart"
+
         # Temporary workaround for BZ#1249945 and BZ#1249949, remove when solved
         if [[ ${COLLECTIONS} =~ rh-nginx18 ]]; then
             rlRun "chcon -Rvt httpd_var_lib_t /var/opt/rh/rh-nginx18/lib/nginx"
         fi
-        rlRun "rlServiceStart $nginxHTTPD"
     rlPhaseEnd
 
     rlPhaseStartTest
@@ -78,19 +79,10 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartCleanup
-        rlRun "rlServiceStop $nginxHTTPD"
+        rlRun "nginxStop" 0 "Stopping server"
         rlRun "rm -f $TESTDIR/output*"
-        for PORT in {4000..4002}; do
-            rlRun "pushd $TESTDIR/app$PORT"
-            rlRun "passenger stop --port $PORT"
-            rlRun "popd"
-        done
         rlRun "rlSEPortRestore" 0 "Restoring port SELinux contexts"
         rlFileRestore
-        # Temporary workaround for BZ#1249945 and BZ#1249949, remove when solved
-        if [[ "${COLLECTIONS}" =~ rh-nginx18 ]]
-            rlRun "restorecon -Rv /var/opt/rh/rh-nginx18/lib/nginx"
-        fi
         rlRun "rlServiceRestore $nginxHTTPD"
     rlPhaseEnd
 rlJournalPrintText
