@@ -60,12 +60,13 @@ rlJournalStart
                 &> $TESTDIR/output_$PORT"
             rlRun "popd"
         done
-        rlRun "service $nginxHTTPD restart"
 
         # Temporary workaround for BZ#1249945 and BZ#1249949, remove when solved
         if [[ ${COLLECTIONS} =~ rh-nginx18 ]]; then
             rlRun "chcon -Rvt httpd_var_lib_t /var/opt/rh/rh-nginx18/lib/nginx"
         fi
+
+        rlRun "service $nginxHTTPD restart"
     rlPhaseEnd
 
     rlPhaseStartTest
