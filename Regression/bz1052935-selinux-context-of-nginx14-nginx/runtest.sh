@@ -45,7 +45,8 @@ rlJournalStart
             0 "getting selinux context of rpm's files"
         rlAssertNotGrep ":initrc_exec_t" files_context.log
         if rlIsRHEL 6; then
-            rlAssertGrep ":httpd_initrc_exec_t.*init.d/nginx" files_context.log
+            rlAssertGrep ":httpd_initrc_exec_t.*/etc/rc.d/init.d/$nginxHTTPD" \
+                files_context.log
         fi
         rlAssertGrep ":httpd_exec_t.*$(which nginx)" files_context.log
         rlAssertGrep ":httpd_config_t.*$nginxCONFDIR" files_context.log
