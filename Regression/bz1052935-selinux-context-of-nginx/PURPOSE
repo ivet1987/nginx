@@ -1,0 +1,3 @@
+PURPOSE of /CoreOS/nginx/Regression/bz1052935-selinux-context-of-nginx
+Description: check context of rpm's files
+Author: Ondrej Ptak <optak@redhat.com>
