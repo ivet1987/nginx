@@ -53,7 +53,7 @@ $(METADATA): Makefile
 	@echo "Description:     check context of rpm's files" >> $(METADATA)
 	@echo "Type:            Regression" >> $(METADATA)
 	@echo "TestTime:        5m" >> $(METADATA)
-	@echo "RunFor:          nginx" >> $(METADATA)
+	@echo "RunFor:           to_be_deleted" >> $(METADATA)
 	@echo "Requires:        nginx14" >> $(METADATA)
 	@echo "RhtsRequires:    library(nginx/nginx)" >> $(METADATA)
 	@echo "Priority:        Normal" >> $(METADATA)
