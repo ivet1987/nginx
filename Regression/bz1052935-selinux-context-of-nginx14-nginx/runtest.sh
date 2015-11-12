@@ -47,11 +47,20 @@ rlJournalStart
         if rlIsRHEL 6; then
             rlAssertGrep ":httpd_initrc_exec_t.*init.d/nginx" files_context.log
         fi
-        rlAssertGrep ":httpd_exec_t.*/usr/sbin/nginx" files_context.log
-        rlAssertGrep ":httpd_config_t.*/etc/nginx" files_context.log
-        rlAssertGrep ":httpd_log_t.*/var/log/$nginxCOLLECTION_NAME" files_context.log
-        rlAssertGrep ":httpd_var_lib_t.*/var/lib/nginx" files_context.log
-        rlAssertGrep ":httpd_var_run_t.*/var/run/nginx" files_context.log
+        rlAssertGrep ":httpd_exec_t.*$(which nginx)" files_context.log
+        rlAssertGrep ":httpd_config_t.*$nginxCONFDIR" files_context.log
+        rlAssertGrep ":httpd_log_t.*$nginxLOGDIR" files_context.log
+
+        if [[ $nginxCOLLECTION_NAME =~ ^rh- ]]; then
+            nginxLIBDIR="/var/opt/rh/$nginxCOLLECTION_NAME/lib"
+            nginxRUNDIR="/var/opt/rh/$nginxCOLLECTION_NAME/run"
+        else
+            nginxLIBDIR="$nginxROOTPREFIX/var/lib/nginx"
+            nginxRUNDIR="$nginxROOTPREFIX/var/run/nginx"
+        fi
+
+        rlAssertGrep ":httpd_var_lib_t.*$nginxLIBDIR" files_context.log
+        rlAssertGrep ":httpd_var_run_t.*$nginxRUNDIR" files_context.log
         cat files_context.log
     rlPhaseEnd
 
