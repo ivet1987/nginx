@@ -30,7 +30,9 @@
 . /usr/bin/rhts-environment.sh || exit 1
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 
-if echo $COLLECTIONS | grep php56; then
+if echo $COLLECTIONS | grep php70; then
+    FPM="rh-php70-php-fpm"
+elif echo $COLLECTIONS | grep php56; then
     FPM="rh-php56-php-fpm"
 elif echo $COLLECTIONS | grep php55; then
     FPM="php55-php-fpm"
@@ -74,8 +76,14 @@ rlJournalStart
 
         rlRun "curl $PHPURL > php.html"
         rlAssertGrep 'PHP Version' php.html
-        rlRun "PHPVER=\$(php-fpm -v|head -1|awk '{print \$2}')"\
-            0 "getting PHP version from php command"
+        if echo $COLLECTIONS | grep php; then
+            rlRun "PHPSCL=\$(echo $FPM | sed s,-php-fpm,,)"
+            rlRun "PHPRAWVER=\$(scl enable $PHPSCL 'php-fpm -v' | head -1)"
+        else
+            rlRun "PHPRAWVER=\$(php-fpm -v | head -1)"
+        fi
+        rlRun "PHPVER=\$(echo \"$PHPRAWVER\" | awk '{print \$2}')" \
+                  0 "parsing PHP version from php command"
         rlRun "PHPVER2=\$(grep -o 'PHP Version [0-9]*\.[0-9]*\.[0-9]*' php.html | awk '{print \$3}')"\
             0 "getting PHP version from downloaded page"
         rlRun " [ $PHPVER = $PHPVER2 ] " 0 "checking PHP version"
