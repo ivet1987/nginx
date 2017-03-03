@@ -2,6 +2,14 @@ package rhtshello;
 
 use nginx;
 
+sub meaning_of_life {
+    my $r = shift;
+
+    $r->print(42);
+
+    return OK;
+}
+
 sub handler {
     my $r = shift;
 

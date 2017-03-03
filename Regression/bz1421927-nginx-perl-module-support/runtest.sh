@@ -37,6 +37,7 @@ rlJournalStart
         rlRun "rlImport nginx/nginx"
         rlRun "GLOBAL_CONF=$nginxCONFDIR/conf.d/rhts-bz1421927.conf"
         rlRun "SERVER_CONF=$nginxCONFDIR/default.d/rhts-bz1421927.conf"
+        rlRun "SSIDIR=${nginxROOTDIR}/rhts-ssi"
         rlAssertRpm --all
 
         rlRun "echo 'perl_require rhtshello.pm;' > $GLOBAL_CONF"
@@ -45,6 +46,8 @@ rlJournalStart
         rlRun "nginxPERLDIR=${nginxROOTPREFIX}${installvendorarch}"
         rlRun "HELLO_PM=${nginxPERLDIR}/rhtshello.pm"
         rlRun "cp hello.pm $HELLO_PM"
+        rlRun "mkdir -p $SSIDIR"
+        rlRun "cp ssi.html $SSIDIR"
 
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
@@ -56,11 +59,18 @@ rlJournalStart
         rlAssertGrep "Hello, nginx-perl-world" output
     rlPhaseEnd
 
+    rlPhaseStartTest
+        rlRun "curl http://localhost/rhts-ssi/ssi.html | tee ssi.html"
+        rlAssertGrep "meaning-of-life=42" ssi.html
+    rlPhaseEnd
+
     rlPhaseStartCleanup
         rlRun "popd"
         rlServiceRestore $nginxHTTPD
         rlRun "rm -r $TmpDir" 0 "Removing tmp directory"
         rlRun "rm -f $SERVER_CONF $GLOBAL_CONF $HELLO_PM" 0 "Removing tmp files"
+        rlRun "rm -f $SSIDIR/ssi.html"
+        rlRun "rmdir $SSIDIR"
     rlPhaseEnd
 rlJournalPrintText
 rlJournalEnd
