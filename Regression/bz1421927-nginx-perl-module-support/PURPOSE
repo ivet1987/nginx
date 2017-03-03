@@ -1,0 +1,5 @@
+PURPOSE of /CoreOS/nginx/Regression/bz1421927-nginx-perl-module-support
+Description: Test for BZ#1421927 (Perl module support)
+Author: Joe Orton <jorton@redhat.com>
+Bug summary: Dynamic Module Support under NGINX, including the perl module
+Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1421927
