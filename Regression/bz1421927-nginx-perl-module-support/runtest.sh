@@ -53,13 +53,13 @@ rlJournalStart
         rlRun "pushd $TmpDir"
     rlPhaseEnd
 
-    rlPhaseStartTest
+    rlPhaseStartTest "Test Perl handler"
         rlRun "rlServiceStart $nginxHTTPD" 
         rlRun "curl http://localhost/rhts-bz1421927 | tee output"
         rlAssertGrep "Hello, nginx-perl-world" output
     rlPhaseEnd
 
-    rlPhaseStartTest
+    rlPhaseStartTest "Test nginx Perl SSI function call"
         rlRun "curl http://localhost/rhts-ssi/ssi.html | tee ssi.html"
         rlAssertGrep "meaning-of-life=42" ssi.html
     rlPhaseEnd
