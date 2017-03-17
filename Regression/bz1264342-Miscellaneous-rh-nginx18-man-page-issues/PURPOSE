@@ -1,0 +1,6 @@
+PURPOSE of /CoreOS/rh-nginx110/Regression/bz1264342-Miscellaneous-rh-nginx18-man-page-issues
+Description: Test for BZ#1264342 (Miscellaneous rh-nginx18 man page issues)
+Author: Jakub Heger <jheger@redhat.com>
+Bug summary: Miscellaneous rh-nginx18 man page issues
+Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1264342
+
