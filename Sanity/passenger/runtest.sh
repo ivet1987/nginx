@@ -58,6 +58,11 @@ rlJournalStart
             rlRun "sed -i 's/%%PORT%%/$PORT/' passenger_wsgi.py"
             rlRun "passenger start --daemonize --port $PORT --nginx-bin $NGINXBIN \
                 &> $TESTDIR/output_$PORT"
+            if [ $? -ne 0 ]; then
+                echo "---[$TESTDIR/output_$PORT]---"
+                cat $TESTDIR/output_$PORT
+                echo "-----------------------------"
+            fi
             rlRun "popd"
         done
 
