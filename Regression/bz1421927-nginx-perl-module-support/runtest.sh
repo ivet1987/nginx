@@ -43,7 +43,7 @@ rlJournalStart
         rlRun "echo 'perl_require rhtshello.pm;' > $GLOBAL_CONF"
         rlRun "cp perl.conf $SERVER_CONF"
         rlRun "eval `perl -V:installvendorarch`"
-        rlRun "nginxPERLDIR=${nginxROOTPREFIX}${installvendorarch}"
+        rlRun "nginxPERLDIR=${installvendorarch}"
         rlRun "HELLO_PM=${nginxPERLDIR}/rhtshello.pm"
         rlRun "cp hello.pm $HELLO_PM"
         rlRun "mkdir -p $SSIDIR"

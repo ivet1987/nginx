@@ -55,6 +55,7 @@ $(METADATA): Makefile
 	@echo "TestTime:        5m" >> $(METADATA)
 	@echo "RunFor:          nginx nginx-mod-http-perl" >> $(METADATA)
 	@echo "Requires:        nginx nginx-mod-http-perl perl" >> $(METADATA)
+	@echo "RhtsRequires:    library(nginx/nginx)" >> $(METADATA)
 	@echo "Priority:        Normal" >> $(METADATA)
 	@echo "License:         GPLv2" >> $(METADATA)
 	@echo "Confidential:    yes" >> $(METADATA)
