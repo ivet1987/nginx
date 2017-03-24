@@ -2,7 +2,7 @@
 # vim: dict+=/usr/share/beakerlib/dictionary.vim cpt=.,w,b,u,t,i,k
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-#   runtest.sh of /CoreOS/rh-nginx110/Regression/bz1264342-Miscellaneous-rh-nginx18-man-page-issues
+#   runtest.sh of /CoreOS/nginx/Regression/bz1264342-Miscellaneous-rh-nginx18-man-page-issues
 #   Description: Test for BZ#1264342 (Miscellaneous rh-nginx18 man page issues)
 #   Author: Jakub Heger <jheger@redhat.com>
 #

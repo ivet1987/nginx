@@ -1,6 +1,6 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-#   Makefile of /CoreOS/rh-nginx110/Regression/bz1264342-Miscellaneous-rh-nginx18-man-page-issues
+#   Makefile of /CoreOS/nginx/Regression/bz1264342-Miscellaneous-rh-nginx18-man-page-issues
 #   Description: Test for BZ#1264342 (Miscellaneous rh-nginx18 man page issues)
 #   Author: Jakub Heger <jheger@redhat.com>
 #
@@ -23,7 +23,7 @@
 #
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-export TEST=/CoreOS/rh-nginx110/Regression/bz1264342-Miscellaneous-rh-nginx18-man-page-issues
+export TEST=/CoreOS/nginx/Regression/bz1264342-Miscellaneous-rh-nginx18-man-page-issues
 export TESTVERSION=1.0
 
 BUILT_FILES=
@@ -52,7 +52,7 @@ $(METADATA): Makefile
 	@echo "Description:     Test for BZ#1264342 (Miscellaneous rh-nginx18 man page issues)" >> $(METADATA)
 	@echo "Type:            Regression" >> $(METADATA)
 	@echo "TestTime:        5m" >> $(METADATA)
-	@echo "RunFor:          to_be_deleted" >> $(METADATA)
+	@echo "RunFor:          nginx" >> $(METADATA)
 	@echo "Requires:        nginx gunzip" >> $(METADATA)
 	@echo "Priority:        Normal" >> $(METADATA)
 	@echo "License:         GPLv2+" >> $(METADATA)
