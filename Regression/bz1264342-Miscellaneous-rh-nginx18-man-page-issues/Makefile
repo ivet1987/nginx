@@ -52,7 +52,7 @@ $(METADATA): Makefile
 	@echo "Description:     Test for BZ#1264342 (Miscellaneous rh-nginx18 man page issues)" >> $(METADATA)
 	@echo "Type:            Regression" >> $(METADATA)
 	@echo "TestTime:        5m" >> $(METADATA)
-	@echo "RunFor:          nginx" >> $(METADATA)
+	@echo "RunFor:          to_be_deleted" >> $(METADATA)
 	@echo "Requires:        nginx gunzip" >> $(METADATA)
 	@echo "Priority:        Normal" >> $(METADATA)
 	@echo "License:         GPLv2+" >> $(METADATA)
