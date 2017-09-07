@@ -1,0 +1,3 @@
+PURPOSE of /CoreOS/nginx/Sanity/ALPN_with_http2
+Description: smoke test for ALPN and http2 support
+Author: Ondrej Ptak <optak@redhat.com>
