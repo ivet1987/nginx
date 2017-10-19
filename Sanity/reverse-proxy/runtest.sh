@@ -95,7 +95,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartCleanup
-        rlRun "rlFileRestore" 0,2
+        rlRun "rlFileRestore" 0,8
         rlSEPortRestore
         rlAssertExists "$nginxROOTDIR" && {
             for DIR in default images scripts; do
