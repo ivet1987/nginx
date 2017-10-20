@@ -82,7 +82,7 @@ rlJournalStart
         rlRun "wait" 0 "Waiting for ab to finish"
 
         for LOG in first.log second.log third.log; do
-            rlAssertGrep "Complete requests:\s*$NUM_REQ" $LOG
+            rlAssertGrep "Complete requests:\s*$NUM_REQ" $LOG || grep "Complete requests" $LOG
         done
 
         if [[ -s $ERR_LOG ]]; then
