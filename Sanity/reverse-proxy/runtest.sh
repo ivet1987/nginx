@@ -53,7 +53,7 @@ rlJournalStart
         rlRun "pushd $TmpDir"
         rlRun "nginxVarExpand $nginxCONFDIR/conf.d/nginx.conf" 0 \
               "Expanding variables in nginx.conf"
-        for PORT in 8080 8081 8082 8083; do
+        for PORT in 9080 9081 9082 9083; do
             rlSEPortAdd tcp $PORT http_port_t
         done
 
@@ -66,9 +66,9 @@ rlJournalStart
         rlRun "nginxStart" 0 "Starting nginx server"
 
         # Test if the reverse proxy correctly resolves paths based on URI
-        rlRun "wget http://$(hostname):8080/test.html"
-        rlRun "wget http://$(hostname):8080/img/test.png"
-        rlRun "wget http://$(hostname):8080/test.js"
+        rlRun "wget http://$(hostname):9080/test.html"
+        rlRun "wget http://$(hostname):9080/img/test.png"
+        rlRun "wget http://$(hostname):9080/test.js"
 
         # A simple stress test with concurrency. Note that the IP 127.0.0.1 is
         # used instead of hostname here because of a bug in ab (BZ#1125269)
@@ -76,9 +76,9 @@ rlJournalStart
         NUM_REQ=500000
         CONC=10
 
-        rlRun "ab -n $NUM_REQ -c $CONC http://127.0.0.1:8080/test.html | tee first.log &"
-        rlRun "ab -n $NUM_REQ -c $CONC http://127.0.0.1:8080/img/test.png | tee second.log &"
-        rlRun "ab -n $NUM_REQ -c $CONC http://127.0.0.1:8080/test.js | tee third.log &"
+        rlRun "ab -n $NUM_REQ -c $CONC http://127.0.0.1:9080/test.html | tee first.log &"
+        rlRun "ab -n $NUM_REQ -c $CONC http://127.0.0.1:9080/img/test.png | tee second.log &"
+        rlRun "ab -n $NUM_REQ -c $CONC http://127.0.0.1:9080/test.js | tee third.log &"
         rlRun "wait" 0 "Waiting for ab to finish"
 
         for LOG in first.log second.log third.log; do
