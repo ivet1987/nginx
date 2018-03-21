@@ -158,8 +158,6 @@ true <<'=cut'
 Starts nginx server and create file $nginxROOTDIR/nginx_tesitfile
 containging 'ok' string.
 
-This function disable mod_ssl and mod_nss if available.
-
 =head2 nginxStop
 
 Stop nginx server and delete file $nginxROOTDIR/nginx_testfile.
@@ -482,7 +480,7 @@ nginxLibraryLoaded() {
 
     rlAssertExists $nginxROOTDIR
     rlAssertRpm $nginxHTTPD || ret=1
-    # TODO: read paths to ssl certificates vrom config files?
+    # TODO: read paths to ssl certificates from config files?
 
     # Remember the path to the library in order to comfortably access the file
     # ssl.conf later (and possibly other files too in the future)
