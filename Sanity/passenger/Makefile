@@ -53,7 +53,7 @@ $(METADATA): Makefile
 	@echo "Type:            Sanity" >> $(METADATA)
 	@echo "TestTime:        10m" >> $(METADATA)
 	@echo "RunFor:          nginx" >> $(METADATA)
-	@echo "Requires:        nginx16 passenger ruby" >> $(METADATA)
+	@echo "Requires:        nginx passenger ruby" >> $(METADATA)
 	@echo "RhtsRequires:    library(nginx/nginx)" >> $(METADATA)
 	@echo "RhtsRequires:    library(selinux-policy/common)" >> $(METADATA)
 	@echo "Priority:        Normal" >> $(METADATA)
