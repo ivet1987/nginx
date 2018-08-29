@@ -61,7 +61,12 @@ rlJournalStart
         rlRun "mkdir ${DOCROOT}"
         rlRun "echo '<?php echo phpinfo();' > ${DOCROOT}/info.php"
 
-        rlRun "cp nginx.conf ${MYCONF}"
+	if rlIsRHEL 8;then
+            rlRun "cp nginx-rhel8.conf ${MYCONF}"
+
+        else
+            rlRun "cp nginx.conf ${MYCONF}"
+        fi
         rlRun "sed -i 's|ROOTDIR|$nginxROOTDIR|' ${MYCONF}"
 
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"

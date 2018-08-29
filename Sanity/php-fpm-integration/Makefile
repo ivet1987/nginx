@@ -29,7 +29,7 @@ export TESTVERSION=1.0
 
 BUILT_FILES=
 
-FILES=$(METADATA) runtest.sh Makefile PURPOSE nginx.conf
+FILES=$(METADATA) runtest.sh Makefile PURPOSE nginx.conf nginx-rhel8.conf
 
 .PHONY: all install download clean
 
