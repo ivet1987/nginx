@@ -53,7 +53,7 @@ $(METADATA): Makefile
 	@echo "Type:            Sanity" >> $(METADATA)
 	@echo "TestTime:        30m" >> $(METADATA)
 	@echo "RunFor:          nginx" >> $(METADATA)
-	@echo "Requires:        nginx httpd-tools" >> $(METADATA)
+	@echo "Requires:        nginx httpd-tools wget" >> $(METADATA)
 	@echo "RhtsRequires:    library(nginx/nginx)" >> $(METADATA)
 	@echo "RhtsRequires:    library(selinux-policy/common)" >> $(METADATA)
 	@echo "Priority:        Normal" >> $(METADATA)

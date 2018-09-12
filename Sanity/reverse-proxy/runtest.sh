@@ -56,6 +56,7 @@ rlJournalStart
         for PORT in 9080 9081 9082 9083; do
             rlSEPortAdd tcp $PORT http_port_t
         done
+	rlSEBooleanOn httpd_can_network_connect
 
         ERR_LOG=$nginxLOGDIR/error.log
         rlRun "rlFileBackup $nginxLOGDIR/error.log" 0,8
@@ -64,6 +65,7 @@ rlJournalStart
 
     rlPhaseStartTest
         rlRun "nginxStart" 0 "Starting nginx server"
+	sleep 3
 
         # Test if the reverse proxy correctly resolves paths based on URI
         rlRun "wget http://$(hostname):9080/test.html"
@@ -95,8 +97,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartCleanup
-        rlRun "rlFileRestore" 0,8
+        rlRun "rlFileRestore" 0,8,16
         rlSEPortRestore
+	rlSEBooleanRestore httpd_can_network_connect
         rlAssertExists "$nginxROOTDIR" && {
             for DIR in default images scripts; do
                 rlRun "rm -r $nginxROOTDIR/$DIR/" 0 \
