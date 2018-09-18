@@ -37,7 +37,7 @@ SSLURL=${LOOKASIDE}/${SSLTARBALL}
 
 WHITELIST=$PWD/whitelist.txt
 
-PACKAGES=${PACKAGES:-nginx14-nginx}
+PACKAGES=${PACKAGES:-nginx}
 
 rlJournalStart
     rlPhaseStartSetup
