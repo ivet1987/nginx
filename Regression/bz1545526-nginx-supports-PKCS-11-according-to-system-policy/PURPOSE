@@ -1,0 +1,5 @@
+PURPOSE of /CoreOS/nginx/Regression/bz1545526-nginx-supports-PKCS-11-according-to-system-policy
+Description: Test for BZ#1545526 (nginx supports PKCS#11 according to system policy)
+Author: Jan Houska <jhouska@redhat.com>
+Bug summary: nginx supports PKCS#11 according to system policy
+Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1545526

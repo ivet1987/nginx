@@ -1,0 +1,153 @@
+#!/bin/bash
+# vim: dict+=/usr/share/beakerlib/dictionary.vim cpt=.,w,b,u,t,i,k
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+#   runtest.sh of /CoreOS/nginx/Regression/bz1545526-nginx-supports-PKCS-11-according-to-system-policy
+#   Description: Test for BZ#1545526 (nginx supports PKCS#11 according to system policy)
+#   Author: Jan Houska <jhouska@redhat.com>  adapted from
+#   TC#571234 /CoreOS/p11-kit/Integration/httpd-pkcs11-uri of <szidek@redhat.com>
+#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+#   Copyright (c) 2018 Red Hat, Inc.
+#
+#   This program is free software: you can redistribute it and/or
+#   modify it under the terms of the GNU General Public License as
+#   published by the Free Software Foundation, either version 2 of
+#   the License, or (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be
+#   useful, but WITHOUT ANY WARRANTY; without even the implied
+#   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+#   PURPOSE.  See the GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program. If not, see http://www.gnu.org/licenses/.
+#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Include Beaker environment
+. /usr/bin/rhts-environment.sh || exit 1
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+
+PACKAGES=${PACKAGES:-"nginx"}
+
+PIN=123456
+TOKENLABEL="softhsm"
+LABEL="nginx"
+
+
+rlJournalStart
+    rlPhaseStartSetup
+
+        rlRun "rlImport nginx/nginx" || rlDie
+        rlRun "rlImport openssl/certgen" || rlDie
+        rlRun "rlImport selinux-policy/common" || rlDie
+
+        nginxCONFDIR="${nginxCONFDIR:-/etc/nginx}"
+        nginxHTTPD="${nginxHTTPD:-nginx}"
+        nginxROOTDIR=${nginxROOTDIR:-"/usr/share/nginx/html"}
+
+        rlAssertRpm --all
+
+        if rlIsRHEL 8; then
+            rlRun "yum install -y --enablerepo=rhel-buildroot softhsm"
+        fi
+
+        rlRun "rlFileBackup --namespace softhsm-namesp --clean /var/lib/softhsm/tokens/"
+        rlRun "rlFileBackup --namespace nginx-root-namesp  --clean $nginxROOTDIR"
+        rlRun "rlFileBackup --namespace nginx-conf-namesp  $nginxCONFDIR"
+
+
+        ## preparing configuration
+
+        echo "Testing page" > ${nginxROOTDIR}/index.html
+        rlRun "cp bz1545526.conf ${nginxCONFDIR}/conf.d"
+
+
+        ## Selinux permit ports:
+         rlRun "rlSEPortAdd tcp 8070-8071 http_port_t" 0 "Allowing ports 8070-8071"
+
+        # This adds apache to "ods" group allowing it to modify /var/lib/softhsm/tokens
+        # This must be done only for testing purposes
+        rlRun "usermod -a -G ods nginx"
+
+        rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
+        rlRun "pushd $TmpDir"
+
+        # Change SELinux label to allow nginx to create tokens/keys
+        rlRun "chcon -R -t httpd_sys_rw_content_t /var/lib/softhsm/tokens"
+
+        nginxdir=$nginxCONFDIR/certificates
+        rlRun "mkdir $nginxdir"
+        rlRun "pushd $nginxdir"
+        rlRun "x509KeyGen ca"
+        rlRun "x509SelfSign ca"
+        rlRun "x509KeyGen localhost"
+        rlRun "x509CertSign --CA ca localhost"
+        rlRun "chown -R nginx:nginx *"
+
+        serverkey="$PWD/$(x509Key localhost)"
+        servercert="$PWD/$(x509Cert localhost)"
+        cacert="$PWD/$(x509Cert ca)"
+        module=""
+        [[ -n $PROVIDER ]] && module="--module $PROVIDER"
+        rlRun "runuser -u nginx -- softhsm2-util --init-token $module --free --label $TOKENLABEL --pin $PIN --so-pin $PIN"
+        rlRun "popd"
+
+    rlPhaseEnd
+
+
+     rlPhaseStartTest "Import key and cert to softhsm token"
+
+        rlRun -s "runuser -u nginx -- p11tool --list-tokens"
+        rlAssertGrep "$TOKENLABEL" $rlRun_LOG
+        TOKENURL=$(cat $rlRun_LOG |grep "URL:.*token=$TOKENLABEL" |awk '{ print $NF }')
+        provider=""
+        [[ -n $PROVIDER ]] && provider="--provider $PROVIDER"
+
+        ## write and list key
+        rlRun "runuser -u nginx -- p11tool $provider --write --load-privkey $serverkey --label $LABEL --login --set-pin $PIN $TOKENURL"
+        rlRun -s "runuser -u nginx -- p11tool $provider --login --set-pin $PIN --list-keys $TOKENURL"
+        rlAssertGrep "URL:.*object=$LABEL;type=private" $rlRun_LOG
+        KEYURL=$(cat $rlRun_LOG |grep "URL:.*object=$LABEL;type=private" |awk '{ print $NF }')?pin-value=$PIN
+
+        ## write and list cert
+        rlRun "runuser -u nginx -- p11tool $provider --write --load-certificate $servercert --label $LABEL --login --set-pin $PIN $TOKENURL"
+        rlRun -s "runuser -u nginx -- p11tool $provider --list-all-certs $TOKENURL"
+        rlAssertGrep "URL:.*object=$LABEL;type=cert" $rlRun_LOG
+        CERTURL=$(cat $rlRun_LOG |grep "URL:.*object=$LABEL;type=cert" |awk '{ print $NF }')
+
+        rm -f $rlRun_LOG
+
+    rlPhaseEnd
+
+
+    rlPhaseStartTest  "Test nginx"
+
+        rlRun "rlServiceStart $nginxHTTPD"
+        rlRun "sleep 2"
+
+        rlRun "curl -v -sS --cacert $cacert https://localhost:8070  &> output8070" 35
+        rlAssertGrep "error:1408F10B:SSL routines:ssl3_get_record:wrong version number" output8070 || (echo "--------------output8070--"; cat output8070; echo "-------------/output8070--";)
+        rlRun "curl -v -sS --cacert $cacert https://localhost:8071 &> output8071"
+        rlAssertGrep "Testing page" output8071 || (echo "--------------output8071--"; cat output8071; echo "-------------/output8071--";)
+
+    rlPhaseEnd
+
+
+    rlPhaseStartCleanup
+
+        rlRun "rlServiceStop $nginxHTTPD"
+        rlRun "rm -fr $nginxdir" 0 "Removing certificates"
+        rlRun "rm -f ${nginxCONFDIR}/conf.d/bz1545526.conf" 0 "Removing nginx config file"
+        rlRun "rlFileRestore --namespace nginx-root-namesp" 0 "Restoring files"
+        rlRun "rlFileRestore --namespace nginx-conf-namesp" 0 "Restoring files"
+        rlRun "rlFileRestore --namespace softhsm-namesp" 0 "Restoring files"
+        rlRun "popd"
+        rlRun "rm -r $TmpDir" 0 "Removing tmp directory"
+        rlRun "rlSEPortRestore" 0 "Restoring selinux ports"
+
+    rlPhaseEnd
+rlJournalPrintText
+rlJournalEnd
