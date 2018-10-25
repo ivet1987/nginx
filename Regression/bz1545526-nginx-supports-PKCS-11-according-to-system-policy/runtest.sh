@@ -50,9 +50,8 @@ rlJournalStart
         rlRun "rlFileBackup --namespace nginx-root-namesp  --clean $nginxROOTDIR"
         rlRun "rlFileBackup --namespace nginx-conf-namesp  $nginxCONFDIR"
 
-
         ## preparing configuration
-        echo "Testing page" > ${nginxROOTDIR}/index.html
+        echo "Testing PKCS #11 support" > ${nginxROOTDIR}/index.html
         rlRun "cp bz1545526.conf ${nginxSSLCONF}"
 
         # This adds nginx to "ods" group allowing it to modify /var/lib/softhsm/tokens
@@ -94,10 +93,10 @@ rlJournalStart
         KEYURL=$(cat $rlRun_LOG |grep "URL:.*object=$LABEL;type=private" |awk '{ print $NF }')?pin-value=$PIN
 
         ## write and list cert
-        rlRun "runuser -u nginx -- p11tool --write --load-certificate $servercert --label $LABEL --login --set-pin $PIN $TOKENURL"
-        rlRun -s "runuser -u nginx -- p11tool --list-all-certs $TOKENURL"
-        rlAssertGrep "URL:.*object=$LABEL;type=cert" $rlRun_LOG
-        CERTURL=$(cat $rlRun_LOG |grep "URL:.*object=$LABEL;type=cert" |awk '{ print $NF }')
+        #rlRun "runuser -u nginx -- p11tool --write --load-certificate $servercert --label $LABEL --login --set-pin $PIN $TOKENURL"
+        #rlRun -s "runuser -u nginx -- p11tool --list-all-certs $TOKENURL"
+        #rlAssertGrep "URL:.*object=$LABEL;type=cert" $rlRun_LOG
+        #CERTURL=$(cat $rlRun_LOG |grep "URL:.*object=$LABEL;type=cert" |awk '{ print $NF }')
 
         rm -f $rlRun_LOG
     rlPhaseEnd
@@ -111,7 +110,8 @@ rlJournalStart
         rlRun "rlServiceStart $nginxHTTPD"
         rlRun "rlWaitForSocket 443 -t 5"
 
-        rlRun "curl -v -sS --cacert $cacert https://localhost" 0
+        rlRun "curl -v -sS --cacert $cacert https://localhost | tee  output.txt" 0
+        rlAssertGrep "Testing PKCS #11 support" output.txt
     rlPhaseEnd
 
 
