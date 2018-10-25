@@ -39,10 +39,8 @@ LABEL="nginx"
 
 rlJournalStart
     rlPhaseStartSetup
-
         rlRun "rlImport nginx/nginx" || rlDie
         rlRun "rlImport openssl/certgen" || rlDie
-        rlRun "rlImport selinux-policy/common" || rlDie
 
         rlAssertRpm --all
 
@@ -59,10 +57,6 @@ rlJournalStart
 
         echo "Testing page" > ${nginxROOTDIR}/index.html
         rlRun "cp bz1545526.conf ${nginxCONFDIR}/conf.d"
-
-
-        ## Selinux permit ports:
-         rlRun "rlSEPortAdd tcp 8070-8071 http_port_t" 0 "Allowing ports 8070-8071"
 
         # This adds apache to "ods" group allowing it to modify /var/lib/softhsm/tokens
         # This must be done only for testing purposes
@@ -90,12 +84,10 @@ rlJournalStart
         [[ -n $PROVIDER ]] && module="--module $PROVIDER"
         rlRun "runuser -u nginx -- softhsm2-util --init-token $module --free --label $TOKENLABEL --pin $PIN --so-pin $PIN"
         rlRun "popd"
-
     rlPhaseEnd
 
 
      rlPhaseStartTest "Import key and cert to softhsm token"
-
         rlRun -s "runuser -u nginx -- p11tool --list-tokens"
         rlAssertGrep "$TOKENLABEL" $rlRun_LOG
         TOKENURL=$(cat $rlRun_LOG |grep "URL:.*token=$TOKENLABEL" |awk '{ print $NF }')
@@ -115,25 +107,17 @@ rlJournalStart
         CERTURL=$(cat $rlRun_LOG |grep "URL:.*object=$LABEL;type=cert" |awk '{ print $NF }')
 
         rm -f $rlRun_LOG
-
     rlPhaseEnd
 
 
     rlPhaseStartTest  "Test nginx"
-
         rlRun "rlServiceStart $nginxHTTPD"
         rlRun "sleep 2"
-
-        rlRun "curl -v -sS --cacert $cacert https://localhost:8070  &> output8070" 35
-        rlAssertGrep "error:1408F10B:SSL routines:ssl3_get_record:wrong version number" output8070 || (echo "--------------output8070--"; cat output8070; echo "-------------/output8070--";)
-        rlRun "curl -v -sS --cacert $cacert https://localhost:8071 &> output8071"
-        rlAssertGrep "Testing page" output8071 || (echo "--------------output8071--"; cat output8071; echo "-------------/output8071--";)
-
+        rlRun "curl -v -sS --cacert $cacert https://localhost" 0
     rlPhaseEnd
 
 
     rlPhaseStartCleanup
-
         rlRun "rlServiceStop $nginxHTTPD"
         rlRun "rm -fr $nginxdir" 0 "Removing certificates"
         rlRun "rm -f ${nginxCONFDIR}/conf.d/bz1545526.conf" 0 "Removing nginx config file"
@@ -142,8 +126,6 @@ rlJournalStart
         rlRun "rlFileRestore --namespace softhsm-namesp" 0 "Restoring files"
         rlRun "popd"
         rlRun "rm -r $TmpDir" 0 "Removing tmp directory"
-        rlRun "rlSEPortRestore" 0 "Restoring selinux ports"
-
     rlPhaseEnd
 rlJournalPrintText
 rlJournalEnd
