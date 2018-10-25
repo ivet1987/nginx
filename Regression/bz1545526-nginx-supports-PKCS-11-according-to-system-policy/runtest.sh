@@ -59,7 +59,7 @@ rlJournalStart
         echo "Testing page" > ${nginxROOTDIR}/index.html
         rlRun "cp bz1545526.conf ${nginxSSLCONF}"
 
-        # This adds apache to "ods" group allowing it to modify /var/lib/softhsm/tokens
+        # This adds nginx to "ods" group allowing it to modify /var/lib/softhsm/tokens
         # This must be done only for testing purposes
         rlRun "usermod -a -G ods nginx"
 
