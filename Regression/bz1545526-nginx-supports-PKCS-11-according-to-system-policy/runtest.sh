@@ -44,6 +44,8 @@ rlJournalStart
 
         rlAssertRpm --all
 
+        nginxSSLCONF=${nginxCONFDIR}/conf.d/bz1545526.conf
+
         if rlIsRHEL 8; then
             rlRun "yum install -y --enablerepo=rhel-buildroot softhsm"
         fi
@@ -54,9 +56,8 @@ rlJournalStart
 
 
         ## preparing configuration
-
         echo "Testing page" > ${nginxROOTDIR}/index.html
-        rlRun "cp bz1545526.conf ${nginxCONFDIR}/conf.d"
+        rlRun "cp bz1545526.conf ${nginxSSLCONF}"
 
         # This adds apache to "ods" group allowing it to modify /var/lib/softhsm/tokens
         # This must be done only for testing purposes
@@ -113,6 +114,7 @@ rlJournalStart
     rlPhaseStartTest  "Test nginx"
         rlRun "rlServiceStart $nginxHTTPD"
         rlRun "rlWaitForSocket 443 -t 5"
+
         rlRun "curl -v -sS --cacert $cacert https://localhost" 0
     rlPhaseEnd
 
@@ -120,7 +122,7 @@ rlJournalStart
     rlPhaseStartCleanup
         rlRun "rlServiceStop $nginxHTTPD"
         rlRun "rm -fr $nginxdir" 0 "Removing certificates"
-        rlRun "rm -f ${nginxCONFDIR}/conf.d/bz1545526.conf" 0 "Removing nginx config file"
+        rlRun "rm -f ${nginxSSLCONF}" 0 "Removing nginx ssl config file"
         rlRun "rlFileRestore --namespace nginx-root-namesp" 0 "Restoring files"
         rlRun "rlFileRestore --namespace nginx-conf-namesp" 0 "Restoring files"
         rlRun "rlFileRestore --namespace softhsm-namesp" 0 "Restoring files"
