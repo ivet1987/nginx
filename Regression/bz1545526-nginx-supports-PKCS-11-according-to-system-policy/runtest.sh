@@ -44,10 +44,6 @@ rlJournalStart
         rlRun "rlImport openssl/certgen" || rlDie
         rlRun "rlImport selinux-policy/common" || rlDie
 
-        nginxCONFDIR="${nginxCONFDIR:-/etc/nginx}"
-        nginxHTTPD="${nginxHTTPD:-nginx}"
-        nginxROOTDIR=${nginxROOTDIR:-"/usr/share/nginx/html"}
-
         rlAssertRpm --all
 
         if rlIsRHEL 8; then
