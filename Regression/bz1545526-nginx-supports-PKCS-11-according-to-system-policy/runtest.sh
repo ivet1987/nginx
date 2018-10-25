@@ -46,10 +46,6 @@ rlJournalStart
 
         nginxSSLCONF=${nginxCONFDIR}/conf.d/bz1545526.conf
 
-        if rlIsRHEL 8; then
-            rlRun "yum install -y --enablerepo=rhel-buildroot softhsm"
-        fi
-
         rlRun "rlFileBackup --namespace softhsm-namesp --clean /var/lib/softhsm/tokens/"
         rlRun "rlFileBackup --namespace nginx-root-namesp  --clean $nginxROOTDIR"
         rlRun "rlFileBackup --namespace nginx-conf-namesp  $nginxCONFDIR"
