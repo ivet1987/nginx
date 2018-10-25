@@ -112,7 +112,7 @@ rlJournalStart
 
     rlPhaseStartTest  "Test nginx"
         rlRun "rlServiceStart $nginxHTTPD"
-        rlRun "sleep 2"
+        rlRun "rlWaitForSocket 443 -t 5"
         rlRun "curl -v -sS --cacert $cacert https://localhost" 0
     rlPhaseEnd
 
