@@ -112,6 +112,10 @@ rlJournalStart
 
 
     rlPhaseStartTest  "Test nginx"
+        # Configure nginx to use certificate key stored in HSM (softhsm)
+        #rlRun "sed -i 's/ssl_certificate .*\$/ssl_certificate \"$CERTURL\";/' $nginxSSLCONF"
+        rlRun "sed -i 's/ssl_certificate_key.*\$/ssl_certificate_key \"engine:pkcs11:$KEYURL\";/' $nginxSSLCONF"
+	rlRun "cat $nginxSSLCONF" 0 "Show ssl config file"
         rlRun "rlServiceStart $nginxHTTPD"
         rlRun "rlWaitForSocket 443 -t 5"
 
