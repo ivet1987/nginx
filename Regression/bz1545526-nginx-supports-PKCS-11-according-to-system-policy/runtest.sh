@@ -81,9 +81,7 @@ rlJournalStart
         serverkey="$PWD/$(x509Key localhost)"
         servercert="$PWD/$(x509Cert localhost)"
         cacert="$PWD/$(x509Cert ca)"
-        module=""
-        [[ -n $PROVIDER ]] && module="--module $PROVIDER"
-        rlRun "runuser -u nginx -- softhsm2-util --init-token $module --free --label $TOKENLABEL --pin $PIN --so-pin $PIN"
+        rlRun "runuser -u nginx -- softhsm2-util --init-token --free --label $TOKENLABEL --pin $PIN --so-pin $PIN"
         rlRun "popd"
     rlPhaseEnd
 
@@ -92,18 +90,16 @@ rlJournalStart
         rlRun -s "runuser -u nginx -- p11tool --list-tokens"
         rlAssertGrep "$TOKENLABEL" $rlRun_LOG
         TOKENURL=$(cat $rlRun_LOG |grep "URL:.*token=$TOKENLABEL" |awk '{ print $NF }')
-        provider=""
-        [[ -n $PROVIDER ]] && provider="--provider $PROVIDER"
 
         ## write and list key
-        rlRun "runuser -u nginx -- p11tool $provider --write --load-privkey $serverkey --label $LABEL --login --set-pin $PIN $TOKENURL"
-        rlRun -s "runuser -u nginx -- p11tool $provider --login --set-pin $PIN --list-keys $TOKENURL"
+        rlRun "runuser -u nginx -- p11tool --write --load-privkey $serverkey --label $LABEL --login --set-pin $PIN $TOKENURL"
+        rlRun -s "runuser -u nginx -- p11tool --login --set-pin $PIN --list-keys $TOKENURL"
         rlAssertGrep "URL:.*object=$LABEL;type=private" $rlRun_LOG
         KEYURL=$(cat $rlRun_LOG |grep "URL:.*object=$LABEL;type=private" |awk '{ print $NF }')?pin-value=$PIN
 
         ## write and list cert
-        rlRun "runuser -u nginx -- p11tool $provider --write --load-certificate $servercert --label $LABEL --login --set-pin $PIN $TOKENURL"
-        rlRun -s "runuser -u nginx -- p11tool $provider --list-all-certs $TOKENURL"
+        rlRun "runuser -u nginx -- p11tool --write --load-certificate $servercert --label $LABEL --login --set-pin $PIN $TOKENURL"
+        rlRun -s "runuser -u nginx -- p11tool --list-all-certs $TOKENURL"
         rlAssertGrep "URL:.*object=$LABEL;type=cert" $rlRun_LOG
         CERTURL=$(cat $rlRun_LOG |grep "URL:.*object=$LABEL;type=cert" |awk '{ print $NF }')
 
