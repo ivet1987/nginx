@@ -41,7 +41,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest
-        rlRun "ls -d --scontext \$(rpm -ql $nginxHTTPD) > files_context.log"\
+        rlRun "ls -dZ \$(rpm -ql $nginxHTTPD) > files_context.log"\
             0 "getting selinux context of rpm's files"
         rlAssertNotGrep ":initrc_exec_t" files_context.log
         if rlIsRHEL 6; then
@@ -61,7 +61,9 @@ rlJournalStart
         fi
 
         rlAssertGrep ":httpd_var_lib_t.*$nginxLIBDIR" files_context.log
-        rlAssertGrep ":httpd_var_run_t.*$nginxRUNDIR" files_context.log
+	if rlIsRHEL '<8'; then
+            rlAssertGrep ":httpd_var_run_t.*$nginxRUNDIR" files_context.log
+        fi
         cat files_context.log
     rlPhaseEnd
 
