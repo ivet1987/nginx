@@ -42,9 +42,13 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest
+        if [ "$nginxCOLLECTION" != 0 ]; then
         rlRun "scl enable $nginxCOLLECTION_NAME 'man nginx > nginx_man'" 0\
-            " getting content of man page"
-        rlAssertNotGrep "%%.*%%" nginx_man
+            "Getting content of man page"
+	else
+        rlRun "man nginx > nginx_man" 0   "Getting content of man page"
+	fi
+        rlAssertNotGrep "%%.*%%" nginx_man || grep "%%.*%%" nginx_man
     rlPhaseEnd
 
     rlPhaseStartCleanup
