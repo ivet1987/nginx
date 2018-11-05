@@ -54,6 +54,7 @@ $(METADATA): Makefile
 	@echo "Type:            Sanity" >> $(METADATA)
 	@echo "TestTime:        1m" >> $(METADATA)
 	@echo "RunFor:          nginx" >> $(METADATA)
+	@echo "Requires:        nginx" >> $(METADATA)
 	@echo "RhtsRequires:    library(nginx/nginx)" >> $(METADATA)
 	@echo "Priority:        Normal" >> $(METADATA)
 	@echo "License:         GPLv2" >> $(METADATA)
