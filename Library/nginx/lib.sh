@@ -318,7 +318,11 @@ nginxsStart() {
     # expand variables $nginxSSL_CRT and $nginxKEY in ssl.conf and apply the
     # new configuration
     local nginxSSLCONF=$nginxCONFDIR/conf.d/ssl.conf
-    rlRun "cp $nginxLIBDIR/ssl.conf $nginxSSLCONF" 0 "Copying ssl.conf"
+    if rlIsRHEL '<=7'; then
+        rlRun "cp $nginxLIBDIR/ssl.conf $nginxSSLCONF" 0 "Copying ssl.conf"
+    else #rhel-8+
+        rlRun "cp $nginxLIBDIR/ssl-rhel8.conf $nginxSSLCONF" 0 "Copying rhel8 ssl.conf"
+    fi
     rlRun "nginxVarExpand $nginxSSLCONF"
 
     rlRun "rlServiceStart $nginxHTTPD" 0 "starting nginx service"
