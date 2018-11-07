@@ -349,7 +349,7 @@ nginxsStatus() {
     local ret=0
     rlRun "tmpdir=`mktemp -d`" 0 "create tmp dir" || return 1
     rlRun "pushd $tmpdir"
-    rlRun "wget --timeout=10 -t 2 -q https://`hostname`/nginx_testfile" 0 "download test file" || ret=1
+    rlRun "wget --timeout=10 -t 2 --ca-certificate $nginxSSL_PEM https://`hostname`/nginx_testfile" 0 "download test file" || ret=1
     rlAssertGrep ok nginx_testfile || ret=1
     rlRun "popd"
     rlRun "rm -rf $tmpdir" 0 "remove tmp dir"
