@@ -285,28 +285,23 @@ nginxsStart() {
     rlRun "pushd $tmpdir"
 
     # prepare certificates
-    rlRun "openssl req -new -x509 -days 365 -out ca.crt -keyout ca.key \
-           -passout pass:nothing -subj '/O=test/CN=test'" \
-          0 "Creating self-signed CA key & certificate"
-    rlRun "openssl req -new -keyout server.key -out server.csr \
-           -passout pass:nothing -subj '/O=$nginxSSL_O/CN=$nginxSSL_CN'" \
-          0 "Creating server key & certificate request"
-    rlRun "openssl x509 -req -days 365 -in server.csr -CA ca.crt -CAkey ca.key \
-           -set_serial 04 -out server.crt -passin pass:nothing" \
-          0 "Signing server certificate"
-    rlRun "openssl rsa -in server.key -out server.key -passin pass:nothing" \
-          0 "Removing pass phrase from server key"
+    rlRun "x509KeyGen ca" 0 "Creating CA key & certificate"
+    rlRun "x509KeyGen server" 0 "Creating server key & certificate"
+    rlRun "x509SelfSign ca --DN 'CN=test' --DN 'O=test'" \
+        0 "Self-signing CA certificate"
+    rlRun "x509CertSign --CA ca server --DN 'CN=$nginxSSL_CN' --DN 'O=$nginxSSL_O'" \
+        0 "Signing server certificate"
 
     # backup certificates
     rlFileBackup --namespace nginx $nginxSSL_CRT
     rlFileBackup --namespace nginx $nginxSSL_KEY
 
     # copy certificates
-    rlRun "cat server.crt > $nginxSSL_CRT"
-    rlRun "cat server.key > $nginxSSL_KEY"
+    rlRun "cp -f $(x509Cert server) $nginxSSL_CRT"
+    rlRun "cp -f $(x509Key server) $nginxSSL_KEY"
 
     # copy ca into nginx rootdir
-    rlRun "cp ca.crt $nginxROOTDIR/" 0 "copy ca.crt into $nginxROOTDIR"
+    rlRun "cp -f $(x509Cert ca) $nginxROOTDIR/ca.crt" 0 "Copy ca.crt into $nginxROOTDIR"
 
     # start server
     rlRun "popd"

@@ -56,6 +56,7 @@ $(METADATA): Makefile
 	@echo "RunFor:          nginx" >> $(METADATA)
 	@echo "Requires:        nginx" >> $(METADATA)
 	@echo "Provides:        library(nginx/nginx)" >> $(METADATA)
+	@echo "RhtsRequires:    library(openssl/certgen)" >> $(METADATA)
 	@echo "Priority:        Normal" >> $(METADATA)
 	@echo "License:         GPLv2" >> $(METADATA)
 	@echo "Confidential:    no" >> $(METADATA)
