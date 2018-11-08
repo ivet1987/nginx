@@ -96,12 +96,12 @@ Default value is server's hostname.
 =item nginxSSL_CRT
 
 Path to server certificate (.crt).
-Function nginxsStart will copy a certificate into this location.
+Function nginxSecureStart will copy a certificate into this location.
 
 =item nginxSSL_KEY
 
 Path to private key to server certificate (.key).
-Function nginxsStart will copy a private key into this location.
+Function nginxSecureStart will copy a private key into this location.
 
 =item nginxSSL_PEM
 
@@ -169,15 +169,15 @@ by downloading http://SERVER_HOSTNAME/nginx_tesfile.
 
 Returns 0 when nginx_testfile is successfully downloaded, 1 otherwise.
 
-=head2 nginxsStart
+=head2 nginxSecureStart
 
 Create self-signed SSL certificate, copy it into $nginxROOTDIR, create the file $nginxROOTDIR/nginx_testfile and start nginx service (restart if running) configured with HTTPS support.
 
-=head2 nginxsStop
+=head2 nginxSecureStop
 
-Stop nginx service, remove $nginxROOTDIR/nginx_testfile and restore SSL certificate file to the original state before the last nginxsStart call.
+Stop nginx service, remove $nginxROOTDIR/nginx_testfile and restore SSL certificate file to the original state before the last nginxSecureStart call.
 
-=head2 nginxsStatus
+=head2 nginxSecureStatus
 
 Check if nginx HTTPS server is running normally by downloading file https://SERVER_HOSTNAME/nginx_testfile.
 
@@ -278,6 +278,11 @@ nginxStatus() {
 }
 
 nginxsStart() {
+    rlLogInfo "nginxsStart function is deprecated. Use nginxSecureStart instead."
+    nginxSecureStart
+}
+
+nginxSecureStart() {
     __nginxKillNginx
 
     local tmpdir
@@ -324,6 +329,11 @@ nginxsStart() {
 }
 
 nginxsStop() {
+    rlLogInfo "nginxsStop function is deprecated. Use nginxSecureStop instead."
+    nginxSecureStop
+}
+
+nginxSecureStop() {
     rlRun "rlServiceStop $nginxHTTPD" 0 "stopping nginx service"
 
     # remove created files
@@ -340,6 +350,11 @@ nginxsStop() {
 }
 
 nginxsStatus() {
+    rlLogInfo "nginxsStatus function is deprecated. Use nginxSecureStatus instead."
+    nginxSecureStatus
+}
+
+nginxSecureStatus() {
     local tmpdir
     local ret=0
     rlRun "tmpdir=`mktemp -d`" 0 "create tmp dir" || return 1
