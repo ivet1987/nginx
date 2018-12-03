@@ -95,7 +95,7 @@ rlJournalStart
         rlLog "PHP version from php command: $PHPVER"
         rlLog "PHP version from downloaded page: $PHPVER2"
 
-        rlRun "ab -c 20 -n 10000 $PHPURL"
+        rlRun "ab -c 10 -n 10000 $PHPURL"
 
         rlAssertGrep "/info.php" "$nginxLOGDIR/access.log"
 
