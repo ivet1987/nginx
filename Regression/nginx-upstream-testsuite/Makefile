@@ -17,7 +17,7 @@ export TESTVERSION=1.0
 
 BUILT_FILES=
 
-FILES=$(METADATA) runtest.sh Makefile PURPOSE whitelist.txt Config.pm
+FILES=$(METADATA) runtest.sh Makefile PURPOSE whitelist.txt Config.pm Nginx.pm
 
 .PHONY: all install download clean
 
@@ -42,8 +42,8 @@ $(METADATA): Makefile
 	@echo "TestTime:        10m" >> $(METADATA)
 	@echo "RunFor:          nginx" >> $(METADATA)
 	@echo "Requires:        nginx" >> $(METADATA)
-	@echo "Requires:        perl-Test-Simple perl-Test-Harness perl-CPAN perl-Module-Build perl-Net-SSLeay perl-FCGI" >> $(METADATA)
-	@echo "Requires:        python-devel" >> $(METADATA)
+	@echo "Requires:        perl-Test-Simple perl-Test-Harness perl-CPAN perl-Module-Build perl-Net-SSLeay perl-FCGI python2-devel python-devel openssl-devel python2 python3 python" >> $(METADATA)
+	@echo "RhtsRequires:    library(nginx/nginx)" >> $(METADATA)
 	@echo "Priority:        Normal" >> $(METADATA)
 	@echo "License:         BSD" >> $(METADATA)
 	@echo "Confidential:    yes" >> $(METADATA)
