@@ -48,6 +48,7 @@ rlJournalStart
         # Same for IO-Socket-SSL Perl module (we need a newer version that the
         # one currently available in repository, so it has to be installed
         # manually)
+        rlLog "Build IO::Socket::SSL"
         if ! perl -e "use IO::Socket::SSL"; then
             rlRun "git clone https://github.com/noxxi/p5-io-socket-ssl.git"
             rlRun "cd $TmpDir/p5-io-socket-ssl"
@@ -57,11 +58,16 @@ rlJournalStart
         fi
 
         # Same for uWSGI
-        rlRun "cd $TmpDir"
-        rlRun "git clone https://github.com/unbit/uwsgi.git"
-        rlRun "cd $TmpDir/uwsgi"
-        rlRun "make"
-        rlRun "export PATH=$PATH:$(pwd)"
+        rlLog "Build uWSGI"
+        if rlIsRHEL '>=8'; then
+           rlLog "Skipping uWSGI for rhel-8, because the project depends on python2"
+        else
+           rlRun "cd $TmpDir"
+           rlRun "git clone https://github.com/unbit/uwsgi.git"
+           rlRun "cd $TmpDir/uwsgi"
+           rlRun "make"
+           rlRun "export PATH=$PATH:$(pwd)"
+        fi
 
         # Download upstream test suite
         rlRun "cd $TmpDir"
