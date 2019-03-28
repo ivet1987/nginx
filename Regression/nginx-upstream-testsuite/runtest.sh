@@ -59,15 +59,12 @@ rlJournalStart
 
         # Same for uWSGI
         rlLog "Build uWSGI"
-        if rlIsRHEL '>=8'; then
-           rlLog "Skipping uWSGI for rhel-8, because the project depends on python2"
-        else
            rlRun "cd $TmpDir"
            rlRun "git clone https://github.com/unbit/uwsgi.git"
            rlRun "cd $TmpDir/uwsgi"
+           if rlIsRHEL '>=8'; then rlRun "sed -i 's/python/python2/g' Makefile"; fi
            rlRun "make"
            rlRun "export PATH=$PATH:$(pwd)"
-        fi
 
         # Download upstream test suite
         rlRun "cd $TmpDir"
