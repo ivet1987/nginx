@@ -46,9 +46,9 @@ rlJournalStart
 
         nginxSSLCONF=${nginxCONFDIR}/conf.d/bz1545526.conf
 
-        rlRun "rlFileBackup --namespace softhsm-namesp --clean /var/lib/softhsm/tokens/"
-        rlRun "rlFileBackup --namespace nginx-root-namesp  --clean $nginxROOTDIR"
-        rlRun "rlFileBackup --namespace nginx-conf-namesp  $nginxCONFDIR"
+        rlRun "rlFileBackup --clean /var/lib/softhsm/tokens/"
+        rlRun "rlFileBackup --clean $nginxROOTDIR"
+        rlRun "rlFileBackup $nginxCONFDIR"
 
         ## preparing configuration
         echo "Testing PKCS #11 support" > ${nginxROOTDIR}/index.html
@@ -117,12 +117,10 @@ rlJournalStart
 
 
     rlPhaseStartCleanup
-        rlRun "rlServiceStop $nginxHTTPD"
+        rlRun "rlServiceRestore $nginxHTTPD"
         rlRun "rm -fr $nginxdir" 0 "Removing certificates"
         rlRun "rm -f ${nginxSSLCONF}" 0 "Removing nginx ssl config file"
-        rlRun "rlFileRestore --namespace nginx-root-namesp" 0 "Restoring files"
-        rlRun "rlFileRestore --namespace nginx-conf-namesp" 0 "Restoring files"
-        rlRun "rlFileRestore --namespace softhsm-namesp" 0 "Restoring files"
+        rlRun "rlFileRestore" 0 "Restoring files"
         rlRun "popd"
         rlRun "rm -r $TmpDir" 0 "Removing tmp directory"
     rlPhaseEnd
