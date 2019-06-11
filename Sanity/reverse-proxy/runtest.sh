@@ -75,8 +75,8 @@ rlJournalStart
         # A simple stress test with concurrency. Note that the IP 127.0.0.1 is
         # used instead of hostname here because of a bug in ab (BZ#1125269)
         # which causes troubles when host name is resolved to IPv6
-        NUM_REQ=500000
-        CONC=10
+        NUM_REQ=100000
+        CONC=5
 
         rlRun "ab -n $NUM_REQ -c $CONC http://127.0.0.1:9080/test.html | tee first.log &"
         rlRun "ab -n $NUM_REQ -c $CONC http://127.0.0.1:9080/img/test.png | tee second.log &"
