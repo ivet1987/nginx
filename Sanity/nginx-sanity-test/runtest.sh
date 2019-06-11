@@ -75,8 +75,8 @@ rlJournalStart
         rlAssertExists "$nginxLOGDIR/access.log"
         rlAssertExists "$nginxLOGDIR/error.log"
 
-        rlRun "ab -c 100 -n 10000 $URL"
-        rlRun "ab -c 100 -n 10000 $RPURL"
+        rlRun "ab -c 10 -n 10000 $URL"
+        rlRun "ab -c 10 -n 10000 $RPURL"
 
         rlRun "rlServiceStop $nginxHTTPD"
         rlRun "sleep 2"
