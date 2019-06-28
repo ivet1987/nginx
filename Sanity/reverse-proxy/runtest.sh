@@ -58,6 +58,12 @@ rlJournalStart
         done
 	rlSEBooleanOn httpd_can_network_connect
 
+        # Tune for very large numbers of TCP sockets open simultaneously,
+        # see https://bugzilla.redhat.com/show_bug.cgi?id=1641767
+        rlRun "BACKUP_PORT_RANGE=\"`cat /proc/sys/net/ipv4/ip_local_port_range`\""
+        rlRun "echo 1024 65535 > /proc/sys/net/ipv4/ip_local_port_range"
+        rlRun "sysctl -w net.ipv4.tcp_tw_reuse=1"
+
         ERR_LOG=$nginxLOGDIR/error.log
         rlRun "rlFileBackup $nginxLOGDIR/error.log" 0,8
         rlRun "> $ERR_LOG" 0 "Cleaning nginx error log"
@@ -75,8 +81,8 @@ rlJournalStart
         # A simple stress test with concurrency. Note that the IP 127.0.0.1 is
         # used instead of hostname here because of a bug in ab (BZ#1125269)
         # which causes troubles when host name is resolved to IPv6
-        NUM_REQ=100000
-        CONC=5
+        NUM_REQ=500000
+        CONC=10
 
         rlRun "ab -n $NUM_REQ -c $CONC http://127.0.0.1:9080/test.html | tee first.log &"
         rlRun "ab -n $NUM_REQ -c $CONC http://127.0.0.1:9080/img/test.png | tee second.log &"
@@ -98,6 +104,9 @@ rlJournalStart
 
     rlPhaseStartCleanup
         rlRun "rlFileRestore" 0,8,16
+        rlRun "echo $BACKUP_PORT_RANGE > /proc/sys/net/ipv4/ip_local_port_range"
+        rlRun "sysctl -w net.ipv4.tcp_tw_reuse=0"
+
         rlSEPortRestore
 	rlSEBooleanRestore httpd_can_network_connect
         rlAssertExists "$nginxROOTDIR" && {
