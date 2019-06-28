@@ -70,6 +70,7 @@ rlJournalStart
         rlRun "cd $TmpDir"
         rlRun "git clone https://github.com/nginx/nginx-tests.git"
         rlRun "cd $TmpDir/nginx-tests"
+        if rlIsRHEL '>=8'; then rlRun "sed -i 's/^default_bits = 1024/default_bits = 2048/g' *.t"; fi
         rlRun "rm -f lib/Test/Nginx.pm && cp $TmpDir/Nginx.pm $TmpDir/nginx-tests/lib/Test"
     rlPhaseEnd
 
