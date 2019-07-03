@@ -50,6 +50,12 @@ rlJournalStart
 
         rlRun "cp nginx.conf $nginxCONFDIR/conf.d" 0 \
               "Copying nginx.conf to conf.d"
+
+        rlRun "DROPIN=/etc/systemd/system/${nginxHTTPD}.service.d"
+        rlRun "mkdir -p $DROPIN"
+        rlRun "cp dropin.conf $DROPIN/rhts-revproxy-limits.conf"
+        rlRun "systemctl daemon-reload"
+
         rlRun "pushd $TmpDir"
         rlRun "nginxVarExpand $nginxCONFDIR/conf.d/nginx.conf" 0 \
               "Expanding variables in nginx.conf"
@@ -115,7 +121,7 @@ rlJournalStart
                     "Removing $nginxROOTDIR/$DIR/"
             done
         }
-        rlRun "rm -f $nginxCONFDIR/conf.d/nginx.conf"
+        rlRun "rm -f $nginxCONFDIR/conf.d/nginx.conf $DROPIN/rhts-revproxy-limits.conf"
         rlRun "popd"
         rlRun "rm -r $TmpDir" 0 "Removing tmp directory"
     rlPhaseEnd
