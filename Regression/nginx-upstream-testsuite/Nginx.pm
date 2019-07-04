@@ -45,6 +45,12 @@ sub new {
 		TMPDIR => 1
 	)
 		or die "Can't create temp directory: $!\n";
+
+        chmod 0755, $self->{_testdir}
+              or die "Can't chown temp directory: $!\n";
+        chown 0, $ENV{TEST_NGINX_GROUP}, $self->{_testdir}
+              or die "Can't chgrp temp directory: $!\n";
+
 	$self->{_testdir} =~ s!\\!/!g if $^O eq 'MSWin32';
 	mkdir "$self->{_testdir}/logs"
 		or die "Can't create logs directory: $!\n";
