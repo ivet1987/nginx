@@ -20,6 +20,7 @@
 
 WHITELIST=$PWD/whitelist.txt
 PACKAGES=${PACKAGES:-nginx}
+PEGREV=ea4142211e03c8a8fd2e734f2199b623c794eda9
 
 rlJournalStart
     rlPhaseStartSetup
@@ -70,6 +71,7 @@ rlJournalStart
         rlRun "cd $TmpDir"
         rlRun "git clone https://github.com/nginx/nginx-tests.git"
         rlRun "cd $TmpDir/nginx-tests"
+        rlRun "git checkout --quiet $PEGREV"
         if rlIsRHEL '>=8'; then rlRun "sed -i 's/^default_bits = 1024/default_bits = 2048/g' *.t"; fi
         rlRun "rm -f lib/Test/Nginx.pm && cp $TmpDir/Nginx.pm $TmpDir/nginx-tests/lib/Test"
     rlPhaseEnd
@@ -79,8 +81,9 @@ rlJournalStart
         #rlRun "TEST_NGINX_BINARY=\$(which nginx) prove ." 0 "Run whole test suite"
         # Run whitelisted tests is known to pass with 1.4.x
         MODULES="${nginxROOTPREFIX}/usr/lib64/nginx/modules"
-        rlRun "TEST_NGINX_BINARY=\$(which nginx) TEST_NGINX_MODULES=$MODULES xargs prove < ${WHITELIST} | tee test.log" 0 "Run test suite w/whitelist"
+        rlRun "TEST_NGINX_BINARY=\$(which nginx) TEST_NGINX_GROUP=\$(id -g nginx) TEST_NGINX_MODULES=$MODULES TEST_NGINX_LEAVE=1 xargs prove < ${WHITELIST} | tee test.log" 0 "Run test suite w/whitelist"
 
+        rlBundleLogs test.log ./test.log
         # For each test, check whether it ran successfully (PASS), was skipped
         # (WARN) or failed (FAIL).
         sed -i -n '/\.\/.*\.t/p' test.log
