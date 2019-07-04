@@ -31,12 +31,10 @@
 
 PACKAGE=${PACKAGE:-nginx}
 
-
 rlJournalStart
     rlPhaseStartSetup
         rlRun "rlImport nginx/nginx" 0 "Import nginx library" || rlDie
         rlRun "rlImport selinux-policy/common" 0 "Import selinux library"
-        rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
 
         # Prepare directories and files to be tested
         rlAssertExists "$nginxROOTDIR" && {
@@ -56,6 +54,7 @@ rlJournalStart
         rlRun "cp dropin.conf $DROPIN/rhts-revproxy-limits.conf"
         rlRun "systemctl daemon-reload"
 
+        rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
         rlRun "nginxVarExpand $nginxCONFDIR/conf.d/nginx.conf" 0 \
               "Expanding variables in nginx.conf"
@@ -71,7 +70,7 @@ rlJournalStart
         rlRun "sysctl -w net.ipv4.tcp_tw_reuse=1"
 
         ERR_LOG=$nginxLOGDIR/error.log
-        rlRun "rlFileBackup $nginxLOGDIR/error.log" 0,8
+        rlRun "rlFileBackup --missing-ok $ERR_LOG" 0,8
         rlRun "> $ERR_LOG" 0 "Cleaning nginx error log"
     rlPhaseEnd
 
