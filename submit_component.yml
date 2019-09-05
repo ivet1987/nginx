@@ -1,0 +1,21 @@
+---
+relevancy: |
+  product = rhel && distro < rhel-8 : False
+  distro = rhel-alt : False
+tags: NoModularTier
+---
+components: nginx:1.14
+summary: '{script} [nginx:1.14]'
+arguments: MODSTREAMS='nginx:1.14'
+relevancy: |
+  distro < rhel-8: False
+tags: TestCaseCopy
+---
+components: nginx:1.16
+summary: '{script} [nginx:1.16]'
+arguments: MODSTREAMS='nginx:1.16'
+relevancy: |
+  distro < rhel-8: False
+  distro < rhel-8.1: False
+tags: TestCaseCopy
+...
