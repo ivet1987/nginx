@@ -1,7 +1,6 @@
 ---
 relevancy: |
   product = rhel && distro < rhel-8 : False
-  distro = rhel-alt : False
 tags: NoModularTier
 ---
 components: nginx:1.14
