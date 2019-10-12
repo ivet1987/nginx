@@ -36,12 +36,14 @@ PACKAGES="${PACKAGES:-nginx}"
 rlJournalStart
     rlPhaseStartSetup
         rlAssertRpm --all
+        rlRun "rlImport nginx/nginx" || rlDie
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
     rlPhaseEnd
 
     rlPhaseStartTest
-        rlRun "man_path=$(man -w $(echo $COLLECTIONS | grep nginx))" 0 "Getting manpath to package"
+        rlRun "man_path=$(man -w  $nginxCOLLECTION_NAME)" 0 "Getting manpath to package"
+        bash
         rlAssertExists $man_path
         rlRun "cp $man_path ." 0 "Copying manpage to TmpDir $TmpDir"
         rlRun "man_file=${man_path##*/}" 0 "Cutting the file name"
