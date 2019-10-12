@@ -19,7 +19,7 @@
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 
 WHITELIST=$PWD/whitelist.txt
-PACKAGES=${PACKAGES:-nginx}
+PACKAGES="${PACKAGES:-nginx}"
 PEGREV=ea4142211e03c8a8fd2e734f2199b623c794eda9
 
 rlJournalStart
