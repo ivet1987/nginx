@@ -1,0 +1,5 @@
+PURPOSE of /CoreOS/nginx/Regression/bz1758809-wrong-version-used-in-the-systemd-unit-file
+Description: Test for BZ#1758809 (Nginx service does not start (wrong version used)
+Author: Maryna Nalbandian <mnalband@redhat.com>
+Bug summary: Nginx service does not start (wrong version used in the systemd unit file) [rh-nginx116]
+Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1758809
