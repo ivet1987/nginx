@@ -43,6 +43,8 @@ rlJournalStart
         rlRun "rlImport openssl/certgen" || rlDie
 
         rlAssertRpm --all
+        # softhsm is in Buildroot repo
+        rlAssertRpm softhsm
 
         nginxSSLCONF=${nginxCONFDIR}/conf.d/bz1545526.conf
 
@@ -86,17 +88,17 @@ rlJournalStart
         rlAssertGrep "$TOKENLABEL" $rlRun_LOG
         TOKENURL=$(cat $rlRun_LOG |grep "URL:.*token=$TOKENLABEL" |awk '{ print $NF }')
 
-        ## write and list key
+        # write and list key
         rlRun "runuser -u nginx -- p11tool --write --load-privkey $serverkey --label $LABEL --login --set-pin $PIN $TOKENURL"
         rlRun -s "runuser -u nginx -- p11tool --login --set-pin $PIN --list-keys $TOKENURL"
         rlAssertGrep "URL:.*object=$LABEL;type=private" $rlRun_LOG
         KEYURL=$(cat $rlRun_LOG |grep "URL:.*object=$LABEL;type=private" |awk '{ print $NF }')?pin-value=$PIN
 
-        ## write and list cert
-        #rlRun "runuser -u nginx -- p11tool --write --load-certificate $servercert --label $LABEL --login --set-pin $PIN $TOKENURL"
-        #rlRun -s "runuser -u nginx -- p11tool --list-all-certs $TOKENURL"
-        #rlAssertGrep "URL:.*object=$LABEL;type=cert" $rlRun_LOG
-        #CERTURL=$(cat $rlRun_LOG |grep "URL:.*object=$LABEL;type=cert" |awk '{ print $NF }')
+        # write and list cert
+        rlRun "runuser -u nginx -- p11tool --write --load-certificate $servercert --label $LABEL --login --set-pin $PIN $TOKENURL"
+        rlRun -s "runuser -u nginx -- p11tool --list-all-certs $TOKENURL"
+        rlAssertGrep "URL:.*object=$LABEL;type=cert" $rlRun_LOG
+        CERTURL=$(cat $rlRun_LOG |grep "URL:.*object=$LABEL;type=cert" |awk '{ print $NF }')
 
         rm -f $rlRun_LOG
     rlPhaseEnd
@@ -104,7 +106,7 @@ rlJournalStart
 
     rlPhaseStartTest  "Test nginx"
         # Configure nginx to use certificate and key stored in HSM (softhsm)
-        #rlRun "sed -i 's/ssl_certificate .*\$/ssl_certificate \"$CERTURL\";/' $nginxSSLCONF"
+        rlRun "sed -i 's/ssl_certificate .*\$/ssl_certificate \"$CERTURL\";/' $nginxSSLCONF"
         rlRun "sed -i 's/ssl_certificate_key.*\$/ssl_certificate_key \"engine:pkcs11:$KEYURL\";/' $nginxSSLCONF"
         rlRun "cat $nginxSSLCONF" 0 "Show ssl config file"
         rlRun "rlServiceStart $nginxHTTPD"
