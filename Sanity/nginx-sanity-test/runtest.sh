@@ -41,16 +41,14 @@ rlJournalStart
     rlPhaseStartSetup
         rlAssertRpm --all
         rlRun "rlImport nginx/nginx"
-	rlRun "rlImport selinux-policy/common"
+        rlRun "rlImport selinux-policy/common"
         MYCONF=${nginxCONFDIR}/conf.d/rhts-nginx-sanity.conf
         DOCROOT=$nginxROOTDIR/rhts-nginx-root
         rlAssertBinaryOrigin nginx
         rlAssertExists ${nginxCONFDIR}
         rlAssertExists ${nginxLOGDIR}
 
-	if rlIsRHEL 8; then
-		rlSEBooleanOn httpd_can_network_connect
-	fi
+        rlSEBooleanOn httpd_can_network_connect
 
         rlRun "mkdir ${DOCROOT}"
         rlRun "echo this is the index > ${DOCROOT}/index.html"
@@ -61,12 +59,11 @@ rlJournalStart
 
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
-
+        rlRun "rlServiceStart $nginxHTTPD"
+        rlRun "sleep 2" 0 "Wainting on nginx to start"
     rlPhaseEnd
 
     rlPhaseStartTest
-        rlRun "rlServiceStart $nginxHTTPD" 
-        rlRun "sleep 2"
         rlRun "curl $URL > output.html"
         rlAssertNotDiffer output.html $DOCROOT/index.html
         rlRun "curl $URL/rp/ > output2.html"
@@ -85,9 +82,7 @@ rlJournalStart
 
     rlPhaseStartCleanup
         rlRun "popd"
-	if rlIsRHEL 8; then
-		rlSEBooleanRestore httpd_can_network_connect
-	fi
+        rlSEBooleanRestore httpd_can_network_connect
         rlRun "rm -r $TmpDir" 0 "Removing tmp directory"
         rlRun "rm -rf ${DOCROOT}"
         rlRun "rm -f ${MYCONF}"
