@@ -94,11 +94,19 @@ rlJournalStart
         rlAssertGrep "URL:.*object=$LABEL;type=private" $rlRun_LOG
         KEYURL=$(cat $rlRun_LOG |grep "URL:.*object=$LABEL;type=private" |awk '{ print $NF }')?pin-value=$PIN
 
-        # write and list cert
-        rlRun "runuser -u nginx -- p11tool --write --load-certificate $servercert --label $LABEL --login --set-pin $PIN $TOKENURL"
-        rlRun -s "runuser -u nginx -- p11tool --list-all-certs $TOKENURL"
-        rlAssertGrep "URL:.*object=$LABEL;type=cert" $rlRun_LOG
-        CERTURL=$(cat $rlRun_LOG |grep "URL:.*object=$LABEL;type=cert" |awk '{ print $NF }')
+        if rlIsRHEL "<8.3"; then
+            # Support to load certificates from PKCS#11 devices was introduced
+            # in RHEL-8.3. For previous versions use certificate in file system.
+            # See bz1668717
+            # The slashes in the path are escaped to be used in sed
+            CERTURL=$(echo $servercert | sed 's/\//\\\//g')
+        else
+            # Import certificate into PKCS#11 device and list to obtain URI
+            rlRun "runuser -u nginx -- p11tool --write --load-certificate $servercert --label $LABEL --login --set-pin $PIN $TOKENURL"
+            rlRun -s "runuser -u nginx -- p11tool --list-all-certs $TOKENURL"
+            rlAssertGrep "URL:.*object=$LABEL;type=cert" $rlRun_LOG
+            CERTURL="engine:pkcs11:$(cat $rlRun_LOG |grep "URL:.*object=$LABEL;type=cert" |awk '{ print $NF }')"
+        fi
 
         rm -f $rlRun_LOG
     rlPhaseEnd
@@ -106,7 +114,7 @@ rlJournalStart
 
     rlPhaseStartTest  "Test nginx"
         # Configure nginx to use certificate and key stored in HSM (softhsm)
-        rlRun "sed -i 's/ssl_certificate .*\$/ssl_certificate \"engine:pkcs11:$CERTURL\";/' $nginxSSLCONF"
+        rlRun "sed -i 's/ssl_certificate .*\$/ssl_certificate \"$CERTURL\";/' $nginxSSLCONF"
         rlRun "sed -i 's/ssl_certificate_key.*\$/ssl_certificate_key \"engine:pkcs11:$KEYURL\";/' $nginxSSLCONF"
         rlRun "cat $nginxSSLCONF" 0 "Show ssl config file"
         rlRun "rlServiceStart $nginxHTTPD"
