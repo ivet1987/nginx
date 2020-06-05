@@ -43,7 +43,6 @@ rlJournalStart
 
     rlPhaseStartTest
         rlRun "man_path=$(man -w  $nginxCOLLECTION_NAME)" 0 "Getting manpath to package"
-        bash
         rlAssertExists $man_path
         rlRun "cp $man_path ." 0 "Copying manpage to TmpDir $TmpDir"
         rlRun "man_file=${man_path##*/}" 0 "Cutting the file name"
