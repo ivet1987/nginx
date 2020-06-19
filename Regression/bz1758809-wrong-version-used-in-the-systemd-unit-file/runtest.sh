@@ -29,7 +29,7 @@
 . /usr/bin/rhts-environment.sh || exit 1
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 
-PACKAGE=${PACKAGE:-nginx}
+PACKAGES=${PACKAGES:-nginx}
 unit_file=/usr/lib/systemd/system/rh-nginx116-nginx.service
 rlJournalStart
     rlPhaseStartSetup
