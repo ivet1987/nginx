@@ -24,13 +24,11 @@
 #   along with this program. If not, see http://www.gnu.org/licenses/.
 #
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 # Include Beaker environment
 . /usr/bin/rhts-environment.sh || exit 1
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 
 PACKAGES=${PACKAGES:-nginx}
-unit_file=/usr/lib/systemd/system/rh-nginx116-nginx.service
 rlJournalStart
     rlPhaseStartSetup
         rlAssertRpm --all
@@ -42,19 +40,17 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest
-        if [[ $nginxCOLLECTION_NAME == "rh-nginx116" ]]; then
-           OLD_NGINX="rh-nginx114"
-        fi
+        unit_file=/usr/lib/systemd/system/$nginxCOLLECTION_NAME-nginx.service
         rlLog "Checking Service File"
-        rlAssertNotGrep $OLD_NGINX $unit_file 
+        rlAssertGrep $nginxCOLLECTION_NAME $unit_file 
         rlLog "Checking 404.html File"
         rlRun -s "curl http://localhost/dummy.html"
-        rlAssertNotGrep $OLD_NGINX $rlRun_LOG
+        rlAssertGrep $nginxCOLLECTION_NAME $rlRun_LOG
         rlLog "Checking Test Page (index.html)"
         rlRun -s "curl http://127.0.0.1" 
-        rlAssertNotGrep $OLD_NGINX $rlRun_LOG
+        rlAssertGrep $nginxCOLLECTION_NAME $rlRun_LOG
         rlLog "Checking the Page is Temporarily Unavailable 50x"
-        rlAssertNotGrep $OLD_NGINX ${nginxROOTDIR}/50x.html 
+        rlAssertGrep $nginxCOLLECTION_NAME ${nginxROOTDIR}/50x.html 
     rlPhaseEnd
 
     rlPhaseStartCleanup
@@ -64,3 +60,4 @@ rlJournalStart
     rlPhaseEnd
 rlJournalPrintText
 rlJournalEnd
+
