@@ -84,18 +84,6 @@ rlJournalStart
         rlRun "TEST_NGINX_BINARY=\$(which nginx) TEST_NGINX_GROUP=\$(id -g nginx) TEST_NGINX_MODULES=$MODULES TEST_NGINX_LEAVE=1 xargs prove < ${WHITELIST} | tee test.log" 0 "Run test suite w/whitelist"
 
         rlBundleLogs test.log ./test.log
-        # For each test, check whether it ran successfully (PASS), was skipped
-        # (WARN) or failed (FAIL).
-        sed -i -n '/\.\/.*\.t/p' test.log
-        while read line; do
-            if (echo "$line" | grep 'ok\s*$'); then
-                rlPass "$line"
-            elif (echo "$line" | grep 'skipped'); then
-                rlLogWarning "$line"
-            else
-                rlFail "$line"
-            fi
-        done < test.log
     rlPhaseEnd
 
     rlPhaseStartCleanup
