@@ -42,7 +42,7 @@ $(METADATA): Makefile
 	@echo "TestTime:        10m" >> $(METADATA)
 	@echo "RunFor:          nginx" >> $(METADATA)
 	@echo "Requires:        nginx" >> $(METADATA)
-	@echo "Requires:        perl-Test-Simple perl-Test-Harness perl-CPAN perl-Module-Build perl-Net-SSLeay perl-FCGI python2-devel python-devel openssl-devel python2 python3 python nginx-all-modules gcc git" >> $(METADATA)
+	@echo "Requires:        perl-ExtUtils-MakeMaker perl-Test-Simple perl-Test-Harness perl-CPAN perl-Module-Build perl-Net-SSLeay perl-FCGI python2-devel python-devel openssl-devel python2 python3 python nginx-all-modules gcc git" >> $(METADATA)
 	@echo "RhtsRequires:    library(nginx/nginx)" >> $(METADATA)
 	@echo "Priority:        Normal" >> $(METADATA)
 	@echo "License:         BSD" >> $(METADATA)
