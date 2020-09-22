@@ -40,9 +40,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest
-        rlRun "rpm -qR rh-nginx118-nginx-mod-http-perl > output.txt"
-        rlAssertGrep perl530 output.txt
-        rlAssertNotGrep perl526 output.txt 
+        rlRun "rpm -qR rh-nginx118-nginx-mod-http-perl | tee output.txt"
+        rlAssertGrep rh-perl530 output.txt
+        rlAssertNotGrep rh-perl526 output.txt 
     rlPhaseEnd
 
     rlPhaseStartCleanup
