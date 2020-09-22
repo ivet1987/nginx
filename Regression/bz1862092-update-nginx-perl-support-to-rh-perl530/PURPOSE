@@ -1,0 +1,5 @@
+PURPOSE of /CoreOS/nginx/Regression/bz1862092-update-nginx-perl-support-to-rh-perl530
+Description: Test for BZ#1862092 (update nginx perl support to rh-perl530)
+Author: Iveta Cesalova <icesalov@redhat.com>
+Bug summary: update nginx perl support to rh-perl530
+Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1862092
