@@ -53,7 +53,7 @@ $(METADATA): Makefile
 	@echo "Type:            Regression" >> $(METADATA)
 	@echo "TestTime:        5m" >> $(METADATA)
 	@echo "RunFor:          nginx" >> $(METADATA)
-	@echo "Requires:        nginx curl redhat-logos-httpd" >>i $(METADATA)
+	@echo "Requires:        nginx curl redhat-logos-httpd" >> $(METADATA)
 	@echo "RhtsRequires:    library(nginx/nginx)" >> $(METADATA)
 	@echo "Priority:        Normal" >> $(METADATA)
 	@echo "License:         GPLv2+" >> $(METADATA)
