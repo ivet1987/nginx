@@ -1,0 +1,5 @@
+PURPOSE of /CoreOS/nginx/Regression/bz1825683-Outdated-Red-Hat-branding-in-nginx-default-page
+Description: Test for BZ#1825683 (Outdated Red Hat branding used in nginx default)
+Author: Iveta Cesalova <icesalov@redhat.com>
+Bug summary: Outdated Red Hat branding used in nginx default pages
+Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1825683
