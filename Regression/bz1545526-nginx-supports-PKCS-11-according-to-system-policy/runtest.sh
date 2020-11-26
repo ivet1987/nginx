@@ -41,6 +41,7 @@ rlJournalStart
     rlPhaseStartSetup
         rlRun "rlImport nginx/nginx" || rlDie
         rlRun "rlImport openssl/certgen" || rlDie
+        rlRun "rlImport distribution/nvr" || rlDie
 
         rlAssertRpm --all
         # softhsm is in Buildroot repo
@@ -94,9 +95,9 @@ rlJournalStart
         rlAssertGrep "URL:.*object=$LABEL;type=private" $rlRun_LOG
         KEYURL=$(cat $rlRun_LOG |grep "URL:.*object=$LABEL;type=private" |awk '{ print $NF }')?pin-value=$PIN
 
-        if rlIsRHEL "<8.3"; then
+        if nvrTestPackage nginx '<' 1.18.0; then
             # Support to load certificates from PKCS#11 devices was introduced
-            # in RHEL-8.3. For previous versions use certificate in file system.
+            # in nginx:1.18. For previous versions use certificate in file system.
             # See bz1668717
             # The slashes in the path are escaped to be used in sed
             CERTURL=$(echo $servercert | sed 's/\//\\\//g')
