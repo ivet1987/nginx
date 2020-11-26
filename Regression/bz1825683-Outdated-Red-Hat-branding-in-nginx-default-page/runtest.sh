@@ -41,7 +41,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest
-        rlRun "curl http://localhost/poweredby.png > my.png" 0
+        rlRun "curl http://localhost/icons/poweredby.png > my.png" 0
         rlRun "cmp my.png /usr/share/pixmaps/poweredby.png" 0 "Badges aren't different"
     rlPhaseEnd
 
