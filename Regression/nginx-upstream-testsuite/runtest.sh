@@ -63,7 +63,7 @@ rlJournalStart
            rlRun "cd $TmpDir"
            rlRun "git clone https://github.com/unbit/uwsgi.git"
            rlRun "cd $TmpDir/uwsgi"
-           if rlIsRHEL '>=8'; then rlRun "sed -i 's/python/python2/g' Makefile"; fi
+           if rlIsRHEL '>=8'; then rlRun "sed -i 's/python3/python2/g' Makefile"; fi
            rlRun "make"
            rlRun "export PATH=$PATH:$(pwd)"
 
