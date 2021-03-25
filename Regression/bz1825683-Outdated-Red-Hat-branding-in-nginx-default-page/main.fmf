@@ -1,0 +1,20 @@
+summary: Test for BZ#1825683 (Outdated Red Hat branding used in nginx default)
+description: |
+    Bug summary: Outdated Red Hat branding used in nginx default pages
+    Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1825683
+contact: None <icesalov@redhat.com>
+component:
+- nginx
+test: ./runtest.sh
+path: /Regression/bz1825683-Outdated-Red-Hat-branding-in-nginx-default-page
+framework: beakerlib
+require:
+- library(nginx/nginx)
+recommend:
+- nginx
+- curl
+- redhat-logos-httpd
+duration: 5m
+enabled: true
+extra-summary: /CoreOS/nginx/Regression/bz1825683-Outdated-Red-Hat-branding-in-nginx-default-page
+extra-task: /CoreOS/nginx/Regression/bz1825683-Outdated-Red-Hat-branding-in-nginx-default-page

@@ -1,0 +1,14 @@
+component:
+- nginx
+tag:
+- NoModularTier
+- NoRHEL4
+- NoRHEL5
+- TIPfail
+- TIPfail_Apps
+- Tier3
+tier: '3'
+relevancy: |
+    product = rhel && distro < rhel-8 : False
+extra-nitrate: TC#0608931
+extra-summary: /CoreOS/nginx/Regression/bz1825683-Outdated-Red-Hat-branding-in-nginx-default-page
