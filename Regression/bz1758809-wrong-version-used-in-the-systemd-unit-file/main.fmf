@@ -1,0 +1,27 @@
+summary: Test for BZ#1758809 (Nginx service does not start (wrong version used)
+description: |
+    Bug summary: Nginx service does not start (wrong version used in the systemd unit file) [rh-nginx116]
+    Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1758809
+contact: None <icesalov@redhat.com>
+component:
+- nginx
+test: ./runtest.sh
+framework: beakerlib
+require:
+- library(nginx/nginx)
+recommend:
+- nginx
+- psmisc
+duration: 10m
+enabled: true
+tag:
+- NoRHEL4
+- NoRHEL5
+- Tier3
+tier: '3'
+relevancy: |
+    product = rhel: False
+    distro = fedora: False
+extra-nitrate: TC#0604106
+extra-summary: /CoreOS/nginx/Regression/bz1758809-wrong-version-used-in-the-systemd-unit-file
+extra-task: /CoreOS/nginx/Regression/bz1758809-wrong-version-used-in-the-systemd-unit-file
