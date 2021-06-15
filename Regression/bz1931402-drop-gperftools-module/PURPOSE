@@ -1,0 +1,5 @@
+PURPOSE of /CoreOS/nginx/Regression/bz1931402-drop-gperftools-module
+Description: Test for BZ#1931402 (drop gperftools module)
+Author: Iveta Cesalova <icesalov@redhat.com>
+Bug summary: drop gperftools module
+Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1931402
