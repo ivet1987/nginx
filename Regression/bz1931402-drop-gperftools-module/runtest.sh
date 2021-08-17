@@ -39,7 +39,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest
-        rlRun "dnf repoquery -q --requires nginx > output" 0 "Nginx requires list"
+        rlRun "yum repoquery -q --requires nginx > output" 0 "Nginx requires list"
         rlAssertNotGrep "libprofiler" output
     rlPhaseEnd
 
