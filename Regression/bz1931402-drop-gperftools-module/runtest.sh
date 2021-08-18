@@ -34,12 +34,13 @@ PACKAGES=${PACKAGES:-"nginx"}
 rlJournalStart
     rlPhaseStartSetup
         rlAssertRpm --all
+        rlRun "rlImport nginx/nginx"
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
     rlPhaseEnd
 
     rlPhaseStartTest
-        rlRun "yum repoquery -q --requires nginx > output" 0 "Nginx requires list"
+        rlRun "rpm -qR ${nginxHTTPD} > output" 0 "Nginx requires list"
         rlAssertNotGrep "libprofiler" output
     rlPhaseEnd
 
