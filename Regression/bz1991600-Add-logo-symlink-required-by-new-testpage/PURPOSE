@@ -1,0 +1,5 @@
+PURPOSE of /CoreOS/nginx/Regression/bz1991600-Add-logo-symlink-required-by-new-testpage
+Description: Test for BZ#1991600 (Add logo symlink required by new testpage)
+Author: Iveta Cesalova <icesalov@redhat.com>
+Bug summary: Add logo symlink required by new testpage
+Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1991600
