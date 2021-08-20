@@ -1,0 +1,5 @@
+PURPOSE of /CoreOS/nginx/Regression/bz1991796-Nginx-is-not-built-with-with-compat
+Description: Test for BZ#1991796 (Nginx is not built with --with-compat, breaking)
+Author: Branislav Nater <bnater@redhat.com>
+Bug summary: Nginx is not built with --with-compat, breaking the ability to build and use external nginx modules
+Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1991796
