@@ -35,12 +35,13 @@ rlJournalStart
     rlPhaseStartSetup
         rlAssertRpm --all
         rlAssertBinaryOrigin nginx
+        rlRun "rlImport nginx/nginx"
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
     rlPhaseEnd
 
     rlPhaseStartTest
-        rlRun "rpm -qR rh-nginx118-nginx-mod-http-perl | tee output.txt"
+        rlRun "rpm -qR ${nginxCOLLECTION_NAME}-nginx-mod-http-perl | tee output.txt"
         rlAssertGrep rh-perl530 output.txt
         rlAssertNotGrep rh-perl526 output.txt
     rlPhaseEnd
