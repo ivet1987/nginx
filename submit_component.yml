@@ -30,6 +30,7 @@ components: nginx:1.20
 summary: '{script} [nginx:1.20]'
 arguments: MODSTREAMS='nginx:1.20'
 relevancy: |
-  distro < rhel-9: False
+  distro < rhel-8: False↲
+  distro < rhel-8.5: False↲
 tags: TestCaseCopy
 
