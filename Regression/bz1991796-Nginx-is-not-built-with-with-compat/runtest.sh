@@ -40,7 +40,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest
-        rlRun "nginx -V &>1 |grep with-compat" 0 "nginx should be compiled with --with-compat"
+        rlRun "nginx -V |& grep with-compat" 0 "nginx should be compiled with --with-compat"
     rlPhaseEnd
 
     rlPhaseStartCleanup
