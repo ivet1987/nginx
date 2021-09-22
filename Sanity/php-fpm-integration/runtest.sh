@@ -61,7 +61,7 @@ rlJournalStart
         rlRun "mkdir ${DOCROOT}"
         rlRun "echo '<?php echo phpinfo();' > ${DOCROOT}/info.php"
 
-	if rlIsRHEL 8;then
+        if rlIsRHEL ">=8";then
             rlRun "cp nginx-rhel8.conf ${MYCONF}"
 
         else
@@ -80,7 +80,7 @@ rlJournalStart
         rlRun "sleep 2"
 
         rlRun "curl $PHPURL > php.html"
-        rlAssertGrep 'PHP Version' php.html
+        rlAssertGrep 'PHP Version' php.html || $(cat php.html)
         if echo $COLLECTIONS | grep php; then
             rlRun "PHPSCL=\$(echo $FPM | sed s,-php-fpm,,)"
             rlRun "PHPRAWVER=\$(scl enable $PHPSCL 'php-fpm -v' | head -1)"
