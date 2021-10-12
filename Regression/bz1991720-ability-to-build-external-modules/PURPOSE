@@ -1,0 +1,5 @@
+PURPOSE of /CoreOS/nginx/Regression/bz1991720-ability-to-build-external-modules
+Description: Test for BZ#1991720 (RFE Please add the ability to build external nginx)
+Author: Iveta Cesalova <icesalov@redhat.com>
+Bug summary: RFE: Please add the ability to build external nginx modules
+Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1991720
