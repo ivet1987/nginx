@@ -53,7 +53,7 @@ $(METADATA): Makefile
 	@echo "Type:            Regression" >> $(METADATA)
 	@echo "TestTime:        5m" >> $(METADATA)
 	@echo "RunFor:          nginx" >> $(METADATA)
-	@echo "Requires:        nginx wget tar" >> $(METADATA)
+	@echo "Requires:        nginx wget tari nginx-mod-devel" >> $(METADATA)
 	@echo "Priority:        Normal" >> $(METADATA)
 	@echo "License:         GPLv2+" >> $(METADATA)
 	@echo "Confidential:    no" >> $(METADATA)
