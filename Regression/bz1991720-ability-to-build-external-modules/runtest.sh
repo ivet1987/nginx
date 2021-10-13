@@ -31,24 +31,42 @@
 
 PACKAGES=${PACKAGES:-"nginx"}
 LOOKASIDE=${LOOKASIDE:-http://download.eng.bos.redhat.com/qa/rhts/lookaside/}
-nginx_module_vts=nginx-module-vts.tar.gz
+nginx_module_vts=nginx-vts-mod.tar.gz
 
 rlJournalStart
     rlPhaseStartSetup
         rlAssertRpm --all
+        rlRun "rlImport nginx/nginx"
+
+        MYCONF=${nginxCONFDIR}/conf.d/rhts-nginx-mod-vts.conf
+        rlRun "cp nginx.conf ${MYCONF}"
+
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
-        rlRun "wget $LOOKASIDE/$nginx_module_vts"
-        rlRun "tar xzf $nginx_module_vts"
 
+        rlRun "wget $LOOKASIDE/$nginx_module_vts"
+
+        rlRun "tar xzf $nginx_module_vts"
+        rlRun "mkdir -p /root/rpmbuild/SOURCES/"
+        rlRun "cp nginx-module-vts-*.tar.gz /root/rpmbuild/SOURCES/"
     rlPhaseEnd
 
     rlPhaseStartTest
-        #in progress
+        rlRun "rpmbuild -ba *.spec"
+        rlRun "cp /root/rpmbuild/RPMS/*/*.rpm ./"
+        rlRun "rpm -i *.rpm"
+        rlRun "rlServiceStart $nginxHTTPD"
+        rlRun "curl -v http://127.0.0.1/status > /dev/null 2> curl.out"
+        rlRun "cat curl.out"
+        rlAssertGrep "200 OK" curl.out
     rlPhaseEnd
 
     rlPhaseStartCleanup
         rlRun "popd"
+        rlRun "rlServiceStop $nginxHTTPD"
+        rlRun "rpm -e nginx-mod-vts nginx-mod-vts-debugsource nginx-mod-vts-debuginfo" 0 "Remove installed nginx-mod-vts* RPMs"
+        rlRun "rm -rf /root/rpmbuild/" 0 "Removing rpmbuild dir structure"
+        rlRun "rm -f ${MYCONF}"
         rlRun "rm -r $TmpDir" 0 "Removing tmp directory"
     rlPhaseEnd
 rlJournalPrintText

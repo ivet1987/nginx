@@ -28,7 +28,7 @@ export TESTVERSION=1.0
 
 BUILT_FILES=
 
-FILES=$(METADATA) runtest.sh Makefile PURPOSE
+FILES=$(METADATA) runtest.sh Makefile PURPOSE nginx.conf
 
 .PHONY: all install download clean
 
@@ -53,7 +53,8 @@ $(METADATA): Makefile
 	@echo "Type:            Regression" >> $(METADATA)
 	@echo "TestTime:        5m" >> $(METADATA)
 	@echo "RunFor:          nginx" >> $(METADATA)
-	@echo "Requires:        nginx wget tari nginx-mod-devel" >> $(METADATA)
+	@echo "Requires:        nginx wget tari nginx-mod-devel rpm-devel gcc" >> $(METADATA)
+	@echo "RhtsRequires:    library(nginx/nginx)" >> $(METADATA)
 	@echo "Priority:        Normal" >> $(METADATA)
 	@echo "License:         GPLv2+" >> $(METADATA)
 	@echo "Confidential:    no" >> $(METADATA)
