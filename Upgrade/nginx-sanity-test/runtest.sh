@@ -73,12 +73,10 @@ distribution_mcase__test() {
 
         rlRun "ab -c 10 -n 10000 $URL"
         rlRun "ab -c 10 -n 10000 $RPURL"
-
-        rlRun "rlServiceStop $nginxHTTPD"
-        rlRun "sleep 2"
 }
 
 distribution_mcase__cleanup() {
+        rlRun "rlServiceStop $nginxHTTPD"
         rlRun "popd"
         rlSEBooleanRestore httpd_can_network_connect
         rlRun "rm -r $TmpDir" 0 "Removing tmp directory"
