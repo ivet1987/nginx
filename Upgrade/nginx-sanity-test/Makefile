@@ -24,7 +24,7 @@
 #
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-export TEST=/CoreOS/nginx/Sanity/nginx-sanity-test
+export TEST=/CoreOS/nginx/Upgrade/nginx-sanity-test
 export TESTVERSION=1.0
 
 BUILT_FILES=
