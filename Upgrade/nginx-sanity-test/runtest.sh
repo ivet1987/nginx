@@ -62,18 +62,18 @@ distribution_mcase__setup() {
 }
 
 distribution_mcase__test() {
-        rlRun "rlServiceStart $nginxHTTPD"
+        rlRun "systemctl enable --now nginx"
         rlRun "curl $URL > output.html"
         rlAssertNotDiffer output.html $DOCROOT/index.html
         rlRun "curl $URL/rp/ > output2.html"
         rlAssertNotDiffer output2.html $DOCROOT/index.html
 
-        rlAssertExists "$nginxLOGDIR/access.log"
-        rlAssertExists "$nginxLOGDIR/error.log"
+        rlAssertExists "/var/log/nginx/access.log"
+        rlAssertExists "/var/log/nginx/error.log"
 
         rlRun "ab -c 10 -n 10000 $URL"
         rlRun "ab -c 10 -n 10000 $RPURL"
-        rlRun "rlServiceStop $nginxHTTPD"
+        rlRun "systemctl stop nginx"
 }
 distribution_mcase__cleanup() {
         rlRun "popd"
