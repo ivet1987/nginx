@@ -58,11 +58,11 @@ distribution_mcase__setup() {
 
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
-        rlRun "rlServiceStart $nginxHTTPD"
         rlRun "sleep 2" 0 "Wainting on nginx to start"
 }
 
 distribution_mcase__test() {
+        rlRun "rlServiceStart $nginxHTTPD"
         rlRun "curl $URL > output.html"
         rlAssertNotDiffer output.html $DOCROOT/index.html
         rlRun "curl $URL/rp/ > output2.html"
@@ -73,10 +73,9 @@ distribution_mcase__test() {
 
         rlRun "ab -c 10 -n 10000 $URL"
         rlRun "ab -c 10 -n 10000 $RPURL"
-}
-
-distribution_mcase__cleanup() {
         rlRun "rlServiceStop $nginxHTTPD"
+}
+distribution_mcase__cleanup() {
         rlRun "popd"
         rlSEBooleanRestore httpd_can_network_connect
         rlRun "rm -r $TmpDir" 0 "Removing tmp directory"
