@@ -60,7 +60,7 @@ distribution_mcase__setup() {
 }
 
 distribution_mcase__test() {
-        rlSEBooleanOn httpd_can_network_connect
+        setsebool -P httpd_can_network_connect on
         rlRun "systemctl enable --now nginx"
         rlRun "curl $URL > output.html"
         rlAssertNotDiffer output.html /usr/share/nginx/html/rhts-nginx-root/index.html
@@ -78,8 +78,8 @@ distribution_mcase__cleanup() {
         rlRun "popd"
         rlSEBooleanRestore httpd_can_network_connect
         rlRun "rm -r $TmpDir" 0 "Removing tmp directory"
-        rlRun "rm -rf ${DOCROOT}"
-        rlRun "rm -f ${MYCONF}"
+        rlRun "rm -rf usr/share/nginx/html/rhts-nginx-root"
+        rlRun "rm -f /etc/nginx/conf.d/rhts-nginx-sanity.conf"
 }
 
 rlJournalStart
