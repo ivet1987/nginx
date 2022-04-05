@@ -47,8 +47,6 @@ distribution_mcase__setup() {
         rlAssertExists ${nginxCONFDIR}
         rlAssertExists ${nginxLOGDIR}
 
-        rlSEBooleanOn httpd_can_network_connect
-
         rlRun "mkdir ${DOCROOT}"
         rlRun "echo this is the index > ${DOCROOT}/index.html"
         rlRun "echo '<?php echo phpinfo();' > ${DOCROOT}/info.php"
@@ -62,6 +60,7 @@ distribution_mcase__setup() {
 }
 
 distribution_mcase__test() {
+        rlSEBooleanOn httpd_can_network_connect
         rlRun "systemctl enable --now nginx"
         rlRun "curl $URL > output.html"
         rlAssertNotDiffer output.html /usr/share/nginx/html/rhts-nginx-root/index.html
