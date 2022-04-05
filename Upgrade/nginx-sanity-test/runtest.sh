@@ -64,9 +64,9 @@ distribution_mcase__setup() {
 distribution_mcase__test() {
         rlRun "systemctl enable --now nginx"
         rlRun "curl $URL > output.html"
-        rlAssertNotDiffer output.html $DOCROOT/index.html
+        rlAssertNotDiffer output.html /usr/share/nginx/html/rhts-nginx-root/index.html
         rlRun "curl $URL/rp/ > output2.html"
-        rlAssertNotDiffer output2.html $DOCROOT/index.html
+        rlAssertNotDiffer output2.html /usr/share/nginx/html/rhts-nginx-root/index.html
 
         rlAssertExists "/var/log/nginx/access.log"
         rlAssertExists "/var/log/nginx/error.log"
