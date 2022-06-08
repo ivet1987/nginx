@@ -1,0 +1,14 @@
+component:
+- nginx
+tag:
+- NoModularTier
+- NoRHEL4
+- NoRHEL5
+- Tier3
+tier: '3'
+adjust:
+-   enabled: false
+    when: product == rhel and distro < rhel-9
+    continue: false
+extra-nitrate: TC#0611948
+extra-summary: /CoreOS/nginx/Regression/bz1991720-ability-to-build-external-modules

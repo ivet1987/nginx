@@ -1,0 +1,18 @@
+component: []
+environment:
+    MODSTREAMS: nginx:1.20
+tag:
+- TestCaseCopy
+- Tier2
+- nginx:1.18
+- nginx:1.20
+- notip
+adjust:
+-   enabled: false
+    when: distro < rhel-8
+    continue: false
+-   enabled: false
+    when: distro ~< rhel-8.5
+    continue: false
+extra-nitrate: TC#0610444
+extra-summary: /CoreOS/nginx/Sanity/php-fpm-integration [nginx:1.20]

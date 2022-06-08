@@ -1,0 +1,21 @@
+component: []
+environment:
+    MODSTREAMS: nginx:1.18
+tag:
+- NoRHEL4
+- NoRHEL5
+- TestCaseCopy
+- Tier2
+tier: '2'
+link:
+-   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1651377
+adjust:
+-   enabled: false
+    when: distro < rhel-8
+    continue: false
+-   enabled: false
+    when: distro ~< rhel-8.3
+    continue: false
+extra-nitrate: TC#0608978
+extra-summary: /CoreOS/nginx/Sanity/bz1651377-centralizing-default-index-html-on-nginx
+    [nginx:1.18]

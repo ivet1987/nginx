@@ -1,0 +1,22 @@
+contact: icesalov@redhat.com
+component: []
+environment:
+    MODSTREAMS: nginx:1.20
+enabled: true
+tag:
+- TestCaseCopy
+- nginx:1.18
+- nginx:1.20
+adjust:
+-   enabled: false
+    when: distro < rhel-8
+    continue: false
+-   enabled: false
+    when: distro ~< rhel-8.5
+    continue: false
+extra-nitrate: TC#0610455
+extra-summary: /CoreOS/nginx/Sanity/reverse-proxy [nginx:1.20]
+extra-hardware: |+
+    MEMORY_MIN_16G
+
+...

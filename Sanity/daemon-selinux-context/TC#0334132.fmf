@@ -1,0 +1,19 @@
+component:
+- nginx
+tag:
+- TIPfail_Apps
+- TIPpass
+- Tier1
+- ci-tier-1
+link:
+-   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1045041
+-   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1074615
+adjust:
+-   enabled: false
+    when: product == rhel and distro < rhel-8
+    continue: false
+-   enabled: false
+    when: distro == rhel-alt
+    continue: false
+extra-nitrate: TC#0334132
+extra-summary: /CoreOS/nginx/Sanity/daemon-selinux-context

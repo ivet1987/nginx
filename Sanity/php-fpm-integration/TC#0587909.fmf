@@ -1,0 +1,15 @@
+component: []
+environment:
+    MODSTREAMS: nginx:1.14
+tag:
+- TestCaseCopy
+- Tier2
+- notip
+link:
+-   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1672281
+adjust:
+-   enabled: false
+    when: distro < rhel-8
+    continue: false
+extra-nitrate: TC#0587909
+extra-summary: /CoreOS/nginx/Sanity/php-fpm-integration [nginx:1.14]

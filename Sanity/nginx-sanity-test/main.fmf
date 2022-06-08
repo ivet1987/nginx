@@ -1,0 +1,21 @@
+summary: What the test does
+description: ''
+contact: icesalov@redhat.com
+component:
+- nginx
+test: ./runtest.sh
+path: /Sanity/nginx-sanity-test
+framework: beakerlib
+require:
+- library(nginx/nginx)
+- library(selinux-policy/common)
+recommend:
+- nginx
+- curl
+- httpd-tools
+- httpd
+duration: 5m
+enabled: true
+tier: '1'
+extra-summary: /CoreOS/nginx/Sanity/nginx-sanity-test
+extra-task: /CoreOS/nginx/Sanity/nginx-sanity-test

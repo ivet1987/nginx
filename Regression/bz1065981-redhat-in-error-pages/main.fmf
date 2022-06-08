@@ -1,0 +1,25 @@
+summary: check 404.html and 50x.html, there should be Red Hat, not Fedora
+description: |
+    Test check {index,404,50x}.html pages:
+    * Red Hat shoud be in page
+    * Fedora shoud not be in page
+    poweredby.png shall be checked manualy if there is Red Hat, not Fedora logo
+
+    Author: Ondrej Ptak <optak@redhat.com>
+contact: icesalov@redhat.com
+component:
+- nginx
+test: ./runtest.sh
+path: /Regression/bz1065981-redhat-in-error-pages
+framework: beakerlib
+require:
+- library(nginx/nginx)
+recommend:
+- nginx
+duration: 5m
+enabled: true
+tier: '3'
+link:
+-   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1065981
+extra-summary: /CoreOS/nginx/Regression/bz1065981-redhat-in-error-pages
+extra-task: /CoreOS/nginx/Regression/bz1065981-redhat-in-error-pages

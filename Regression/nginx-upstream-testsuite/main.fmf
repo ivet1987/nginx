@@ -1,0 +1,34 @@
+summary: Upstream nginx test suite
+description: ''
+contact: icesalov@redhat.com
+component:
+- nginx
+test: ./runtest.sh
+path: /Regression/nginx-upstream-testsuite
+framework: beakerlib
+require:
+- library(nginx/nginx)
+recommend:
+- nginx
+- perl(ExtUtils::MakeMaker)
+- perl-Test-Simple
+- perl-Test-Harness
+- perl-CPAN
+- perl-Module-Build
+- perl-Net-SSLeay
+- perl-FCGI
+- python2-devel
+- python-devel
+- openssl-devel
+- python2
+- python3
+- python
+- nginx-all-modules
+- gcc
+- git
+- python3-devel
+duration: 10m
+enabled: true
+tier: '2'
+extra-summary: /CoreOS/nginx/Regression/nginx-upstream-testsuite
+extra-task: /CoreOS/nginx/Regression/nginx-upstream-testsuite

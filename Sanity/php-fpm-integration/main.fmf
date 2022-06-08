@@ -1,0 +1,21 @@
+summary: Sanity test for nginx with php-fpm
+description: ''
+contact: icesalov@redhat.com
+component:
+- nginx
+test: ./runtest.sh
+path: /Sanity/php-fpm-integration
+framework: beakerlib
+require:
+- library(nginx/nginx)
+recommend:
+- nginx
+- curl
+- httpd-tools
+- httpd
+- php-fpm
+duration: 5m
+enabled: true
+tier: '2'
+extra-summary: /CoreOS/nginx/Sanity/php-fpm-integration
+extra-task: /CoreOS/nginx/Sanity/php-fpm-integration

@@ -1,0 +1,18 @@
+component: []
+environment:
+    MODSTREAMS: nginx:1.16
+tag:
+- TIPfail_Apps
+- TestCaseCopy
+- Tier1
+- ci-tier-1
+- nginx:1.16
+adjust:
+-   enabled: false
+    when: distro < rhel-8
+    continue: false
+-   enabled: false
+    when: distro ~< rhel-8.1
+    continue: false
+extra-nitrate: TC#0598549
+extra-summary: /CoreOS/nginx/Sanity/daemon-selinux-context [nginx:1.16]

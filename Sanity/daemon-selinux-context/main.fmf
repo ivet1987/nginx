@@ -1,0 +1,23 @@
+summary: test selinux context of all squid's processes
+description: |
+    Every process with name "nginx" is checked.
+    Parametrization takes nginx version from COLLECTIONS variable
+    and if COLLECTIONS isn't set, system nginx is expected:
+    (service will be for example: nginx14-nginx or just nginx)
+
+    Author: Ondrej Ptak <optak@redhat.com>
+contact: icesalov@redhat.com
+component:
+- nginx
+test: ./runtest.sh
+path: /Sanity/daemon-selinux-context
+framework: beakerlib
+require:
+- library(nginx/nginx)
+recommend:
+- nginx
+duration: 1m
+enabled: true
+tier: '1'
+extra-summary: /CoreOS/nginx/Sanity/daemon-selinux-context
+extra-task: /CoreOS/nginx/Sanity/daemon-selinux-context

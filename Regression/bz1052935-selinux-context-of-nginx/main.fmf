@@ -1,0 +1,19 @@
+summary: check context of rpm's files
+description: ''
+contact: icesalov@redhat.com
+component:
+- nginx
+test: ./runtest.sh
+path: /Regression/bz1052935-selinux-context-of-nginx
+framework: beakerlib
+require:
+- library(nginx/nginx)
+recommend:
+- nginx
+duration: 5m
+enabled: true
+tier: '3'
+link:
+-   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1052935
+extra-summary: /CoreOS/nginx/Regression/bz1052935-selinux-context-of-nginx
+extra-task: /CoreOS/nginx/Regression/bz1052935-selinux-context-of-nginx

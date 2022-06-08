@@ -1,0 +1,16 @@
+component: []
+environment:
+    MODSTREAMS: nginx:1.16
+tag:
+- TIPfail_Apps
+- TestCaseCopy
+- Tier3
+- nginx:1.16
+link:
+-   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1052935
+adjust:
+-   enabled: false
+    when: distro < rhel-8
+    continue: false
+extra-nitrate: TC#0598558
+extra-summary: /CoreOS/nginx/Regression/bz1052935-selinux-context-of-nginx [nginx:1.16]

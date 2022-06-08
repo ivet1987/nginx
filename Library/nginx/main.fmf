@@ -1,0 +1,17 @@
+summary: library for testing nginx
+description: ''
+contact: Ondrej Ptak <optak@redhat.com>
+component:
+- nginx
+test: ./runtest.sh
+framework: beakerlib
+require:
+- library(openssl/certgen)
+recommend:
+- nginx
+duration: 5m
+enabled: true
+tag: []
+extra-nitrate: TC#0393151
+extra-summary: '[nginx] Basic library for nginx testing (nginx/nginx)'
+extra-task: /CoreOS/nginx/Library/nginx

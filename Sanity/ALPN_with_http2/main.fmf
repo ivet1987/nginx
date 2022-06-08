@@ -1,0 +1,18 @@
+summary: smoke test for ALPN and http2 support
+description: ''
+contact: icesalov@redhat.com
+component:
+- nginx
+test: ./runtest.sh
+path: /Sanity/ALPN_with_http2
+framework: beakerlib
+require:
+- library(nginx/nginx)
+recommend:
+- nginx
+duration: 5m
+enabled: true
+link:
+-   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1481733
+extra-summary: /CoreOS/nginx/Sanity/ALPN_with_http2
+extra-task: /CoreOS/nginx/Sanity/ALPN_with_http2

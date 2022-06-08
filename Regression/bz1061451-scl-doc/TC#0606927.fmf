@@ -1,0 +1,16 @@
+component: []
+environment:
+    MODSTREAMS: nginx:1.18
+tag:
+- TestCaseCopy
+- Tier3
+- nginx:1.18
+adjust:
+-   enabled: false
+    when: distro < rhel-8
+    continue: false
+-   enabled: false
+    when: distro ~< rhel-8.3
+    continue: false
+extra-nitrate: TC#0606927
+extra-summary: /CoreOS/nginx/Regression/bz1061451-scl-doc [nginx:1.18]

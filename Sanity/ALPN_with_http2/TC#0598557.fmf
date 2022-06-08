@@ -1,0 +1,14 @@
+component: []
+environment:
+    MODSTREAMS: nginx:1.16
+tag:
+- NoRHEL4
+- NoRHEL5
+- TestCaseCopy
+- nginx:1.16
+adjust:
+-   enabled: false
+    when: distro < rhel-8
+    continue: false
+extra-nitrate: TC#0598557
+extra-summary: /CoreOS/nginx/Sanity/ALPN_with_http2 [nginx:1.16]

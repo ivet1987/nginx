@@ -1,0 +1,20 @@
+component:
+- nginx
+tag:
+- TIPfail_Apps
+- Tier3
+link:
+-   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1052935
+-   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1072266
+-   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1088912
+-   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1249945
+-   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1249949
+-   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1045041
+-   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1074615
+-   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1280221
+adjust:
+-   enabled: false
+    when: distro < rhel-9 and product != rhscl
+    continue: false
+extra-nitrate: TC#0334954
+extra-summary: /CoreOS/nginx/Regression/bz1052935-selinux-context-of-nginx

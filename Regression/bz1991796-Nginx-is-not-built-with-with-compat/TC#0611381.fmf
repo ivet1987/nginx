@@ -1,0 +1,17 @@
+component: []
+environment:
+    MODSTREAMS: nginx:1.16
+tag:
+- NoRHEL4
+- NoRHEL5
+- TestCaseCopy
+adjust:
+-   enabled: false
+    when: distro < rhel-8
+    continue: false
+-   enabled: false
+    when: distro ~< rhel-8.1
+    continue: false
+extra-nitrate: TC#0611381
+extra-summary: /CoreOS/nginx/Regression/bz1991796-Nginx-is-not-built-with-with-compat
+    [nginx:1.16]

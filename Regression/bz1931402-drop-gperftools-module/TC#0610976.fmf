@@ -1,0 +1,15 @@
+component: []
+environment:
+    MODSTREAMS: nginx:1.20
+tag:
+- NoRHEL4
+- NoRHEL5
+- TestCaseCopy
+- Tier1
+tier: '1'
+adjust:
+-   enabled: false
+    when: distro < rhel-9
+    continue: false
+extra-nitrate: TC#0610976
+extra-summary: /CoreOS/nginx/Regression/bz1931402-drop-gperftools-module [nginx:1.20]

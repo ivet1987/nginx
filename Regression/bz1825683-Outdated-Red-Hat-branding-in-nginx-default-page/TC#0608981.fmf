@@ -7,9 +7,13 @@ tag:
 - TestCaseCopy
 - Tier2
 tier: '2'
-relevancy: |
-    distro < rhel-8: False
-    distro < rhel-8.3: False
+adjust:
+-   enabled: false
+    when: distro < rhel-8
+    continue: false
+-   enabled: false
+    when: distro ~< rhel-8.3
+    continue: false
 extra-nitrate: TC#0608981
 extra-summary: /CoreOS/nginx/Regression/bz1825683-Outdated-Red-Hat-branding-in-nginx-default-page
     [nginx:1.18]

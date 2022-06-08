@@ -1,0 +1,20 @@
+contact: icesalov@redhat.com
+component:
+- nginx
+enabled: true
+tag:
+- Tier1
+tier: '1'
+link:
+-   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1504747
+-   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1641767
+adjust:
+-   enabled: false
+    when: distro < rhel-9 and product != rhscl
+    continue: false
+extra-nitrate: TC#0393686
+extra-summary: /CoreOS/nginx/Sanity/reverse-proxy
+extra-hardware: |+
+    MEMORY_MIN_16G
+
+...

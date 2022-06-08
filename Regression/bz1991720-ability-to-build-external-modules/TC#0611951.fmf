@@ -1,0 +1,17 @@
+component: []
+environment:
+    MODSTREAMS: nginx:1.18
+tag:
+- NoRHEL4
+- NoRHEL5
+- TestCaseCopy
+adjust:
+-   enabled: false
+    when: distro < rhel-8
+    continue: false
+-   enabled: false
+    when: distro ~< rhel-8.3
+    continue: false
+extra-nitrate: TC#0611951
+extra-summary: /CoreOS/nginx/Regression/bz1991720-ability-to-build-external-modules
+    [nginx:1.18]
