@@ -40,7 +40,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest
-        rlRun "ls -dZ \$(rpm -ql $nginxHTTPD) > files_context.log"\
+        rlRun "(ls -dZ \$(rpm -ql $nginxHTTPD) && ls -d -Z \$(rpm -ql nginx-core))> files_context.log"\
             0 "getting selinux context of rpm's files"
         rlAssertNotGrep ":initrc_exec_t" files_context.log
         if rlIsRHEL 6; then
