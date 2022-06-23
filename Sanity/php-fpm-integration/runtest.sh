@@ -51,7 +51,7 @@ rlJournalStart
     rlPhaseStartSetup
         rlRun "rlImport nginx/nginx"
         rlAssertRpm --all
-        rlAssertBinaryOrigin nginx
+        #rlAssertBinaryOrigin nginx
         rlAssertExists ${nginxCONFDIR}
         rlAssertExists ${nginxLOGDIR}
         DOCROOT=$nginxROOTDIR/rhts-nginx-root
