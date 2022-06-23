@@ -1,0 +1,5 @@
+PURPOSE of /CoreOS/nginx/Regression/bz2099752-nginx-minimisation-for-ubi-micro
+Description: Test for BZ#2099752 (nginx minimisation for ubi-micro)
+Author: Iveta Cesalova <icesalov@redhat.com>
+Bug summary: nginx minimisation for ubi-micro
+Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=2099752
