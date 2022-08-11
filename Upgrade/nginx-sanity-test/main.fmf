@@ -8,7 +8,6 @@ path: /Upgrade/nginx-sanity-test
 framework: beakerlib
 require:
   - library(nginx/nginx)
-  - library(selinux-policy/common)
   - library(ControlFlow/mcase)
 recommend:
   - nginx

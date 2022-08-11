@@ -39,7 +39,6 @@ PACKAGES=${PACKAGES:-"nginx"}
 distribution_mcase__setup() {
         rlAssertRpm --all
         rlRun "rlImport nginx/nginx"
-        rlRun "rlImport selinux-policy/common"
         MYCONF=${nginxCONFDIR}/conf.d/rhts-nginx-sanity.conf
         DOCROOT=$nginxROOTDIR/rhts-nginx-root
         rlAssertBinaryOrigin nginx
@@ -75,7 +74,7 @@ distribution_mcase__test() {
 }
 distribution_mcase__cleanup() {
         rlRun "popd"
-        rlSEBooleanRestore httpd_can_network_connect
+        setsebool -P httpd_can_network_connect off
         rlRun "rm -r $TmpDir" 0 "Removing tmp directory"
         rlRun "rm -rf usr/share/nginx/html/rhts-nginx-root"
         rlRun "rm -f /etc/nginx/conf.d/rhts-nginx-sanity.conf"
@@ -84,7 +83,7 @@ distribution_mcase__cleanup() {
 rlJournalStart
     rlPhaseStartSetup
         rlPhaseStartSetup "init"
-        rlImport "distribution/mcase"
+        rlImport "ControlFlow/mcase"
     rlPhaseEnd
     distribution_mcase__run
 

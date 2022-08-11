@@ -3,7 +3,6 @@ environment:
     MODSTREAMS: nginx:1.18
 tag:
   - TestCaseCopy
-  - upgrade
 adjust:
   - enabled: false
     when: distro < rhel-8
