@@ -1,0 +1,10 @@
+/:
+    inherit: false
+summary: Basic upgrade test
+discover:
+    how: fmf
+    filter: tag:upgrade
+execute:
+    how: upgrade
+    url: https://gitlab.cee.redhat.com/oamg/rhel-major-upgrade
+    upgrade-path: /paths/el8toel9.supported

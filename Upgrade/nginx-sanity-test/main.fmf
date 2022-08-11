@@ -1,0 +1,23 @@
+summary: What the test does
+description: ''
+contact: icesalov@redhat.com
+component:
+  - nginx
+test: ./runtest.sh
+path: /Upgrade/nginx-sanity-test
+framework: beakerlib
+require:
+  - library(nginx/nginx)
+  - library(selinux-policy/common)
+  - library(ControlFlow/mcase)
+recommend:
+  - nginx
+  - curl
+  - httpd-tools
+  - httpd
+duration: 5m
+enabled: true
+tag:
+   - upgrade
+extra-summary: /CoreOS/nginx/Upgrade/nginx-sanity-test
+extra-task: /CoreOS/nginx/Upgrade/nginx-sanity-test

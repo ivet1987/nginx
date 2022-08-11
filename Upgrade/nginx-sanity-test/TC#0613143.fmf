@@ -1,0 +1,12 @@
+component:
+  - nginx
+tag:
+  - IPU
+  - NoModularTier
+  - upgrade
+adjust:
+  - enabled: false
+    when: product == rhel and distro < rhel-8
+    continue: false
+extra-nitrate: TC#0613143
+extra-summary: /CoreOS/nginx/Upgrade/nginx-sanity-test

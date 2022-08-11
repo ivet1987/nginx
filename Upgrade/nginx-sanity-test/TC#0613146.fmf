@@ -1,0 +1,15 @@
+component: []
+environment:
+    MODSTREAMS: nginx:1.18
+tag:
+  - TestCaseCopy
+  - upgrade
+adjust:
+  - enabled: false
+    when: distro < rhel-8
+    continue: false
+  - enabled: false
+    when: distro ~< rhel-8.3
+    continue: false
+extra-nitrate: TC#0613146
+extra-summary: /CoreOS/nginx/Upgrade/nginx-sanity-test [nginx:1.18]

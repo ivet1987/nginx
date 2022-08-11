@@ -57,7 +57,7 @@ $(METADATA): Makefile
 	@echo "Requires:        nginx curl httpd-tools httpd" >> $(METADATA)
 	@echo "RhtsRequires:    library(nginx/nginx)" >> $(METADATA)
 	@echo "RhtsRequires:    library(selinux-policy/common)" >> $(METADATA)
-	@echo "RhtsRequires:    library(distribution/mcase)" >> $(METADATA)
+	@echo "RhtsRequires:    library(ControlFlow/mcase)" >> $(METADATA)
 	@echo "Priority:        Normal" >> $(METADATA)
 	@echo "License:         GPLv2" >> $(METADATA)
 	@echo "Confidential:    yes" >> $(METADATA)
