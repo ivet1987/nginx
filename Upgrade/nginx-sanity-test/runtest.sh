@@ -45,7 +45,7 @@ distribution_mcase__setup() {
         rlAssertExists ${nginxCONFDIR}
         rlAssertExists ${nginxLOGDIR}
 
-        rlRun "mkdir ${DOCROOT}"
+        rlRun "mkdir -p ${DOCROOT}"
         rlRun "echo this is the index > ${DOCROOT}/index.html"
         rlRun "echo '<?php echo phpinfo();' > ${DOCROOT}/info.php"
 
@@ -54,7 +54,7 @@ distribution_mcase__setup() {
 
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
-        rlRun "sleep 2" 0 "Wainting on nginx to start"
+        rlRun "sleep 2" 0 "Waiting on nginx to start"
 }
 
 distribution_mcase__test() {
