@@ -1,0 +1,5 @@
+PURPOSE of /CoreOS/nginx/Regression/bz2149965-nginx-mod-devel-for-nginx-1-22-module-requires
+Description: Test for BZ#2149965 (nginx-mod-devel for nginx-1.22 module requires)
+Author: Iveta Cesalova <icesalov@redhat.com>
+Bug summary: nginx-mod-devel for nginx-1.22 module requires pcre-devel instead of pcre2-devel
+Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=2149965
