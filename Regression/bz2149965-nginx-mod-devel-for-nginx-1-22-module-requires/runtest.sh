@@ -29,7 +29,7 @@
 . /usr/bin/rhts-environment.sh || exit 1
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 
-PACKAGES="${PACKAGES:-nginx}"
+PACKAGES=${PACKAGES:-nginx}
 
 rlJournalStart
     rlPhaseStartSetup
@@ -39,8 +39,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest
-        rlRun "yum -y install nginx-mod-devel" 0 "Installing nginx-mod-devel"
-        rlRun "rpm -qa pcre2-devel | grep pcre2-devel" 0 "Confirming pcre2-devel is installed"
+        rlRun "rpm -qa pcre2-devel | tee output" 0 "Confirming pcre2-devel is installed"
+        rlAssertGrep "pcre2-devel" output
     rlPhaseEnd
 
     rlPhaseStartCleanup
