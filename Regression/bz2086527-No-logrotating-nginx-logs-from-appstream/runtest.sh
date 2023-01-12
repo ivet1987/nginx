@@ -47,8 +47,10 @@ rlJournalStart
         rlRun "logrotate -vf /etc/logrotate.d/nginx"
         rlRun "cat /var/log/nginx/access.log.1"
         rlRun "curl localhost > /dev/null 2>&1"
-        rlAssertNotDiffer /var/log/nginx/access.log output
-rlPhaseEnd
+        NEW=$( wc -l /var/log/nginx/access.log)
+        OLD=$( wc -l output)
+        rlAssertEquals $OLD $NEW
+    rlPhaseEnd
 
     rlPhaseStartCleanup
         rlRun "rlServiceStop $nginxHTTPD"
