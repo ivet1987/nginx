@@ -38,6 +38,7 @@ rlJournalStart
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
         rlRun "rlServiceStart $nginxHTTPD"
+        rlRun "rm -f /var/log/nginx/access.log" 0 "Clearing access log"
         rlRun "sed -i 's/error_log \/var\/log\/nginx\/error.log;/error_log \/var\/log\/nginx\/error.log debug;/g' $nginxCONFDIR/nginx.conf"
     rlPhaseEnd
 
