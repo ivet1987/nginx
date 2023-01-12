@@ -48,13 +48,6 @@ rlJournalStart
         rlRun "cat /var/log/nginx/access.log.1"
         rlRun "curl localhost > /dev/null 2>&1"
         rlAssertNotDiffer /var/log/nginx/access.log output
-        FILENAME=/var/log/nginx/error.log
-        if [ -s "${FILENAME}" ]
-        then
-            echo "logging to /var/log/nginx/error.log succesfull"
-        else
-            echo "No logging to /var/log/nginx/error"
-        fi
 rlPhaseEnd
 
     rlPhaseStartCleanup
