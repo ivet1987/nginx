@@ -1,0 +1,5 @@
+PURPOSE of /CoreOS/nginx/Regression/bz2086527-No-logrotating-nginx-logs-from-appstream
+Description: Test for BZ#2086527 (No logrotating nginx logs from @appstream)
+Author: Iveta Cesalova <icesalov@redhat.com>
+Bug summary: No logrotating nginx logs from @appstream nginx-1.20.1-10.el9.x86_64.rpm
+Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=2086527
