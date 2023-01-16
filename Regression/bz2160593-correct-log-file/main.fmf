@@ -1,0 +1,10 @@
+summary: Verify that nginx is able to handle log rotation properly
+test: ./test.sh
+framework: beakerlib
+component:
+- nginx
+recommend:
+- nginx
+- curl
+- logrotate
+
