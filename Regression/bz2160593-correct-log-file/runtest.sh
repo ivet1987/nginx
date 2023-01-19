@@ -12,7 +12,7 @@ rlPhaseStartSetup
         rlRun "rlImport nginx/nginx"
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
-        rlRun "rm -f /var/log/nginx/access.log" 0 "Clearing access log"
+        rlRun "rm -f /var/log/nginx/access*" 0 "Clearing access log"
         rlRun "rlServiceStart $nginxHTTPD"
         rlRun "set -o pipefail"
         rlFileBackup /var/log/nginx

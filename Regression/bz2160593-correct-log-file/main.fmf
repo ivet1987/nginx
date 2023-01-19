@@ -13,3 +13,5 @@ recommend:
 duration: 5m
 extra-summary: /CoreOS/nginx/Regression/bz2160593-correct-log-file
 extra-task: /CoreOS/nginx/Regression/bz2160593-correct-log-file
+extra-nitrate: TC#0614775
+id: 3d43e5f2-de25-4481-bf15-5451bdd76cd8
