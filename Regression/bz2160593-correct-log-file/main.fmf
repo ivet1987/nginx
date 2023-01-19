@@ -1,10 +1,15 @@
-summary: Verify that nginx is able to handle log rotation properly
-test: ./test.sh
-framework: beakerlib
+summary: Test for BZ#bz2160593-correct-log-file
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=2160593
+contact: Iveta Cesalova <icesalov@redhat.com>
 component:
-- nginx
+  - nginx
+test: ./runtest.sh
+framework: beakerlib
+require:
+  - library(nginx/nginx)
 recommend:
-- nginx
-- curl
-- logrotate
-
+  - nginx
+duration: 5m
+extra-summary: /CoreOS/nginx/Regression/bz2160593-correct-log-file
+extra-task: /CoreOS/nginx/Regression/bz2160593-correct-log-file

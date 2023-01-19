@@ -1,13 +1,20 @@
 #!/bin/bash
 # vim: dict+=/usr/share/beakerlib/dictionary.vim cpt=.,w,b,u,t,i,k
+
+# Include Beaker environment
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 
+PACKAGES=${PACKAGES:-"nginx"}
+
 rlJournalStart
-    rlPhaseStartSetup
-        rlRun "tmp=\$(mktemp -d)" 0 "Create tmp directory"
-        rlRun "pushd $tmp"
+rlPhaseStartSetup
+        rlAssertRpm --all
+        rlRun "rlImport nginx/nginx"
+        rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
+        rlRun "pushd $TmpDir"
+        rlRun "rm -f /var/log/nginx/access.log" 0 "Clearing access log"
+        rlRun "rlServiceStart $nginxHTTPD"
         rlRun "set -o pipefail"
-        rlServiceStart nginx
         rlFileBackup /var/log/nginx
     rlPhaseEnd
 
@@ -21,9 +28,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartCleanup
-        rlServiceRestore nginx
-        rlFileRestore
+        rlRun "rlServiceStop $nginxHTTPD"
         rlRun "popd"
-        rlRun "rm -r $tmp" 0 "Remove tmp directory"
+        rlRun "rm -r $TmpDir" 0 "Removing tmp directory"
     rlPhaseEnd
+
 rlJournalEnd
