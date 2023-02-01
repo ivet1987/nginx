@@ -37,6 +37,7 @@ rlJournalStart
         rlRun "rlImport nginx/nginx"
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
+        rlRun "systemctl start nginx"
     rlPhaseEnd
 
     rlPhaseStartTest
@@ -71,6 +72,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartCleanup
+        rlRun "systemctl stop nginx"
         rlRun "popd"
         rlRun "rm -r $TmpDir" 0 "Removing tmp directory"
     rlPhaseEnd
