@@ -34,7 +34,7 @@ URL=http://127.0.0.1:81/
 RPURL=http://127.0.0.1:81/rp/
 PHPURL=http://127.0.0.1:81/info.php
 
-PACKAGES=${PACKAGES:-"nginx nginx-core"}
+PACKAGES=${PACKAGES:-"nginx"}
 
 rlJournalStart
     rlPhaseStartSetup
