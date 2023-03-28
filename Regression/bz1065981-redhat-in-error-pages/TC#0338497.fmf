@@ -1,7 +1,6 @@
 component:
 - nginx
 tag:
-- Acceptance
 - Tier3
 link:
 -   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1065981
