@@ -1,0 +1,18 @@
+component:
+ - nginx:1.20
+environment:
+    MODSTREAMS: nginx:1.20
+tag:
+  - TIPpass_Apps
+  - TestCaseCopy
+  - Tier1
+  - ci-tier-1
+  - nginx:1.18
+  - nginx:1.20
+adjust:
+  - enabled: false
+    when: distro < rhel-8.5
+    continue: false
+extra-nitrate: TC#0610448
+extra-summary: /CoreOS/nginx/Sanity/nginx-sanity-test [nginx:1.20]
+id: 9d7a5e62-2463-47b5-99f6-8b5c8317a033

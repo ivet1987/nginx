@@ -1,18 +1,19 @@
 component:
-- nginx
+  - nginx
 tag:
-- TIPpass
-- TIPpass_Apps
-- Tier1
-- ci-tier-1
+  - TIPpass
+  - TIPpass_Apps
+  - Tier1
+  - ci-tier-1
 link:
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1250095
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1250095
 adjust:
--   enabled: false
+  - enabled: false
     when: product == rhel and distro < rhel-8
     continue: false
--   enabled: false
+  - enabled: false
     when: distro == rhel-alt
     continue: false
 extra-nitrate: TC#0326941
 extra-summary: /CoreOS/nginx/Sanity/nginx-sanity-test
+id: d6d54681-d363-431a-9a4f-faf509f39329

@@ -2,12 +2,13 @@ component: []
 environment:
     MODSTREAMS: nginx:1.14
 tag:
-- TestCaseCopy
-- Tier1
-- ci-tier-1
+  - TestCaseCopy
+  - Tier1
+  - ci-tier-1
 adjust:
--   enabled: false
+  - enabled: false
     when: distro < rhel-8
     continue: false
 extra-nitrate: TC#0587905
 extra-summary: /CoreOS/nginx/Sanity/nginx-sanity-test [nginx:1.14]
+id: 30999c38-6842-40b8-be2d-08ee39edb66c

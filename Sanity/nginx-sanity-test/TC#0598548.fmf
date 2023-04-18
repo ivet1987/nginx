@@ -2,16 +2,17 @@ component: []
 environment:
     MODSTREAMS: nginx:1.16
 tag:
-- TestCaseCopy
-- Tier1
-- ci-tier-1
-- nginx:1.16
+  - TestCaseCopy
+  - Tier1
+  - ci-tier-1
+  - nginx:1.16
 adjust:
--   enabled: false
+  - enabled: false
     when: distro < rhel-8
     continue: false
--   enabled: false
+  - enabled: false
     when: distro ~< rhel-8.1
     continue: false
 extra-nitrate: TC#0598548
 extra-summary: /CoreOS/nginx/Sanity/nginx-sanity-test [nginx:1.16]
+id: 8db6259f-25e7-4529-820a-9b96d7fb0d2c
