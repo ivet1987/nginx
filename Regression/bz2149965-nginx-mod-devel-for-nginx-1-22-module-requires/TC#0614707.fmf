@@ -1,0 +1,18 @@
+tag:
+  - NoRHEL4
+  - NoRHEL5
+  - TestCaseCopy
+adjust:
+  - enabled: false
+    when: distro < rhel-8
+    continue: false
+  - enabled: false
+    when: distro ~< rhel-8.5
+    continue: false
+component:
+  - nginx:1.20
+environment:
+    MODSTREAMS: nginx:1.20
+extra-nitrate: TC#0614707
+extra-summary: /CoreOS/nginx/Regression/bz2149965-nginx-mod-devel-for-nginx-1-22-module-requires
+    [nginx:1.20]

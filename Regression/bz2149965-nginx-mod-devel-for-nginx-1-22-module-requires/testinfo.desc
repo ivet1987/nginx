@@ -1,0 +1,15 @@
+Owner:           Iveta Cesalova <icesalov@redhat.com>
+Name:            /CoreOS/nginx/Regression/bz2149965-nginx-mod-devel-for-nginx-1-22-module-requires
+TestVersion:     1.0
+Path:            /mnt/tests/CoreOS/nginx/Regression/bz2149965-nginx-mod-devel-for-nginx-1-22-module-requires
+Description:     Test for BZ#2149965 (nginx-mod-devel for nginx-1.22 module requires)
+Type:            Regression
+TestTime:        5m
+RunFor:          nginx
+Requires:        nginx nginx-mod-devel
+Priority:        Normal
+License:         GPLv2+
+Confidential:    no
+Destructive:     no
+Bug:             2149965
+Releases:        -RHEL4 -RHELClient5 -RHELServer5
