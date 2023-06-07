@@ -5,6 +5,13 @@ description: |
 enabled: true
 link:
   - relates: https://bugzilla.redhat.com/show_bug.cgi?id=2149965
+adjust:
+  - enabled: false
+    when: distro ~< rhel-9.2
+    continue: false
+  - enabled: false
+    when: distro ~< rhel-8.8
+    continue: false
 contact: Iveta Cesalova <icesalov@redhat.com>
 component:
   - nginx

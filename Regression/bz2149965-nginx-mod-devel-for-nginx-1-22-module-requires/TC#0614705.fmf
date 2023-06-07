@@ -4,10 +4,6 @@ tag:
   - NoRHEL5
   - TIer2
 tier: '2'
-adjust:
-  - enabled: false
-    when: product == rhel and distro < rhel-8
-    continue: false
 component:
   - nginx
 extra-nitrate: TC#0614705
