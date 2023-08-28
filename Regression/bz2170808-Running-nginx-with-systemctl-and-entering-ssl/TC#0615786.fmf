@@ -10,3 +10,4 @@ component:
   - nginx
 extra-nitrate: TC#0615786
 extra-summary: /CoreOS/nginx-1.22-module/Regression/bz2170808-Running-nginx-with-systemctl-and-entering-ssl
+id: a7de976d-3c4f-4bfb-9a98-b5212459d2bc

@@ -2,18 +2,16 @@ summary: Test for BZ#2170808 (Running nginx with systemctl and entering ssl)
 description: |
     Bug summary: Running nginx with systemctl and entering ssl private key's pass phrase
     Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=2170808
-enabled: true
 link:
   - relates: https://bugzilla.redhat.com/show_bug.cgi?id=2170808
 contact: Iveta Cesalova <icesalov@redhat.com>
 component:
   - nginx
 test: ./runtest.sh
-path: /Regression/bz2170808-Running-nginx-with-systemctl-and-entering-ssl
 framework: beakerlib
 recommend:
   - nginx
   - expect
 duration: 5m
-extra-summary: /CoreOS/nginx-1.22-module/Regression/bz2170808-Running-nginx-with-systemctl-and-entering-ssl
-extra-task: /CoreOS/nginx-1.22-module/Regression/bz2170808-Running-nginx-with-systemctl-and-entering-ssl
+extra-summary: /CoreOS/nginx/Regression/bz2170808-Running-nginx-with-systemctl-and-entering-ssl
+extra-task: /CoreOS/nginx/Regression/bz2170808-Running-nginx-with-systemctl-and-entering-ssl

@@ -23,7 +23,7 @@
 #
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-export TEST=/CoreOS/nginx-1.22-module/Regression/bz2170808-Running-nginx-with-systemctl-and-entering-ssl
+export TEST=/CoreOS/nginx/Regression/bz2170808-Running-nginx-with-systemctl-and-entering-ssl
 export TESTVERSION=1.0
 
 BUILT_FILES=
