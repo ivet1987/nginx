@@ -1,0 +1,4 @@
+spawn systemctl start nginx
+expect "Enter TLS private key passphrase for _ (RSA) :"
+send -- "redhat\r"
+expect eof

@@ -1,0 +1,5 @@
+PURPOSE of /CoreOS/nginx-1.22-module/Regression/bz2170808-Running-nginx-with-systemctl-and-entering-ssl
+Description: Test for BZ#2170808 (Running nginx with systemctl and entering ssl)
+Author: Iveta Cesalova <icesalov@redhat.com>
+Bug summary: Running nginx with systemctl and entering ssl private key's pass phrase
+Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=2170808
