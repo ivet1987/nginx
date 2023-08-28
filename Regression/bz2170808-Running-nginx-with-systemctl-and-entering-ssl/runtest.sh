@@ -43,7 +43,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest
-        rlRun "expect expect.txt"
+        rlRun "expect -d expect.txt"
         rlServiceStatus nginx
     rlPhaseEnd
 
