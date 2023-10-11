@@ -43,7 +43,7 @@ rlJournalStart
     rlPhaseStartTest
         rlRun "ls -dZ \$(rpm -ql $nginxHTTPD) > files_context.log"\
             0 "getting selinux context of rpm's files"
-        if rlIsRHEL ">=9" ; then
+        if rlIsRHEL ">=9.1" ; then
             rlRun "ls -dZ \$(rpm -ql nginx-core) >> files_context.log"\
             0 "getting selinux context of rpm's files"
         fi
