@@ -12,6 +12,10 @@ framework: beakerlib
 recommend:
   - nginx
   - expect
+adjust:
+  - enabled: false
+    when: distro ~< rhel-9.3
+    continue: false
 duration: 5m
 extra-summary: /CoreOS/nginx/Regression/bz2170808-Running-nginx-with-systemctl-and-entering-ssl
 extra-task: /CoreOS/nginx/Regression/bz2170808-Running-nginx-with-systemctl-and-entering-ssl
