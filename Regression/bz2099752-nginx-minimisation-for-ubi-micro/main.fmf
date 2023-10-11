@@ -12,6 +12,10 @@ recommend:
 - nginx
 duration: 5m
 enabled: true
+adjust:
+  - enabled: false
+    when: distro ~< rhel-9.1
+    continue: false
 link:
 -   relates: https://bugzilla.redhat.com/show_bug.cgi?id=2099752
 extra-summary: /CoreOS/nginx/Regression/bz2099752-nginx-minimisation-for-ubi-micro
