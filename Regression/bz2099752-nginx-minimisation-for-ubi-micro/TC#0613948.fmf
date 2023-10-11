@@ -8,7 +8,7 @@ adjust:
 -   enabled: false
     when: product == rhel and distro < rhel-8
     continue: false
-  - enabled: false
+-   enabled: false
     when: distro ~< rhel-9.1
     continue: false
 extra-nitrate: TC#0613948
