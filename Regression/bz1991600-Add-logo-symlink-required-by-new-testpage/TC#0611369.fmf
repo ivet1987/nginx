@@ -13,5 +13,4 @@ adjust:
     when: distro ~< rhel-8.3
     continue: false
 extra-nitrate: TC#0611369
-extra-summary: /CoreOS/nginx/Regression/bz1991600-Add-logo-symlink-required-by-new-testpage
-    [nginx:1.18]
+extra-summary: /CoreOS/nginx/Regression/bz1991600-Add-logo-symlink-required-by-new-testpage [nginx:1.18]
