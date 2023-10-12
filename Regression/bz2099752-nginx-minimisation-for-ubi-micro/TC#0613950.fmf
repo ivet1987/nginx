@@ -7,10 +7,10 @@ tag:
 - TestCaseCopy
 adjust:
 -   enabled: false
-    when: distro < rhel-8
+    when: distro < rhel-9
     continue: false
 -   enabled: false
-    when: distro ~< rhel-8.5
+    when: distro ~< rhel-9.1
     continue: false
 extra-nitrate: TC#0613950
 extra-summary: /CoreOS/nginx/Regression/bz2099752-nginx-minimisation-for-ubi-micro
