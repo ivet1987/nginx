@@ -5,15 +5,26 @@ description: |
 enabled: true
 link:
   - relates: https://bugzilla.redhat.com/show_bug.cgi?id=2170808
+tag:
+  - NoRHEL4
+  - NoRHEL5
+  - TestCaseCopy
+adjust:
+  - enabled: false
+    when: distro ~< rhel-9.3
+    continue: false
 contact: Iveta Cesalova <icesalov@redhat.com>
 component:
-  - nginx
+  - nginx:1.22
 test: ./runtest.sh
-path: /Regression/bz2170808-Running-nginx-with-systemctl-and-entering-ssl
 framework: beakerlib
 recommend:
   - nginx
   - expect
+environment:
+    MODSTREAMS: nginx:1.22
 duration: 5m
+extra-nitrate: TC#0615793
 extra-summary: /CoreOS/nginx/Regression/bz2170808-Running-nginx-with-systemctl-and-entering-ssl
+    [nginx:1.22]
 extra-task: /CoreOS/nginx/Regression/bz2170808-Running-nginx-with-systemctl-and-entering-ssl
