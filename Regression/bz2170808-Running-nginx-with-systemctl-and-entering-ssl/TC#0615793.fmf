@@ -10,7 +10,6 @@ component:
   - nginx:1.22
 environment:
     MODSTREAMS: nginx:1.22
-extra-nitrate: TC#0615789
-extra-summary: /CoreOS/nginx-1.22-module/Regression/bz2170808-Running-nginx-with-systemctl-and-entering-ssl
+extra-nitrate: TC#0615793
+extra-summary: /CoreOS/nginx/Regression/bz2170808-Running-nginx-with-systemctl-and-entering-ssl
     [nginx:1.22]
-id: a85ead9c-7b43-42da-bcb8-41206357950a
