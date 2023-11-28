@@ -13,3 +13,4 @@ adjust:
 extra-nitrate: TC#0611370
 extra-summary: /CoreOS/nginx/Regression/bz1991600-Add-logo-symlink-required-by-new-testpage
     [nginx:1.20]
+id: cc472be2-f658-470b-a286-e3d77b6e91dd
