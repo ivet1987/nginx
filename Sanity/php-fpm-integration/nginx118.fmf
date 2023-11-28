@@ -16,3 +16,4 @@ adjust:
     continue: false
 extra-nitrate: TC#0606909
 extra-summary: /CoreOS/nginx/Sanity/php-fpm-integration [nginx:1.18]
+id: 23b17269-bdb7-47af-a5bf-ee0dfe5974ff
