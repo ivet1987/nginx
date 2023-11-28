@@ -1,0 +1,16 @@
+Owner:           Iveta Cesalova <icesalov@redhat.com>
+Name:            /CoreOS/nginx/Regression/bz2086527-No-logrotating-nginx-logs-from-appstream
+TestVersion:     1.0
+Path:            /mnt/tests/CoreOS/nginx/Regression/bz2086527-No-logrotating-nginx-logs-from-appstream
+Description:     Test for BZ#2086527 (No logrotating nginx logs from @appstream)
+Type:            Regression
+TestTime:        5m
+RunFor:          nginx
+Requires:        nginx
+RhtsRequires:    library(nginx/nginx)
+Priority:        Normal
+License:         GPLv2+
+Confidential:    no
+Destructive:     no
+Bug:             2086527
+Releases:        -RHEL4 -RHELClient5 -RHELServer5

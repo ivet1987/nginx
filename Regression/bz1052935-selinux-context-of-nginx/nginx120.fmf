@@ -1,19 +1,20 @@
-component: []
+component:
+  - nginx:1.20
 environment:
     MODSTREAMS: nginx:1.20
 tag:
-- TIPfail_Apps
-- TestCaseCopy
-- Tier3
-- nginx:1.18
-- nginx:1.20
+  - TIPfail_Apps
+  - TestCaseCopy
+  - Tier3
+  - nginx:1.18
+  - nginx:1.20
 link:
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1052935
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1052935
 adjust:
--   enabled: false
+  - enabled: false
     when: distro < rhel-8
     continue: false
--   enabled: false
+  - enabled: false
     when: distro ~< rhel-8.5
     continue: false
 extra-nitrate: TC#0610458

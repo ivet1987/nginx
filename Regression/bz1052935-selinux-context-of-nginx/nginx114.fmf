@@ -1,14 +1,15 @@
-component: []
+component:
+  - nginx:1.14
 environment:
     MODSTREAMS: nginx:1.14
 tag:
-- TIPfail_Apps
-- TestCaseCopy
-- Tier3
+  - TIPfail_Apps
+  - TestCaseCopy
+  - Tier3
 link:
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1052935
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1052935
 adjust:
--   enabled: false
+  - enabled: false
     when: distro < rhel-8
     continue: false
 extra-nitrate: TC#0587917
