@@ -14,5 +14,7 @@ component:
 environment:
     MODSTREAMS: nginx:1.20
 extra-nitrate: TC#0614707
-extra-summary: /CoreOS/nginx/Regression/bz2149965-nginx-mod-devel-for-nginx-1-22-module-requires
+extra-summary: 
+    /CoreOS/nginx/Regression/bz2149965-nginx-mod-devel-for-nginx-1-22-module-requires
     [nginx:1.20]
+id: 50bae871-1964-41ae-b17f-9746d2e6b7b9

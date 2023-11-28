@@ -7,4 +7,6 @@ tier: '2'
 component:
   - nginx
 extra-nitrate: TC#0614705
-extra-summary: /CoreOS/nginx/Regression/bz2149965-nginx-mod-devel-for-nginx-1-22-module-requires
+extra-summary: 
+    /CoreOS/nginx/Regression/bz2149965-nginx-mod-devel-for-nginx-1-22-module-requires
+id: 321db123-bafd-4f64-ab39-a650db9216c9
