@@ -18,3 +18,4 @@ adjust:
     continue: false
 extra-nitrate: TC#0606921
 extra-summary: /CoreOS/nginx/Sanity/reverse-proxy [nginx:1.18]
+id: 12daf950-4084-467c-93fb-c38705e62a3f
