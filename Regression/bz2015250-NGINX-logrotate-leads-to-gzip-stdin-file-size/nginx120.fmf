@@ -1,14 +1,15 @@
-component: []
+component:
+  - nginx:1.20
 environment:
     MODSTREAMS: nginx:1.20
 tag:
-- NoRHEL4
-- NoRHEL5
-- TestCaseCopy
-- Tier2
+  - NoRHEL4
+  - NoRHEL5
+  - TestCaseCopy
+  - Tier2
 tier: '2'
 adjust:
--   enabled: false
+  - enabled: false
     when: distro < rhel-9
     continue: false
 extra-nitrate: TC#0612680

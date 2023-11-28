@@ -16,3 +16,4 @@ adjust:
 extra-nitrate: TC#0611381
 extra-summary: /CoreOS/nginx/Regression/bz1991796-Nginx-is-not-built-with-with-compat
     [nginx:1.16]
+id: 2f22fd7f-ee0c-4a21-92b0-c6e4da482bd2
