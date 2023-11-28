@@ -14,3 +14,4 @@ adjust:
     continue: false
 extra-nitrate: TC#0598555
 extra-summary: /CoreOS/nginx/Regression/bz1421927-nginx-perl-module-support [nginx:1.16]
+id: 1eb3ce96-351d-471f-8af1-2b7e8570bd4a

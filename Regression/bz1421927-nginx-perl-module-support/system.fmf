@@ -1,20 +1,21 @@
 component:
-- nginx
+  - nginx
 tag:
-- NoRHEL4
-- NoRHEL5
-- TIPfail_Apps
-- Tier2
+  - NoRHEL4
+  - NoRHEL5
+  - TIPfail_Apps
+  - Tier2
 tier: '2'
 adjust:
--   enabled: false
+  - enabled: false
     when: distro == rhel-4, rhel-5
     continue: false
--   enabled: false
+  - enabled: false
     when: distro < rhel-9 and product != rhscl
     continue: false
--   enabled: false
+  - enabled: false
     when: arch != x86_64
     continue: false
 extra-nitrate: TC#0549152
 extra-summary: /CoreOS/nginx/Regression/bz1421927-nginx-perl-module-support
+id: f648dc99-b7ba-4eca-894c-8d5ad98212c9
