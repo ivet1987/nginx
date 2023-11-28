@@ -19,3 +19,4 @@ extra-nitrate: TC#0608981
 extra-summary: 
     /CoreOS/nginx/Regression/bz1825683-Outdated-Red-Hat-branding-in-nginx-default-page
     [nginx:1.18]
+id: 16ce0c46-6003-41ab-82d4-9fe84281795d
