@@ -1,13 +1,14 @@
 component:
-- nginx
+  - nginx
 tag:
-- Tier3
+  - Tier3
 link:
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1066056
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1644305
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1066056
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1644305
 adjust:
--   enabled: false
+  - enabled: false
     when: distro < rhel-9 and product != rhscl
     continue: false
 extra-nitrate: TC#0338287
 extra-summary: /CoreOS/nginx/Regression/bz1066056-variable-expansion-in-man
+id: 55fa5780-9361-4047-b600-2e01c68fec4f

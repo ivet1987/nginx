@@ -14,3 +14,4 @@ adjust:
     continue: false
 extra-nitrate: TC#0598553
 extra-summary: /CoreOS/nginx/Regression/bz1066056-variable-expansion-in-man [nginx:1.16]
+id: 66d85412-f51b-4cfd-8aad-e20da619f7dd
