@@ -1,15 +1,16 @@
-component: []
+component:
+  - nginx:1.14
 environment:
     MODSTREAMS: nginx:1.14
 tag:
-- NoRHEL4
-- NoRHEL5
-- TIPfail_Apps
-- TestCaseCopy
-- Tier3
+  - NoRHEL4
+  - NoRHEL5
+  - TIPfail_Apps
+  - TestCaseCopy
+  - Tier3
 tier: '3'
 adjust:
--   enabled: false
+  - enabled: false
     when: distro < rhel-8
     continue: false
 extra-nitrate: TC#0587912
