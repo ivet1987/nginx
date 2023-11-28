@@ -1,16 +1,17 @@
 component:
-- nginx
+  - nginx
 tag:
-- Tier2
-- notip
+  - Tier2
+  - notip
 link:
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1250095
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1250095
 adjust:
--   enabled: false
+  - enabled: false
     when: distro ~< rhel-6.4
     continue: false
--   enabled: false
+  - enabled: false
     when: distro < rhel-9 and product != rhscl
     continue: false
 extra-nitrate: TC#0327172
 extra-summary: /CoreOS/nginx/Sanity/php-fpm-integration
+id: cfd8527c-e31a-42ad-a0ed-c7d8e36801f1
