@@ -1,11 +1,12 @@
-component: []
+component:
+  - nginx:1.14
 environment:
     MODSTREAMS: nginx:1.14
 tag:
-- TestCaseCopy
-- Tier3
+  - TestCaseCopy
+  - Tier3
 adjust:
--   enabled: false
+  - enabled: false
     when: distro < rhel-8
     continue: false
 extra-nitrate: TC#0587919

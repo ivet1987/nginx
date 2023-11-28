@@ -1,20 +1,21 @@
 component:
-- nginx
+  - nginx
 tag:
-- TIPfail_Apps
-- Tier3
+  - TIPfail_Apps
+  - Tier3
 link:
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1052935
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1072266
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1088912
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1249945
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1249949
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1045041
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1074615
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1280221
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1052935
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1072266
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1088912
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1249945
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1249949
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1045041
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1074615
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1280221
 adjust:
--   enabled: false
+  - enabled: false
     when: distro < rhel-9 and product != rhscl
     continue: false
 extra-nitrate: TC#0334954
 extra-summary: /CoreOS/nginx/Regression/bz1052935-selinux-context-of-nginx
+id: e5a2147b-5ec7-42fd-87d1-0ff4b9439d4b

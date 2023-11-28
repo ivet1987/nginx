@@ -18,3 +18,4 @@ adjust:
     continue: false
 extra-nitrate: TC#0606925
 extra-summary: /CoreOS/nginx/Regression/bz1052935-selinux-context-of-nginx [nginx:1.18]
+id: 627363bf-fddc-4b72-a066-ffce206c4332
