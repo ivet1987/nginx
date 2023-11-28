@@ -20,3 +20,4 @@ adjust:
 extra-nitrate: TC#0608978
 extra-summary: /CoreOS/nginx/Sanity/bz1651377-centralizing-default-index-html-on-nginx
     [nginx:1.18]
+id: 09439213-c496-4aa7-8b98-f7fb3f6a034a
