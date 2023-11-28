@@ -6,12 +6,10 @@ tag:
   - NoRHEL4
   - NoRHEL5
   - TestCaseCopy
-  - Tier1
-tier: '1'
 adjust:
   - enabled: false
     when: distro < rhel-9
     continue: false
-extra-nitrate: TC#0610976
-extra-summary: /CoreOS/nginx/Regression/bz1931402-drop-gperftools-module [nginx:1.20]
-id: 05a4a4b1-6fba-4c17-b8cf-96f05d28ff05
+extra-nitrate: TC#0611370
+extra-summary: /CoreOS/nginx/Regression/bz1991600-Add-logo-symlink-required-by-new-testpage
+    [nginx:1.20]
