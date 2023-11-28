@@ -1,10 +1,11 @@
 component:
-- nginx
+  - nginx
 tag:
-- Tier3
+  - Tier3
 adjust:
--   enabled: false
+  - enabled: false
     when: product < rhel-9
     continue: false
 extra-nitrate: TC#0338166
 extra-summary: /CoreOS/nginx/Regression/bz1061451-scl-doc
+id: e00d5537-e996-428f-867f-2519206830f2

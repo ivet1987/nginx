@@ -16,3 +16,4 @@ adjust:
     continue: false
 extra-nitrate: TC#0610460
 extra-summary: /CoreOS/nginx/Regression/bz1061451-scl-doc [nginx:1.20]
+id: 145363a8-5d13-4b05-be94-051e018c416f
