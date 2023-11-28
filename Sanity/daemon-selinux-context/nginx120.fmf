@@ -18,3 +18,4 @@ adjust:
     continue: false
 extra-nitrate: TC#0610451
 extra-summary: /CoreOS/nginx/Sanity/daemon-selinux-context [nginx:1.20]
+id: 7f1214ef-37d6-447f-bb49-3292b57b45a8
