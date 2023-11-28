@@ -1,17 +1,18 @@
-component: []
+component:
+  - nginx:1.20
 environment:
     MODSTREAMS: nginx:1.20
 tag:
-- TestCaseCopy
-- Tier2
-- nginx:1.18
-- nginx:1.20
-- notip
+  - TestCaseCopy
+  - Tier2
+  - nginx:1.18
+  - nginx:1.20
+  - notip
 adjust:
--   enabled: false
+  - enabled: false
     when: distro < rhel-8
     continue: false
--   enabled: false
+  - enabled: false
     when: distro ~< rhel-8.5
     continue: false
 extra-nitrate: TC#0610444
