@@ -14,3 +14,4 @@ adjust:
     continue: false
 extra-nitrate: TC#0587911
 extra-summary: /CoreOS/nginx/Regression/nginx-upstream-testsuite [nginx:1.14]
+id: 9d2a9ca3-6675-4825-9a67-3c85fdb8f6b8
