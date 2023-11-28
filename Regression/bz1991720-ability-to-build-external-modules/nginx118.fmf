@@ -16,3 +16,4 @@ adjust:
 extra-nitrate: TC#0611951
 extra-summary: /CoreOS/nginx/Regression/bz1991720-ability-to-build-external-modules
     [nginx:1.18]
+id: d433b865-4795-4342-ba5c-52e674f06271
