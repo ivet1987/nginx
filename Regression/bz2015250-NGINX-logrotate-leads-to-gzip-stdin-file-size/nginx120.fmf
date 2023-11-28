@@ -15,3 +15,4 @@ adjust:
 extra-nitrate: TC#0612680
 extra-summary: /CoreOS/nginx/Regression/bz2015250-NGINX-logrotate-leads-to-gzip-stdin-file-size
     [nginx:1.20]
+id: bb2dc285-3942-4a08-b4b1-56d08f390ba5
