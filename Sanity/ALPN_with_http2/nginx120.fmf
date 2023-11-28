@@ -18,3 +18,4 @@ adjust:
     continue: false
 extra-nitrate: TC#0610453
 extra-summary: /CoreOS/nginx/Sanity/ALPN_with_http2 [nginx:1.20]
+id: 402e28a3-28f3-4848-b6f7-7c5e8af22d08

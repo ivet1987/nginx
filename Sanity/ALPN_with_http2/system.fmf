@@ -1,17 +1,18 @@
 component:
-- nginx
+  - nginx
 tag:
-- NoRHEL4
-- NoRHEL5
-- NoTier
-- Tier3
+  - NoRHEL4
+  - NoRHEL5
+  - NoTier
+  - Tier3
 tier: '3'
 adjust:
--   enabled: false
+  - enabled: false
     when: distro < rhel-9 and product != rhscl
     continue: false
--   enabled: false
+  - enabled: false
     when: collection != rh-nginx112
     continue: false
 extra-nitrate: TC#0560589
 extra-summary: /CoreOS/nginx/Sanity/ALPN_with_http2
+id: eff61668-8e0a-472f-886b-40a863acd876
