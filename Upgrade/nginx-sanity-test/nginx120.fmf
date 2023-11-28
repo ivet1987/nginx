@@ -13,3 +13,4 @@ adjust:
     continue: false
 extra-nitrate: TC#0613147
 extra-summary: /CoreOS/nginx/Upgrade/nginx-sanity-test [nginx:1.20]
+id: 2ac692bd-8ebd-43bf-86d7-0911e59691f7
