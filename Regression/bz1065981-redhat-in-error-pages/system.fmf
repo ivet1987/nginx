@@ -1,13 +1,14 @@
 component:
-- nginx
+  - nginx
 tag:
-- Tier3
+  - Tier3
 link:
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1065981
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=2007019
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1065981
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=2007019
 adjust:
--   enabled: false
+  - enabled: false
     when: distro < rhel-9 and product != rhscl
     continue: false
 extra-nitrate: TC#0338497
 extra-summary: /CoreOS/nginx/Regression/bz1065981-redhat-in-error-pages
+id: 83c275a1-e095-4b9d-a65a-300b3051f38d

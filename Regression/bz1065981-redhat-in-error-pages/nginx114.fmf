@@ -13,3 +13,4 @@ adjust:
     continue: false
 extra-nitrate: TC#0587913
 extra-summary: /CoreOS/nginx/Regression/bz1065981-redhat-in-error-pages [nginx:1.14]
+id: 7262181c-1fb8-4f74-9725-ab4ae6af8851

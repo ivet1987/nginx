@@ -1,17 +1,18 @@
-component: []
+component:
+  - nginx:1.18
 environment:
     MODSTREAMS: nginx:1.18
 tag:
-- TestCaseCopy
-- Tier3
-- nginx:1.18
+  - TestCaseCopy
+  - Tier3
+  - nginx:1.18
 link:
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1066056
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1066056
 adjust:
--   enabled: false
+  - enabled: false
     when: distro < rhel-8
     continue: false
--   enabled: false
+  - enabled: false
     when: distro ~< rhel-8.3
     continue: false
 extra-nitrate: TC#0606926
