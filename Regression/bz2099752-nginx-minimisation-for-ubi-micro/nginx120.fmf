@@ -16,3 +16,4 @@ adjust:
 extra-nitrate: TC#0613950
 extra-summary: /CoreOS/nginx/Regression/bz2099752-nginx-minimisation-for-ubi-micro
     [nginx:1.20]
+id: 8ca8055b-a36e-4d99-bc87-8e758c086b02
