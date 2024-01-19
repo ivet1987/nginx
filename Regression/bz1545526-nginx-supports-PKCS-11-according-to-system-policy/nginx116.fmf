@@ -1,0 +1,26 @@
+description: |
+    Bug summary: nginx supports PKCS#11 according to system policy
+    Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1545526
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1545526
+tag:
+  - NoRHEL4
+  - NoRHEL5
+  - TestCaseCopy
+  - Tier2
+  - nginx:1.16
+  - rhel-buildroot
+  - rhel8-buildroot
+tier: '2'
+adjust:
+  - enabled: false
+    when: distro < rhel-8
+    continue: false
+component:
+  - nginx:1.16
+environment:
+    MODSTREAMS: nginx:1.16
+extra-nitrate: TC#0598565
+extra-summary: 
+    /CoreOS/nginx/Regression/bz1545526-nginx-supports-PKCS-11-according-to-system-policy
+    [nginx:1.16]

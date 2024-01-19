@@ -18,3 +18,4 @@ component:
   - nginx
 extra-nitrate: TC#0549152
 extra-summary: /CoreOS/nginx/Regression/bz1421927-nginx-perl-module-support
+id: 33d64d67-1fb3-415a-b886-a95466bd207a

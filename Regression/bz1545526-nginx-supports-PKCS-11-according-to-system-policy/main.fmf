@@ -1,0 +1,27 @@
+summary: Test for BZ#1545526 (nginx supports PKCS#11 according to system policy)
+contact: icesalov@redhat.com
+enabled: true
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1545526
+component:
+  - nginx
+test: ./runtest.sh
+path: /Regression/bz1545526-nginx-supports-PKCS-11-according-to-system-policy
+framework: beakerlib
+require:
+  - library(nginx/nginx)
+  - library(openssl/certgen)
+  - library(distribution/nvr)
+recommend:
+  - p11-kit
+  - nginx
+  - mod_ssl
+  - openssl-pkcs11
+  - openssl
+  - softhsm
+  - gnutls-utils
+duration: 10m
+extra-summary: 
+    /CoreOS/nginx/Regression/bz1545526-nginx-supports-PKCS-11-according-to-system-policy
+extra-task: 
+    /CoreOS/nginx/Regression/bz1545526-nginx-supports-PKCS-11-according-to-system-policy

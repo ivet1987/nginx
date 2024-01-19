@@ -1,0 +1,36 @@
+description: |
+    Bug summary: nginx supports PKCS#11 according to system policy
+    Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1545526
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1545526
+tag:
+  - FedoraBroken
+  - NoRHEL4
+  - NoRHEL5
+  - TIPfail
+  - TIPfail_Apps
+  - TIPfail_Security
+  - TestCaseCopy
+  - Tier1
+  - Tier2
+  - Tier2security
+  - nginx:1.18
+  - nginx:1.20
+  - rhel-buildroot
+  - rhel8-buildroot
+tier: '1'
+adjust:
+  - enabled: false
+    when: distro < rhel-8
+    continue: false
+  - enabled: false
+    when: distro ~< rhel-8.5
+    continue: false
+component:
+  - nginx:1.20
+environment:
+    MODSTREAMS: nginx:1.20
+extra-nitrate: TC#0610457
+extra-summary: 
+    /CoreOS/nginx/Regression/bz1545526-nginx-supports-PKCS-11-according-to-system-policy
+    [nginx:1.20]
