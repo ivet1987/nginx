@@ -3,16 +3,17 @@ description: |
     Bug summary: Nginx is not built with --with-compat, breaking the ability to build and use external nginx modules
     Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1991796
 contact: Branislav Náter <bnater@redhat.com>
+enabled: true
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1991796
+tier: '1'
 component:
-- nginx
+  - nginx
 test: ./runtest.sh
 path: /Regression/bz1991796-Nginx-is-not-built-with-with-compat
 framework: beakerlib
 recommend:
-- nginx
+  - nginx
 duration: 5m
-enabled: true
-link:
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1991796
 extra-summary: /CoreOS/nginx/Regression/bz1991796-Nginx-is-not-built-with-with-compat
 extra-task: /CoreOS/nginx/Regression/bz1991796-Nginx-is-not-built-with-with-compat
