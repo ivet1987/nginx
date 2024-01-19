@@ -1,0 +1,17 @@
+tag:
+  - TestCaseCopy
+  - Tier3
+  - nginx:1.22
+adjust:
+  - enabled: false
+    when: distro < rhel-8
+    continue: false
+  - enabled: false
+    when: distro ~< rhel-9.2
+    continue: false
+component:
+  - nginx:1.22
+environment:
+    MODSTREAMS: nginx:1.22
+extra-nitrate: TC#0614396
+extra-summary: /CoreOS/nginx/Regression/bz1061451-scl-doc [nginx:1.22]

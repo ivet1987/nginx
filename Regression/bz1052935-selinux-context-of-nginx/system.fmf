@@ -19,3 +19,4 @@ component:
   - nginx
 extra-nitrate: TC#0334954
 extra-summary: /CoreOS/nginx/Regression/bz1052935-selinux-context-of-nginx
+id: ea3926f6-800d-4f2d-89b8-36d11c497a68
