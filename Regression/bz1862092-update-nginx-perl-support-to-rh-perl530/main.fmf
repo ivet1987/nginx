@@ -3,6 +3,23 @@ description: |
     Bug summary: update nginx perl support to rh-perl530
     Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1862092
 contact: Iveta Cesalova <icesalov@redhat.com>
+enabled: true
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1862092
+tag:
+  - NoRHEL4
+  - NoRHEL5
+  - TIPfail
+  - TIPfail_Apps
+  - Tier3
+tier: '3'
+adjust:
+  - enabled: false
+    when: product != rhscl
+    continue: false
+  - enabled: false
+    when: distro == fedora
+    continue: false
 component:
   - nginx
 test: ./runtest.sh
@@ -12,24 +29,6 @@ require:
 recommend:
   - nginx
 duration: 5m
-enabled: true
-tag:
-  - NoRHEL4
-  - NoRHEL5
-  - TIPfail
-  - TIPfail_Apps
-  - Tier3
-tier: '3'
-link:
-  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1862092
-adjust:
-  - enabled: false
-    when: product != rhscl
-    continue: false
-  - enabled: false
-    when: distro == fedora
-    continue: false
 extra-nitrate: TC#0608235
 extra-summary: /CoreOS/nginx/Regression/bz1862092-update-nginx-perl-support-to-rh-perl530
 extra-task: /CoreOS/nginx/Regression/bz1862092-update-nginx-perl-support-to-rh-perl530
-id: 9366da8f-bffa-403a-9af5-6b738a073eda
