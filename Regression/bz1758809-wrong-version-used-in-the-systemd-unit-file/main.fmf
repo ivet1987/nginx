@@ -31,3 +31,4 @@ duration: 10m
 extra-nitrate: TC#0604106
 extra-summary: /CoreOS/nginx/Regression/bz1758809-wrong-version-used-in-the-systemd-unit-file
 extra-task: /CoreOS/nginx/Regression/bz1758809-wrong-version-used-in-the-systemd-unit-file
+id: e58ad24a-7ade-47b0-820b-22bd7d61021f

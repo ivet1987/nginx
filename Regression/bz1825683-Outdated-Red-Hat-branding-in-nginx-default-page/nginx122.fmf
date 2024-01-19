@@ -1,22 +1,24 @@
-component:
-  - nginx:1.18
-environment:
-    MODSTREAMS: nginx:1.18
 tag:
   - NoRHEL4
   - NoRHEL5
+  - TIPfail
+  - TIPfail_Apps
   - TestCaseCopy
-  - Tier2
-tier: '2'
+  - Tier3
+  - nginx:1.22
+tier: '3'
 adjust:
   - enabled: false
     when: distro < rhel-8
     continue: false
   - enabled: false
-    when: distro ~< rhel-8.3
+    when: distro ~< rhel-9.2
     continue: false
-extra-nitrate: TC#0608981
+component:
+  - nginx:1.22
+environment:
+    MODSTREAMS: nginx:1.22
+extra-nitrate: TC#0614391
 extra-summary: 
     /CoreOS/nginx/Regression/bz1825683-Outdated-Red-Hat-branding-in-nginx-default-page
-    [nginx:1.18]
-id: 16ce0c46-6003-41ab-82d4-9fe84281795d
+    [nginx:1.22]

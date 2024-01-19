@@ -1,5 +1,3 @@
-component:
-  - nginx
 tag:
   - NoModularTier
   - NoRHEL4
@@ -15,7 +13,8 @@ adjust:
   - enabled: false
     when: product == rhscl
     continue: false
+component:
+  - nginx
 extra-nitrate: TC#0608931
 extra-summary: 
     /CoreOS/nginx/Regression/bz1825683-Outdated-Red-Hat-branding-in-nginx-default-page
-id: e495a4d5-decc-4a8c-aaac-bc24676a18a8
