@@ -13,3 +13,4 @@ environment:
     MODSTREAMS: nginx:1.22
 extra-nitrate: TC#0614401
 extra-summary: /CoreOS/nginx/Regression/bz1066056-variable-expansion-in-man  [nginx:1.22]
+id: 2d09dd26-b69e-4e06-a03c-afeec7f3404d

@@ -12,3 +12,4 @@ component:
   - nginx
 extra-nitrate: TC#0338287
 extra-summary: /CoreOS/nginx/Regression/bz1066056-variable-expansion-in-man
+id: b9cd0376-ee12-43b5-b030-34610e15b942

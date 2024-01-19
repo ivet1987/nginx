@@ -4,6 +4,21 @@ description: |+
     Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1264342
 
 contact: icesalov@redhat.com
+enabled: true
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1264342
+tag:
+  - NoRHEL4
+  - NoRHEL5
+  - Tier2
+tier: '2'
+adjust:
+  - enabled: false
+    when: distro == rhel-4, rhel-5
+    continue: false
+  - enabled: false
+    when: product != rhscl
+    continue: false
 component:
   - nginx
 test: ./runtest.sh
@@ -14,22 +29,6 @@ recommend:
   - nginx
   - gunzip
 duration: 5m
-enabled: true
-tag:
-  - NoRHEL4
-  - NoRHEL5
-  - Tier2
-tier: '2'
-link:
-  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1264342
-adjust:
-  - enabled: false
-    when: distro == rhel-4, rhel-5
-    continue: false
-  - enabled: false
-    when: product != rhscl
-    continue: false
 extra-nitrate: TC#0548570
 extra-summary: /CoreOS/nginx/Regression/bz1264342-Miscellaneous-rh-nginx18-man-page-issues
 extra-task: /CoreOS/nginx/Regression/bz1264342-Miscellaneous-rh-nginx18-man-page-issues
-id: ece2d759-5543-4516-bfd1-38f985d8807d
