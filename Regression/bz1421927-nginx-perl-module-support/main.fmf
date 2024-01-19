@@ -2,22 +2,23 @@ summary: Test for BZ#1421927 (Perl module support)
 description: |
     Bug summary: Dynamic Module Support under NGINX, including the perl module
     Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1421927
-contact: icesalov@redhat.com
+contact: Joe Orton <jorton@redhat.com>
+enabled: true
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1421927
+tier: '2'
 component:
-- nginx
-- nginx-mod-http-perl
+  - nginx
+  - nginx-mod-http-perl
 test: ./runtest.sh
 path: /Regression/bz1421927-nginx-perl-module-support
 framework: beakerlib
 require:
-- library(nginx/nginx)
+  - library(nginx/nginx)
 recommend:
-- nginx
-- nginx-mod-http-perl
-- perl
+  - nginx
+  - nginx-mod-http-perl
+  - perl
 duration: 5m
-enabled: true
-link:
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1421927
 extra-summary: /CoreOS/nginx/Regression/bz1421927-nginx-perl-module-support
 extra-task: /CoreOS/nginx/Regression/bz1421927-nginx-perl-module-support

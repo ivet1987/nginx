@@ -1,7 +1,4 @@
-component:
-  - nginx:1.20
-environment:
-    MODSTREAMS: nginx:1.20
+contact: icesalov@redhat.com
 tag:
   - NoRHEL4
   - NoRHEL5
@@ -10,7 +7,6 @@ tag:
   - Tier2
   - nginx:1.18
   - nginx:1.20
-tier: '2'
 adjust:
   - enabled: false
     when: distro < rhel-8
@@ -18,6 +14,9 @@ adjust:
   - enabled: false
     when: distro ~< rhel-8.5
     continue: false
+component:
+  - nginx:1.20
+environment:
+    MODSTREAMS: nginx:1.20
 extra-nitrate: TC#0610450
 extra-summary: /CoreOS/nginx/Regression/bz1421927-nginx-perl-module-support [nginx:1.20]
-id: 80993474-7c7b-4f2a-aed5-3e12019400d9

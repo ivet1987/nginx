@@ -32,3 +32,4 @@ duration: 5m
 extra-nitrate: TC#0548570
 extra-summary: /CoreOS/nginx/Regression/bz1264342-Miscellaneous-rh-nginx18-man-page-issues
 extra-task: /CoreOS/nginx/Regression/bz1264342-Miscellaneous-rh-nginx18-man-page-issues
+id: 05138cdb-9101-4775-b662-d666713a28d4

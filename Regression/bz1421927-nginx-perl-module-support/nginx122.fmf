@@ -1,4 +1,4 @@
-contact: icesalov@redhat.com
+contact: Ondrej Ptak <optak@redhat.com>
 tag:
   - NoRHEL4
   - NoRHEL5
@@ -15,6 +15,8 @@ adjust:
     when: arch != x86_64
     continue: false
 component:
-  - nginx
-extra-nitrate: TC#0549152
-extra-summary: /CoreOS/nginx/Regression/bz1421927-nginx-perl-module-support
+  - nginx:1.22
+environment:
+    MODSTREAMS: nginx:1.22
+extra-nitrate: TC#0614404
+extra-summary: /CoreOS/nginx/Regression/bz1421927-nginx-perl-module-support [nginx:1.22]
