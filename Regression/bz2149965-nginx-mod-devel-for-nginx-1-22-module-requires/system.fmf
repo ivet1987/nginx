@@ -3,10 +3,17 @@ tag:
   - NoRHEL4
   - NoRHEL5
   - TIer2
+  - Tier2
 tier: '2'
+adjust:
+  - enabled: false
+    when: distro ~< rhel-9.2
+    continue: false
+  - enabled: false
+    when: distro ~< rhel-8.8
+    continue: false
 component:
   - nginx
 extra-nitrate: TC#0614705
 extra-summary: 
     /CoreOS/nginx/Regression/bz2149965-nginx-mod-devel-for-nginx-1-22-module-requires
-id: 321db123-bafd-4f64-ab39-a650db9216c9

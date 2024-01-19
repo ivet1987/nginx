@@ -2,6 +2,13 @@ tag:
   - NoRHEL4
   - NoRHEL5
   - TestCaseCopy
+adjust:
+  - enabled: false
+    when: distro ~< rhel-9.2
+    continue: false
+  - enabled: false
+    when: distro ~< rhel-8.8
+    continue: false
 component:
   - nginx:1.22
 environment:
@@ -10,4 +17,3 @@ extra-nitrate: TC#0615356
 extra-summary: 
     /CoreOS/nginx/Regression/bz2149965-nginx-mod-devel-for-nginx-1-22-module-requires
     [nginx:1.22]
-id: b0fbc7ef-bc3d-4f26-be99-20ad20e773a0

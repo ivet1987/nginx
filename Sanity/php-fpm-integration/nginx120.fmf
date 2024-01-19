@@ -18,3 +18,4 @@ environment:
     MODSTREAMS: nginx:1.20
 extra-nitrate: TC#0610444
 extra-summary: /CoreOS/nginx/Sanity/php-fpm-integration [nginx:1.20]
+id: 7b89a1a6-85d4-4d0f-bfbb-28024396a535

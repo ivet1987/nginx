@@ -15,3 +15,4 @@ component:
   - nginx
 extra-nitrate: TC#0327172
 extra-summary: /CoreOS/nginx/Sanity/php-fpm-integration
+id: 3766fa53-208f-48c1-911f-0c21f0501415

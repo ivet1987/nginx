@@ -2,17 +2,10 @@ summary: Test for BZ#2149965 (nginx-mod-devel for nginx-1.22 module requires)
 description: |
     Bug summary: nginx-mod-devel for nginx-1.22 module requires pcre-devel instead of pcre2-devel
     Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=2149965
+contact: Iveta Cesalova <icesalov@redhat.com>
 enabled: true
 link:
   - relates: https://bugzilla.redhat.com/show_bug.cgi?id=2149965
-adjust:
-  - enabled: false
-    when: distro ~< rhel-9.2
-    continue: false
-  - enabled: false
-    when: distro ~< rhel-8.8
-    continue: false
-contact: Iveta Cesalova <icesalov@redhat.com>
 component:
   - nginx
 test: ./runtest.sh
@@ -22,5 +15,7 @@ recommend:
   - nginx
   - nginx-mod-devel
 duration: 5m
-extra-summary: /CoreOS/nginx/Regression/bz2149965-nginx-mod-devel-for-nginx-1-22-module-requires
-extra-task: /CoreOS/nginx/Regression/bz2149965-nginx-mod-devel-for-nginx-1-22-module-requires
+extra-summary: 
+    /CoreOS/nginx/Regression/bz2149965-nginx-mod-devel-for-nginx-1-22-module-requires
+extra-task: 
+    /CoreOS/nginx/Regression/bz2149965-nginx-mod-devel-for-nginx-1-22-module-requires
