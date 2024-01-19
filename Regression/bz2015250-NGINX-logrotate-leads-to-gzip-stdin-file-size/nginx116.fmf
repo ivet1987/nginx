@@ -1,0 +1,18 @@
+tag:
+  - NoRHEL4
+  - NoRHEL5
+  - TestCaseCopy
+adjust:
+  - enabled: false
+    when: distro < rhel-8
+    continue: false
+  - enabled: false
+    when: distro ~< rhel-8.1
+    continue: false
+component:
+  - nginx:1.16
+environment:
+    MODSTREAMS: nginx:1.16
+extra-nitrate: TC#0612678
+extra-summary: /CoreOS/nginx/Regression/bz2015250-NGINX-logrotate-leads-to-gzip-stdin-file-size
+    [nginx:1.16]

@@ -3,18 +3,18 @@ description: |
     Bug summary: NGINX logrotate leads to "gzip: stdin: file size changed while zipping"
     Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=2015250
 contact: Iveta Cesalova <icesalov@redhat.com>
+enabled: true
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=2015250
 component:
-- nginx
+  - nginx
 test: ./runtest.sh
 path: /Regression/bz2015250-NGINX-logrotate-leads-to-gzip-stdin-file-size
 framework: beakerlib
 require:
-- library(nginx/nginx)
+  - library(nginx/nginx)
 recommend:
-- nginx
+  - nginx
 duration: 5m
-enabled: true
-link:
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=2015250
 extra-summary: /CoreOS/nginx/Regression/bz2015250-NGINX-logrotate-leads-to-gzip-stdin-file-size
 extra-task: /CoreOS/nginx/Regression/bz2015250-NGINX-logrotate-leads-to-gzip-stdin-file-size
