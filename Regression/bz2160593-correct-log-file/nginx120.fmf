@@ -15,3 +15,4 @@ environment:
     MODSTREAMS: nginx:1.20
 extra-nitrate: TC#0614773
 extra-summary: /CoreOS/nginx/Regression/bz2160593-correct-log-file [nginx:1.20]
+id: b09b91c8-7afb-449a-b5ec-cdd62f7a21dd

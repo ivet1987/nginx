@@ -17,4 +17,4 @@ extra-summary: /CoreOS/nginx/Sanity/reverse-proxy
 extra-hardware: |+
     MEMORY_MIN_16G
 
-...
+id: 55ef1010-dc39-4cfe-b61c-7cf1b2f6c271

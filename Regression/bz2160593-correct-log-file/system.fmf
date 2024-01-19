@@ -12,3 +12,4 @@ component:
   - nginx
 extra-nitrate: TC#0614771
 extra-summary: /CoreOS/nginx/Regression/bz2160593-correct-log-file
+id: d4b3a386-4a4b-4db0-9232-5e284f002e7f
