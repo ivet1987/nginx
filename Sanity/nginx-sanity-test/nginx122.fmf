@@ -13,3 +13,4 @@ environment:
     MODSTREAMS: nginx:1.22
 extra-nitrate: TC#0614389
 extra-summary: /CoreOS/nginx/Sanity/nginx-sanity-test [nginx:1.22]
+id: f694bcd0-bbb0-4223-a96f-116a35a2e3b6
