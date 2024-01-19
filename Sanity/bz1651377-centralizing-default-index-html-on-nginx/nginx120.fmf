@@ -1,7 +1,5 @@
-component:
-  - nginx:1.20
-environment:
-    MODSTREAMS: nginx:1.20
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1651377
 tag:
   - NoRHEL4
   - NoRHEL5
@@ -9,8 +7,6 @@ tag:
   - Tier2
   - nginx:1.20
 tier: '2'
-link:
-  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1651377
 adjust:
   - enabled: false
     when: distro < rhel-8
@@ -18,7 +14,10 @@ adjust:
   - enabled: false
     when: distro ~< rhel-8.5
     continue: false
+component:
+  - nginx:1.20
+environment:
+    MODSTREAMS: nginx:1.20
 extra-nitrate: TC#0610462
 extra-summary: /CoreOS/nginx/Sanity/bz1651377-centralizing-default-index-html-on-nginx
     [nginx:1.20]
-id: bde4a30f-e59d-422d-9d05-9627006cf544

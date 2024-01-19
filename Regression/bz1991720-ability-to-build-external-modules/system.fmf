@@ -12,3 +12,4 @@ component:
   - nginx
 extra-nitrate: TC#0611948
 extra-summary: /CoreOS/nginx/Regression/bz1991720-ability-to-build-external-modules
+id: a530fa29-e1ef-4b1c-9a63-36e193814f5a

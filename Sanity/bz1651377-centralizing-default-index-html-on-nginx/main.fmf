@@ -3,19 +3,19 @@ description: |
     Bug summary: centralizing default index.html on nginx
     Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1651377
 contact: Iveta Cesalova <icesalov@redhat.com>
+enabled: true
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1651377
 component:
-- nginx
+  - nginx
 test: ./runtest.sh
 path: /Sanity/bz1651377-centralizing-default-index-html-on-nginx
 framework: beakerlib
 require:
-- library(nginx/nginx)
+  - library(nginx/nginx)
 recommend:
-- nginx
-- curl
+  - nginx
+  - curl
 duration: 5m
-enabled: true
-link:
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1651377
 extra-summary: /CoreOS/nginx/Sanity/bz1651377-centralizing-default-index-html-on-nginx
 extra-task: /CoreOS/nginx/Sanity/bz1651377-centralizing-default-index-html-on-nginx
