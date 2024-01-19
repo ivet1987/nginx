@@ -22,3 +22,4 @@ environment:
 extra-nitrate: TC#0614392
 extra-summary: /CoreOS/nginx/Sanity/bz1651377-centralizing-default-index-html-on-nginx
     [nginx:1.22]
+id: 0cd72fcf-9dae-4f4e-8476-a6d140db40e6

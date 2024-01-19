@@ -15,3 +15,4 @@ environment:
 extra-nitrate: TC#0611383
 extra-summary: /CoreOS/nginx/Regression/bz1991796-Nginx-is-not-built-with-with-compat
     [nginx:1.20]
+id: 8ebec2e0-d67f-4569-ba39-6c813dba4a12
