@@ -18,3 +18,4 @@ environment:
     MODSTREAMS: nginx:1.16
 extra-nitrate: TC#0598550
 extra-summary: /CoreOS/nginx/Sanity/reverse-proxy [nginx:1.16]
+id: 9faceba8-667f-40d0-825f-bcdbc9123229

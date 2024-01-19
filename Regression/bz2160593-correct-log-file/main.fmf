@@ -1,10 +1,13 @@
 summary: Test for BZ#bz2160593-correct-log-file
+description: ''
+contact: Iveta Cesalova <icesalov@redhat.com>
+enabled: true
 link:
   - relates: https://bugzilla.redhat.com/show_bug.cgi?id=2160593
-contact: Iveta Cesalova <icesalov@redhat.com>
 component:
   - nginx
 test: ./runtest.sh
+path: /Regression/bz2160593-correct-log-file
 framework: beakerlib
 require:
   - library(nginx/nginx)
@@ -13,5 +16,3 @@ recommend:
 duration: 5m
 extra-summary: /CoreOS/nginx/Regression/bz2160593-correct-log-file
 extra-task: /CoreOS/nginx/Regression/bz2160593-correct-log-file
-extra-nitrate: TC#0614775
-id: 3d43e5f2-de25-4481-bf15-5451bdd76cd8
