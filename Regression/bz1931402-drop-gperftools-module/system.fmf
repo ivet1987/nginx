@@ -12,3 +12,4 @@ component:
   - nginx
 extra-nitrate: TC#0610852
 extra-summary: /CoreOS/nginx/Regression/bz1931402-drop-gperftools-module
+id: 5f13de1c-b606-4d96-9140-0dfb1f90df97

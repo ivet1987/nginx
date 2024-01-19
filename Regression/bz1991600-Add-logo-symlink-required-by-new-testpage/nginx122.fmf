@@ -1,15 +1,17 @@
 tag:
+  - NoModularTier
   - NoRHEL4
   - NoRHEL5
-  - TestCaseCopy
+  - Tier2
+tier: '2'
 adjust:
   - enabled: false
-    when: distro < rhel-9
+    when: product == rhel and distro < rhel-9
     continue: false
 component:
-  - nginx:1.20
+  - nginx:1.22
 environment:
-    MODSTREAMS: nginx:1.20
-extra-nitrate: TC#0611370
+    MODSTREAMS: nginx:1.22
+extra-nitrate: TC#0614411
 extra-summary: /CoreOS/nginx/Regression/bz1991600-Add-logo-symlink-required-by-new-testpage
-    [nginx:1.20]
+    [nginx:1.22]

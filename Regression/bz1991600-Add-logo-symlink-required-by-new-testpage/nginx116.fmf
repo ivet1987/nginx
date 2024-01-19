@@ -4,12 +4,15 @@ tag:
   - TestCaseCopy
 adjust:
   - enabled: false
-    when: distro < rhel-9
+    when: distro < rhel-8
+    continue: false
+  - enabled: false
+    when: distro ~< rhel-8.1
     continue: false
 component:
-  - nginx:1.20
+  - nginx:1.16
 environment:
-    MODSTREAMS: nginx:1.20
-extra-nitrate: TC#0611370
+    MODSTREAMS: nginx:1.16
+extra-nitrate: TC#0611368
 extra-summary: /CoreOS/nginx/Regression/bz1991600-Add-logo-symlink-required-by-new-testpage
-    [nginx:1.20]
+    [nginx:1.16]

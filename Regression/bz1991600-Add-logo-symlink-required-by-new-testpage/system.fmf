@@ -1,5 +1,3 @@
-component:
-  - nginx
 tag:
   - NoModularTier
   - NoRHEL4
@@ -10,6 +8,7 @@ adjust:
   - enabled: false
     when: product == rhel and distro < rhel-9
     continue: false
+component:
+  - nginx
 extra-nitrate: TC#0611366
 extra-summary: /CoreOS/nginx/Regression/bz1991600-Add-logo-symlink-required-by-new-testpage
-id: 873fef80-b2cf-4b4d-94e6-62b8d60cf76f
