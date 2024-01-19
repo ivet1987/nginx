@@ -6,20 +6,20 @@ description: |
     poweredby.png shall be checked manualy if there is Red Hat, not Fedora logo
 
     Author: Ondrej Ptak <optak@redhat.com>
-contact: icesalov@redhat.com
+contact: Ondrej Ptak <optak@redhat.com>
+enabled: true
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1065981
+tier: '3'
 component:
-- nginx
+  - nginx
 test: ./runtest.sh
 path: /Regression/bz1065981-redhat-in-error-pages
 framework: beakerlib
 require:
-- library(nginx/nginx)
+  - library(nginx/nginx)
 recommend:
-- nginx
+  - nginx
 duration: 5m
-enabled: true
-tier: '3'
-link:
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1065981
 extra-summary: /CoreOS/nginx/Regression/bz1065981-redhat-in-error-pages
 extra-task: /CoreOS/nginx/Regression/bz1065981-redhat-in-error-pages

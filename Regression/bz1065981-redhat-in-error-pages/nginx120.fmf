@@ -1,14 +1,11 @@
-component:
-  - nginx:1.20
-environment:
-    MODSTREAMS: nginx:1.20
+contact: icesalov@redhat.com
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1065981
 tag:
   - TestCaseCopy
   - Tier3
   - nginx:1.18
   - nginx:1.20
-link:
-  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1065981
 adjust:
   - enabled: false
     when: distro < rhel-8
@@ -16,6 +13,9 @@ adjust:
   - enabled: false
     when: distro ~< rhel-8.5
     continue: false
+component:
+  - nginx:1.20
+environment:
+    MODSTREAMS: nginx:1.20
 extra-nitrate: TC#0610452
 extra-summary: /CoreOS/nginx/Regression/bz1065981-redhat-in-error-pages [nginx:1.20]
-id: 51fe4154-f150-42fc-9080-9f58998793ae

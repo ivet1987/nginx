@@ -8,3 +8,4 @@ component:
   - nginx
 extra-nitrate: TC#0338166
 extra-summary: /CoreOS/nginx/Regression/bz1061451-scl-doc
+id: cdacef83-3d2a-4265-bc6a-dc5e30562f12
