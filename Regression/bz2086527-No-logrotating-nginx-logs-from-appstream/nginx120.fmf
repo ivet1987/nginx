@@ -1,0 +1,22 @@
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=2086527
+tag:
+  - NoRHEL4
+  - NoRHEL5
+  - TestCaseCopy
+  - Tier3
+tier: '3'
+adjust:
+  - enabled: false
+    when: distro < rhel-9
+    continue: false
+  - enabled: false
+    when: distro ~< rhel-9.2
+    continue: false
+component:
+  - nginx:1.20
+environment:
+    MODSTREAMS: nginx:1.20
+extra-nitrate: TC#0614733
+extra-summary: /CoreOS/nginx/Regression/bz2086527-No-logrotating-nginx-logs-from-appstream
+    [nginx:1.20]
