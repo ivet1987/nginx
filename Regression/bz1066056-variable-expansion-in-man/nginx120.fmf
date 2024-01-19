@@ -1,14 +1,11 @@
-component:
-  - nginx:1.20
-environment:
-    MODSTREAMS: nginx:1.20
+contact: icesalov@redhat.com
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1066056
 tag:
   - TestCaseCopy
   - Tier3
   - nginx:1.18
   - nginx:1.20
-link:
-  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1066056
 adjust:
   - enabled: false
     when: distro < rhel-8
@@ -16,6 +13,9 @@ adjust:
   - enabled: false
     when: distro ~< rhel-8.5
     continue: false
+component:
+  - nginx:1.20
+environment:
+    MODSTREAMS: nginx:1.20
 extra-nitrate: TC#0610459
 extra-summary: /CoreOS/nginx/Regression/bz1066056-variable-expansion-in-man [nginx:1.20]
-id: b91aa265-5a25-41f5-b144-0872349b72fe

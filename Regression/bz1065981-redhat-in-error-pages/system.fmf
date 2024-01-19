@@ -12,3 +12,4 @@ component:
   - nginx
 extra-nitrate: TC#0338497
 extra-summary: /CoreOS/nginx/Regression/bz1065981-redhat-in-error-pages
+id: 86a2fc31-9473-4bb5-9a8d-c624058bee31

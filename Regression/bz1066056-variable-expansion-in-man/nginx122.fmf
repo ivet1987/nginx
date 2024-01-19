@@ -1,0 +1,15 @@
+contact: Ondrej Ptak <optak@redhat.com>
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1066056
+tag:
+  - Tier3
+adjust:
+  - enabled: false
+    when: distro < rhel-9 and product != rhscl
+    continue: false
+component:
+  - nginx:1.22
+environment:
+    MODSTREAMS: nginx:1.22
+extra-nitrate: TC#0614401
+extra-summary: /CoreOS/nginx/Regression/bz1066056-variable-expansion-in-man  [nginx:1.22]
