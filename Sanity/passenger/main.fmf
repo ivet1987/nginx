@@ -3,19 +3,21 @@ description: |
     Bug summary: nginx16 should include Passenger module
     Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1178082
 contact: Martin Frodl <mfrodl@redhat.com>
-component:
-- nginx
+enabled: true
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1178082
+tag: []
+component: []
 test: ./runtest.sh
 framework: beakerlib
 require:
-- library(nginx/nginx)
-- library(selinux-policy/common)
+  - library(nginx/nginx)
+  - library(selinux-policy/common)
 recommend:
-- nginx
-- passenger
-- ruby
+  - nginx
+  - passenger
+  - ruby
 duration: 10m
-link:
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1178082
+extra-nitrate: TC#0613895
 extra-summary: /CoreOS/nginx/Sanity/passenger
 extra-task: /CoreOS/nginx/Sanity/passenger

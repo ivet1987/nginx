@@ -16,3 +16,4 @@ component:
   - nginx
 extra-nitrate: TC#0326941
 extra-summary: /CoreOS/nginx/Sanity/nginx-sanity-test
+id: 00c9f754-5716-4005-8cf6-9b6ed52848d1
