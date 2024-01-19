@@ -6,13 +6,10 @@ adjust:
   - enabled: false
     when: distro < rhel-8
     continue: false
-  - enabled: false
-    when: distro ~< rhel-8.3
-    continue: false
 component:
-  - nginx:1.18
+  - nginx:1.14
 environment:
-    MODSTREAMS: nginx:1.18
-extra-nitrate: TC#0611951
+    MODSTREAMS: nginx:1.14
+extra-nitrate: TC#0611949
 extra-summary: /CoreOS/nginx/Regression/bz1991720-ability-to-build-external-modules
-    [nginx:1.18]
+    [nginx:1.14]

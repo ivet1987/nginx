@@ -1,5 +1,3 @@
-component:
-  - nginx
 tag:
   - NoModularTier
   - NoRHEL4
@@ -10,6 +8,7 @@ adjust:
   - enabled: false
     when: product == rhel and distro < rhel-9
     continue: false
+component:
+  - nginx
 extra-nitrate: TC#0611948
 extra-summary: /CoreOS/nginx/Regression/bz1991720-ability-to-build-external-modules
-id: 2e855b42-69ec-4f5d-aea9-bc41dcc3c232

@@ -3,23 +3,23 @@ description: |
     Bug summary: RFE: Please add the ability to build external nginx modules
     Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1991720
 contact: Iveta Cesalova <icesalov@redhat.com>
+enabled: true
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1991720
 component:
-- nginx
+  - nginx
 test: ./runtest.sh
 path: /Regression/bz1991720-ability-to-build-external-modules
 framework: beakerlib
 require:
-- library(nginx/nginx)
+  - library(nginx/nginx)
 recommend:
-- nginx
-- wget
-- tar
-- nginx-mod-devel
-- rpm-build
-- gcc
+  - nginx
+  - wget
+  - tar
+  - nginx-mod-devel
+  - rpm-build
+  - gcc
 duration: 5m
-enabled: true
-link:
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1991720
 extra-summary: /CoreOS/nginx/Regression/bz1991720-ability-to-build-external-modules
 extra-task: /CoreOS/nginx/Regression/bz1991720-ability-to-build-external-modules

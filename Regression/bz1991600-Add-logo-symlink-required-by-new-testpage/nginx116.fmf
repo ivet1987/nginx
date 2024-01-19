@@ -16,3 +16,4 @@ environment:
 extra-nitrate: TC#0611368
 extra-summary: /CoreOS/nginx/Regression/bz1991600-Add-logo-symlink-required-by-new-testpage
     [nginx:1.16]
+id: de500399-8db4-40ad-832e-b8aef4041893

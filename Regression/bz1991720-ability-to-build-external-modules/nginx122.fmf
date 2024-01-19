@@ -1,17 +1,18 @@
 tag:
+  - NoModularTier
   - NoRHEL4
   - NoRHEL5
-  - TestCaseCopy
   - Tier3
+  - rhel-buildroot
 tier: '3'
 adjust:
   - enabled: false
-    when: distro < rhel-9
+    when: product == rhel and distro < rhel-9
     continue: false
 component:
-  - nginx:1.20
+  - nginx:1.22
 environment:
-    MODSTREAMS: nginx:1.20
-extra-nitrate: TC#0611952
+    MODSTREAMS: nginx:1.22
+extra-nitrate: TC#0614412
 extra-summary: /CoreOS/nginx/Regression/bz1991720-ability-to-build-external-modules
-    [nginx:1.20]
+    [nginx:1.22]
