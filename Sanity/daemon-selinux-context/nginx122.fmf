@@ -18,3 +18,4 @@ environment:
     MODSTREAMS: nginx:1.22
 extra-nitrate: TC#0614394
 extra-summary: /CoreOS/nginx/Sanity/daemon-selinux-context [nginx:1.22]
+id: ba677e75-5f82-4c6a-9caa-822a66d41ed8
