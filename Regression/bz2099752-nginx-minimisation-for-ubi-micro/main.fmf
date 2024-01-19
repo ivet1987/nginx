@@ -3,20 +3,16 @@ description: |
     Bug summary: nginx minimisation for ubi-micro
     Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=2099752
 contact: Iveta Cesalova <icesalov@redhat.com>
+enabled: true
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=2099752
 component:
-- nginx
+  - nginx
 test: ./runtest.sh
 path: /Regression/bz2099752-nginx-minimisation-for-ubi-micro
 framework: beakerlib
 recommend:
-- nginx
+  - nginx
 duration: 5m
-enabled: true
-adjust:
-  - enabled: false
-    when: distro ~< rhel-9.1
-    continue: false
-link:
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=2099752
 extra-summary: /CoreOS/nginx/Regression/bz2099752-nginx-minimisation-for-ubi-micro
 extra-task: /CoreOS/nginx/Regression/bz2099752-nginx-minimisation-for-ubi-micro

@@ -1,0 +1,15 @@
+tag:
+  - NoRHEL4
+  - NoRHEL5
+  - TestCaseCopy
+adjust:
+  - enabled: false
+    when: distro < rhel-9
+    continue: false
+component:
+  - nginx:1.20
+environment:
+    MODSTREAMS: nginx:1.20
+extra-nitrate: TC#0613950
+extra-summary: /CoreOS/nginx/Regression/bz2099752-nginx-minimisation-for-ubi-micro
+    [nginx:1.20]
