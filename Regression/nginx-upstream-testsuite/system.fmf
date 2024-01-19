@@ -1,15 +1,14 @@
-component:
-  - nginx
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1493138
 tag:
   - NoCI
   - Tier2
   - notip
-link:
-  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1493138
 adjust:
   - enabled: false
     when: product != rhscl
     continue: false
+component:
+  - nginx
 extra-nitrate: TC#0326943
 extra-summary: /CoreOS/nginx/Regression/nginx-upstream-testsuite
-id: 2ddd6d9d-99b2-491f-85cc-123d5428076c
