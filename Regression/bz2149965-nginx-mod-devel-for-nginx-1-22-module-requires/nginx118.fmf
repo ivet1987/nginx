@@ -17,3 +17,4 @@ extra-nitrate: TC#0614706
 extra-summary: 
     /CoreOS/nginx/Regression/bz2149965-nginx-mod-devel-for-nginx-1-22-module-requires
     [nginx:1.18]
+id: f7c83cb1-9d0a-49e7-80f8-d02d9ab8b7af

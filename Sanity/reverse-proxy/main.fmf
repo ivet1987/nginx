@@ -2,17 +2,17 @@ summary: Checks the reverse proxy use case
 description: ''
 contact: Martin Frodl <mfrodl@redhat.com>
 component:
-- nginx
+  - nginx
 test: ./runtest.sh
 path: /Sanity/reverse-proxy
 framework: beakerlib
 require:
-- library(nginx/nginx)
-- library(selinux-policy/common)
+  - library(nginx/nginx)
+  - library(selinux-policy/common)
 recommend:
-- nginx
-- httpd-tools
-- wget
+  - nginx
+  - httpd-tools
+  - wget
 duration: 30m
 extra-summary: /CoreOS/nginx/Sanity/reverse-proxy
 extra-task: /CoreOS/nginx/Sanity/reverse-proxy

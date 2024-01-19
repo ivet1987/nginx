@@ -1,0 +1,18 @@
+contact: Maryna Nalbandian <mnalband@redhat.com>
+enabled: false
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1641767
+tag:
+  - TestCaseCopy
+  - Tier1
+tier: '1'
+adjust:
+  - enabled: false
+    when: distro < rhel-8
+    continue: false
+component:
+  - nginx:1.14
+environment:
+    MODSTREAMS: nginx:1.14
+extra-nitrate: TC#0587907
+extra-summary: /CoreOS/nginx/Sanity/reverse-proxy [nginx:1.14]

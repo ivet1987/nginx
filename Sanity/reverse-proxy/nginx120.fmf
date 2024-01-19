@@ -1,7 +1,9 @@
+contact: icesalov@redhat.com
+enabled: true
 tag:
-  - NoRHEL4
-  - NoRHEL5
   - TestCaseCopy
+  - nginx:1.18
+  - nginx:1.20
 adjust:
   - enabled: false
     when: distro < rhel-8
@@ -13,8 +15,9 @@ component:
   - nginx:1.20
 environment:
     MODSTREAMS: nginx:1.20
-extra-nitrate: TC#0614707
-extra-summary: 
-    /CoreOS/nginx/Regression/bz2149965-nginx-mod-devel-for-nginx-1-22-module-requires
-    [nginx:1.20]
-id: b221e929-f464-4ee5-bc54-3c1be26e49cf
+extra-nitrate: TC#0610455
+extra-summary: /CoreOS/nginx/Sanity/reverse-proxy [nginx:1.20]
+extra-hardware: |+
+    MEMORY_MIN_16G
+
+...
