@@ -16,3 +16,4 @@ environment:
 extra-nitrate: TC#0611951
 extra-summary: /CoreOS/nginx/Regression/bz1991720-ability-to-build-external-modules
     [nginx:1.18]
+id: a40d68b1-a25f-48e7-858f-3791ba8b7116

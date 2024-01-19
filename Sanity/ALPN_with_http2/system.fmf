@@ -16,3 +16,4 @@ component:
   - nginx
 extra-nitrate: TC#0560589
 extra-summary: /CoreOS/nginx/Sanity/ALPN_with_http2
+id: 4014bee6-65dd-4eb3-9319-6076e94e63da
