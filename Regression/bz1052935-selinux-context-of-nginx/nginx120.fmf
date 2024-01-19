@@ -20,4 +20,3 @@ environment:
     MODSTREAMS: nginx:1.20
 extra-nitrate: TC#0610458
 extra-summary: /CoreOS/nginx/Regression/bz1052935-selinux-context-of-nginx [nginx:1.20]
-id: 51cf8775-4957-486d-9645-296293e5a1f9
