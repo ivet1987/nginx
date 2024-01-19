@@ -16,3 +16,4 @@ environment:
 extra-nitrate: TC#0613949
 extra-summary: /CoreOS/nginx/Regression/bz2099752-nginx-minimisation-for-ubi-micro
     [nginx:1.18]
+id: 9c8ae627-c578-4e3f-9a5d-14fc391869d6
