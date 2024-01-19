@@ -3,18 +3,18 @@ description: |
     Bug summary: drop gperftools module
     Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1931402
 contact: Iveta Cesalova <icesalov@redhat.com>
+enabled: true
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1931402
 component:
-- nginx
+  - nginx
 test: ./runtest.sh
 path: /Regression/bz1931402-drop-gperftools-module
 framework: beakerlib
 require:
-- library(nginx/nginx)
+  - library(nginx/nginx)
 recommend:
-- nginx
+  - nginx
 duration: 5m
-enabled: true
-link:
--   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1931402
 extra-summary: /CoreOS/nginx/Regression/bz1931402-drop-gperftools-module
 extra-task: /CoreOS/nginx/Regression/bz1931402-drop-gperftools-module

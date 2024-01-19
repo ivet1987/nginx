@@ -9,6 +9,8 @@ adjust:
     when: product == rhel and distro < rhel-9
     continue: false
 component:
-  - nginx
-extra-nitrate: TC#0610852
-extra-summary: /CoreOS/nginx/Regression/bz1931402-drop-gperftools-module
+  - nginx:1.22
+environment:
+    MODSTREAMS: nginx:1.22
+extra-nitrate: TC#0614410
+extra-summary: /CoreOS/nginx/Regression/bz1931402-drop-gperftools-module [nginx:1.22]

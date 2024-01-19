@@ -32,3 +32,4 @@ duration: 5m
 extra-nitrate: TC#0608235
 extra-summary: /CoreOS/nginx/Regression/bz1862092-update-nginx-perl-support-to-rh-perl530
 extra-task: /CoreOS/nginx/Regression/bz1862092-update-nginx-perl-support-to-rh-perl530
+id: 55f28643-d1b6-41da-aa22-8a4104d9f792
