@@ -32,3 +32,4 @@ component:
 extra-nitrate: TC#0587864
 extra-summary: 
     /CoreOS/nginx/Regression/bz1545526-nginx-supports-PKCS-11-according-to-system-policy
+id: dca1ae32-87ae-4787-8297-abcb6527ef6f
