@@ -19,3 +19,4 @@ component:
   - nginx
 extra-nitrate: TC#0608943
 extra-summary: /CoreOS/nginx/Sanity/bz1651377-centralizing-default-index-html-on-nginx
+id: 5597c920-68ba-4cd3-9c92-f4b3092b697e

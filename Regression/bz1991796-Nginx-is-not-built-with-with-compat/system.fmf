@@ -11,3 +11,4 @@ component:
   - nginx
 extra-nitrate: TC#0611379
 extra-summary: /CoreOS/nginx/Regression/bz1991796-Nginx-is-not-built-with-with-compat
+id: f7c04a7d-05db-4107-ba86-935da0b215a8

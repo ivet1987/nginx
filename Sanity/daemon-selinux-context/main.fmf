@@ -7,17 +7,17 @@ description: |
 
     Author: Ondrej Ptak <optak@redhat.com>
 contact: icesalov@redhat.com
+enabled: true
+tier: '1'
 component:
-- nginx
+  - nginx
 test: ./runtest.sh
 path: /Sanity/daemon-selinux-context
 framework: beakerlib
 require:
-- library(nginx/nginx)
+  - library(nginx/nginx)
 recommend:
-- nginx
+  - nginx
 duration: 1m
-enabled: true
-tier: '1'
 extra-summary: /CoreOS/nginx/Sanity/daemon-selinux-context
 extra-task: /CoreOS/nginx/Sanity/daemon-selinux-context

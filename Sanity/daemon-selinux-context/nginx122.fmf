@@ -1,20 +1,20 @@
 tag:
   - TIPfail_Apps
+  - TIPpass
   - TestCaseCopy
   - Tier1
   - ci-tier-1
-  - nginx:1.18
-  - nginx:1.20
+  - nginx:1.22
 adjust:
   - enabled: false
     when: distro < rhel-8
     continue: false
   - enabled: false
-    when: distro ~< rhel-8.5
+    when: distro ~< rhel-9.2
     continue: false
 component:
-  - nginx:1.20
+  - nginx:1.22
 environment:
-    MODSTREAMS: nginx:1.20
-extra-nitrate: TC#0610451
-extra-summary: /CoreOS/nginx/Sanity/daemon-selinux-context [nginx:1.20]
+    MODSTREAMS: nginx:1.22
+extra-nitrate: TC#0614394
+extra-summary: /CoreOS/nginx/Sanity/daemon-selinux-context [nginx:1.22]
