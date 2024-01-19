@@ -18,3 +18,4 @@ component:
   - RHSCL
 extra-nitrate: TC#0334132
 extra-summary: /CoreOS/nginx/Sanity/daemon-selinux-context
+id: a0efd14f-60a8-459a-a7cf-a9bebc7f2f0f

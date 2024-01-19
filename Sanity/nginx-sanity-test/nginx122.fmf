@@ -1,16 +1,15 @@
-component:
-  - nginx:1.22
-environment:
-    MODSTREAMS: nginx:1.22
 tag:
   - Tier1
 adjust:
   - enabled: false
-    when: distro < rhel-8.8
+    when: distro < rhel-8
     continue: false
   - enabled: false
     when: distro ~< rhel-9.2
     continue: false
+component:
+  - nginx:1.22
+environment:
+    MODSTREAMS: nginx:1.22
 extra-nitrate: TC#0614389
 extra-summary: /CoreOS/nginx/Sanity/nginx-sanity-test [nginx:1.22]
-id: 0372cdc3-9abb-4400-b7b1-b8cd3eb6d299
