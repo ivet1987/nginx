@@ -18,3 +18,4 @@ environment:
     MODSTREAMS: nginx:1.20
 extra-nitrate: TC#0610449
 extra-summary: /CoreOS/nginx/Regression/nginx-upstream-testsuite [nginx:1.20]
+id: 4deb1cbb-a9d8-41bc-b11f-5d76a38a1bfb

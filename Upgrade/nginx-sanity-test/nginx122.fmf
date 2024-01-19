@@ -1,0 +1,14 @@
+tag:
+  - IPU
+  - TestCaseCopy
+  - nginx:1.22
+adjust:
+  - enabled: false
+    when: distro ~< rhel-9.2
+    continue: false
+component:
+  - nginx:1.22
+environment:
+    MODSTREAMS: nginx:1.22
+extra-nitrate: TC#0614388
+extra-summary: /CoreOS/nginx/Upgrade/nginx-sanity-test [nginx:1.22]

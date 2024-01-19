@@ -12,3 +12,4 @@ component:
   - nginx
 extra-nitrate: TC#0326943
 extra-summary: /CoreOS/nginx/Regression/nginx-upstream-testsuite
+id: 8a82652b-4d0d-45ef-9945-b9109c864017
