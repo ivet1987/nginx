@@ -1,0 +1,17 @@
+contact: Ondrej Ptak <optak@redhat.com>
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1052935
+tag:
+  - TIPfail_Apps
+  - Tier3
+adjust:
+  - enabled: false
+    when: distro < rhel-9 and product != rhscl
+    continue: false
+component:
+  - nginx:1.22
+environment:
+    MODSTREAMS: nginx:1.22
+extra-nitrate: TC#0614400
+extra-summary: /CoreOS/nginx/Regression/bz1052935-selinux-context-of-nginx [nginx:1.22]
+id: 97b9fb2b-03e2-4449-9378-f4d8a2616ed2

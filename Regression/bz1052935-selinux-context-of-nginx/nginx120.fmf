@@ -1,15 +1,12 @@
-component:
-  - nginx:1.20
-environment:
-    MODSTREAMS: nginx:1.20
+contact: icesalov@redhat.com
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1052935
 tag:
   - TIPfail_Apps
   - TestCaseCopy
   - Tier3
   - nginx:1.18
   - nginx:1.20
-link:
-  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1052935
 adjust:
   - enabled: false
     when: distro < rhel-8
@@ -17,6 +14,10 @@ adjust:
   - enabled: false
     when: distro ~< rhel-8.5
     continue: false
+component:
+  - nginx:1.20
+environment:
+    MODSTREAMS: nginx:1.20
 extra-nitrate: TC#0610458
 extra-summary: /CoreOS/nginx/Regression/bz1052935-selinux-context-of-nginx [nginx:1.20]
-id: f7c0f7e4-307b-48dc-8f2f-ec846a47fe48
+id: 51cf8775-4957-486d-9645-296293e5a1f9
