@@ -1,0 +1,14 @@
+contact: Ondrej Ptak <optak@redhat.com>
+link:
+tag:
+  - Acceptance
+  - Tier3
+adjust:
+  - enabled: false
+    when: distro < rhel-9 and product != rhscl
+    continue: false
+component:
+  - nginx:1.24
+environment:
+    MODSTREAMS: nginx:1.24
+extra-summary: /CoreOS/nginx/Regression/bz1065981-redhat-in-error-pages [nginx:1.24]

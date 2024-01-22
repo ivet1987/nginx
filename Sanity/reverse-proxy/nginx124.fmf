@@ -1,0 +1,17 @@
+contact: Martin Frodl <mfrodl@redhat.com>
+enabled: true
+tag:
+  - Tier1
+tier: '1'
+adjust:
+  - enabled: false
+    when: distro < rhel-9 and product != rhscl
+    continue: false
+component:
+  - nginx:1.24
+environment:
+    MODSTREAMS: nginx:1.24
+extra-summary: /CoreOS/nginx/Sanity/reverse-proxy [nginx:1.24]
+extra-hardware: |+
+    MEMORY_MIN_16G
+

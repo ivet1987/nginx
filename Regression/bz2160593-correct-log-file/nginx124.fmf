@@ -1,0 +1,16 @@
+tag:
+  - NoRHEL4
+  - NoRHEL5
+  - TestCaseCopy
+adjust:
+  - enabled: false
+    when: distro < rhel-8
+    continue: false
+  - enabled: false
+    when: distro ~< rhel-8.8
+    continue: false
+component:
+  - nginx:1.24
+environment:
+    MODSTREAMS: nginx:1.24
+extra-summary: /CoreOS/nginx/Regression/bz2160593-correct-log-file [nginx:1.24]

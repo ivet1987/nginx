@@ -1,0 +1,27 @@
+summary: Test for BZ#2170808 (Running nginx with systemctl and entering ssl)
+description: |
+    Bug summary: Running nginx with systemctl and entering ssl private key's pass phrase
+contact: Iveta Cesalova <icesalov@redhat.com>
+enabled: true
+link:
+tag:
+  - NoRHEL4
+  - NoRHEL5
+  - TestCaseCopy
+adjust:
+  - enabled: false
+    when: distro ~< rhel-9.3
+    continue: false
+component:
+  - nginx:1.24
+test: ./runtest.sh
+framework: beakerlib
+recommend:
+  - nginx
+  - expect
+environment:
+    MODSTREAMS: nginx:1.24
+duration: 5m
+extra-summary: /CoreOS/nginx/Regression/bz2170808-Running-nginx-with-systemctl-and-entering-ssl
+    [nginx:1.24]
+extra-task: /CoreOS/nginx/Regression/bz2170808-Running-nginx-with-systemctl-and-entering-ssl

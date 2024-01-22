@@ -1,0 +1,21 @@
+contact: Ondrej Ptak <optak@redhat.com>
+tag:
+  - NoRHEL4
+  - NoRHEL5
+  - TIPfail_Apps
+  - Tier2
+adjust:
+  - enabled: false
+    when: distro == rhel-4, rhel-5
+    continue: false
+  - enabled: false
+    when: distro < rhel-9 and product != rhscl
+    continue: false
+  - enabled: false
+    when: arch != x86_64
+    continue: false
+component:
+  - nginx:1.24
+environment:
+    MODSTREAMS: nginx:1.24
+extra-summary: /CoreOS/nginx/Regression/bz1421927-nginx-perl-module-support [nginx:1.24]
