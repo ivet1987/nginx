@@ -1,16 +1,13 @@
 tag:
-  - TIPfail_Apps
-  - TIPpass
   - TestCaseCopy
   - Tier1
-  - ci-tier-1
   - nginx:1.24
 adjust:
   - enabled: false
-    when: distro < rhel-8
+    when: distro < rhel-8.10
     continue: false
   - enabled: false
-    when: distro ~< rhel-9.2
+    when: distro ~< rhel-9.4
     continue: false
 component:
   - nginx:1.24

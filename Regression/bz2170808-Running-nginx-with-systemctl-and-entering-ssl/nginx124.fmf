@@ -5,12 +5,13 @@ contact: Iveta Cesalova <icesalov@redhat.com>
 enabled: true
 link:
 tag:
-  - NoRHEL4
-  - NoRHEL5
   - TestCaseCopy
 adjust:
   - enabled: false
-    when: distro ~< rhel-9.3
+    when: distro < rhel-8.10
+    continue: false
+  - enabled: false
+    when: distro ~< rhel-9.4
     continue: false
 component:
   - nginx:1.24

@@ -4,7 +4,10 @@ tag:
   - Tier3
 adjust:
   - enabled: false
-    when: distro < rhel-9 and product != rhscl
+    when: distro < rhel-8.10
+    continue: false
+  - enabled: false
+    when: distro ~< rhel-9.4
     continue: false
 component:
   - nginx:1.24

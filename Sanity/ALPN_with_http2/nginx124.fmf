@@ -1,16 +1,13 @@
 contact: Ondrej Ptak <optak@redhat.com>
 tag:
-  - NoRHEL4
-  - NoRHEL5
-  - NoTier
   - Tier3
 tier: '3'
 adjust:
   - enabled: false
-    when: distro < rhel-9 and product != rhscl
+    when: distro < rhel-8.10
     continue: false
   - enabled: false
-    when: collection != rh-nginx112
+    when: distro ~< rhel-9.4
     continue: false
 component:
   - nginx:1.24
