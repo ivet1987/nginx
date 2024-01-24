@@ -26,4 +26,12 @@ relevancy: |
   distro < rhel-8: False
   distro < rhel-8.8: False
 tags: TestCaseCopy
+---
+components: nginx:1.24
+summary: '{script} [nginx:1.24]'
+arguments: MODSTREAMS='nginx:1.24'
+relevancy: |
+  distro < rhel-8.10: False
+  distro =< rhel-9.4: False
+tags: TestCaseCopy
 
