@@ -3,11 +3,8 @@ tag:
   - Tier2
 tier: '2'
 adjust:
-  - enabled: false
-    when: distro < rhel-8.10
-    continue: false
-  - enabled: false
-    when: distro ~< rhel-9.4
+- enabled: false
+    when: product == rhel and distro < rhel-9
     continue: false
 component:
   - nginx:1.24
