@@ -4,10 +4,7 @@ tag:
 tier: '2'
 adjust:
   - enabled: false
-    when: distro < rhel-8.10
-    continue: false
-  - enabled: false
-    when: distro ~< rhel-9.4
+    when: distro ~< rhel-9.1
     continue: false
 component:
   - nginx:1.24
