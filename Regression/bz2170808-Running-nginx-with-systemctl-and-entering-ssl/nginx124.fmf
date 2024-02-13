@@ -8,10 +8,7 @@ tag:
   - TestCaseCopy
 adjust:
   - enabled: false
-    when: distro < rhel-8.10
-    continue: false
-  - enabled: false
-    when: distro ~< rhel-9.4
+    when: product == rhel and distro < rhel-9
     continue: false
 component:
   - nginx:1.24
