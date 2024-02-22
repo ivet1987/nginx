@@ -16,3 +16,5 @@ component:
 environment:
     MODSTREAMS: nginx:1.24
 extra-summary: /CoreOS/nginx/Regression/bz1421927-nginx-perl-module-support [nginx:1.24]
+extra-nitrate: TC#0616778
+id: bca78148-5de7-4035-988b-5e6754d262d0

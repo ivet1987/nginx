@@ -12,3 +12,5 @@ environment:
     MODSTREAMS: nginx:1.24
 extra-summary: /CoreOS/nginx/Regression/bz1991600-Add-logo-symlink-required-by-new-testpage
     [nginx:1.24]
+extra-nitrate: TC#0616781
+id: e7f5625d-ec46-41fc-a692-9bc6876c2feb

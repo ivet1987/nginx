@@ -14,3 +14,5 @@ component:
 environment:
     MODSTREAMS: nginx:1.24
 extra-summary: /CoreOS/nginx/Regression/bz1065981-redhat-in-error-pages [nginx:1.24]
+extra-nitrate: TC#0616776
+id: 20ee983b-3c15-4bc5-b0e9-0e3fb5bc6194

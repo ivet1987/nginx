@@ -14,3 +14,5 @@ component:
 environment:
     MODSTREAMS: nginx:1.24
 extra-summary: /CoreOS/nginx/Regression/bz1931402-drop-gperftools-module [nginx:1.24]
+extra-nitrate: TC#0616780
+id: 5794b9ef-00d9-48ef-b6b1-8d227e7a61e1

@@ -16,3 +16,5 @@ environment:
     MODSTREAMS: nginx:1.24
 extra-summary: /CoreOS/nginx/Regression/bz1991720-ability-to-build-external-modules
     [nginx:1.24]
+extra-nitrate: TC#0616782
+id: 9d32610b-cde1-4f2e-998c-8e05984458ca

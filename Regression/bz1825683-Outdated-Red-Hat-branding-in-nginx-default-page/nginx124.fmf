@@ -14,6 +14,7 @@ component:
   - nginx:1.24
 environment:
     MODSTREAMS: nginx:1.24
-extra-summary: 
-    /CoreOS/nginx/Regression/bz1825683-Outdated-Red-Hat-branding-in-nginx-default-page
+extra-summary: /CoreOS/nginx/Regression/bz1825683-Outdated-Red-Hat-branding-in-nginx-default-page
     [nginx:1.24]
+extra-nitrate: TC#0616779
+id: c8230cb7-fe08-4bf5-9b1a-d3d95ac46538

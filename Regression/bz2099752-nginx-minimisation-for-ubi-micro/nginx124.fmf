@@ -12,3 +12,5 @@ environment:
     MODSTREAMS: nginx:1.24
 extra-summary: /CoreOS/nginx/Regression/bz2099752-nginx-minimisation-for-ubi-micro
     [nginx:1.24]
+extra-nitrate: TC#0616785
+id: c3c31767-b729-41cf-abf5-0cbeab8f1704

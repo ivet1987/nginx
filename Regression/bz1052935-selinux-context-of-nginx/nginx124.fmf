@@ -14,3 +14,5 @@ component:
 environment:
     MODSTREAMS: nginx:1.24
 extra-summary: /CoreOS/nginx/Regression/bz1052935-selinux-context-of-nginx [nginx:1.24]
+extra-nitrate: TC#0616774
+id: a874d6d8-8e84-4b37-8d1e-54206fcb7858

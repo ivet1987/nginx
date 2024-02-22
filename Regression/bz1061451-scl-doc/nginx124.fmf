@@ -14,3 +14,5 @@ component:
 environment:
     MODSTREAMS: nginx:1.24
 extra-summary: /CoreOS/nginx/Regression/bz1061451-scl-doc [nginx:1.24]
+extra-nitrate: TC#0616775
+id: c712032c-3723-4da5-91c8-1238604f3ef8
