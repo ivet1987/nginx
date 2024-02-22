@@ -3,7 +3,7 @@ tag:
   - Tier2
 tier: '2'
 adjust:
-- enabled: false
+  - enabled: false
     when: distro < rhel-9.4
     continue: false
 component:
