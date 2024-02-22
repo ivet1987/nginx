@@ -4,7 +4,7 @@ tag:
 tier: '2'
 adjust:
 - enabled: false
-    when: product == rhel and distro < rhel-9
+    when: distro < rhel-9.4
     continue: false
 component:
   - nginx:1.24
