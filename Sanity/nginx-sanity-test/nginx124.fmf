@@ -12,3 +12,5 @@ component:
 environment:
     MODSTREAMS: nginx:1.24
 extra-summary: /CoreOS/nginx/Sanity/nginx-sanity-test [nginx:1.24]
+extra-nitrate: TC#0616792
+id: 9817805e-ff98-41c9-a83a-5f066f72e993

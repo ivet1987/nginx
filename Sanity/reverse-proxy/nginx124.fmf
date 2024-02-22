@@ -17,3 +17,5 @@ extra-summary: /CoreOS/nginx/Sanity/reverse-proxy [nginx:1.24]
 extra-hardware: |+
     MEMORY_MIN_16G
 
+extra-nitrate: TC#0616794
+id: fc03210f-c4c4-4587-b312-d3722bc40d3f

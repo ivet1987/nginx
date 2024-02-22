@@ -17,3 +17,5 @@ environment:
     MODSTREAMS: nginx:1.24
 extra-summary: /CoreOS/nginx/Sanity/bz1651377-centralizing-default-index-html-on-nginx
     [nginx:1.24]
+extra-nitrate: TC#0616790
+id: 10a86583-2f00-49e3-b9de-c69814c4b9ea

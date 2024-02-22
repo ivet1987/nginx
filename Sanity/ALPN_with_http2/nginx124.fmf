@@ -14,3 +14,5 @@ component:
 environment:
     MODSTREAMS: nginx:1.24
 extra-summary: /CoreOS/nginx/Sanity/ALPN_with_http2 [nginx:1.24]
+extra-nitrate: TC#0616789
+id: 399fd142-aa84-439d-b1dd-5cbe9b544a57
