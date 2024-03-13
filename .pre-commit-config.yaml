@@ -1,0 +1,5 @@
+repos:
+- repo: https://github.com/teemtee/tmt.git
+  rev: 1.31.0
+  hooks:
+  - id: tmt-lint
