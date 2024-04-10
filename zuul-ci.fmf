@@ -1,8 +1,0 @@
-summary: Zuul CI test plan that runs only modified tests
-discover:
-    how: fmf
-    modified-only: true
-execute:
-    how: tmt
-
-

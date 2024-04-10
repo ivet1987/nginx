@@ -1,8 +1,49 @@
 summary: Zuul CI test plan that runs only modified tests
-discover:
-    how: fmf
-    modified-only: true
+
+/:
+    inherit: false
+
+enabled: false
+adjust:
+- when: trigger == commit
+  enabled: true
+
 execute:
     how: tmt
 
+discover:
+    how: fmf
+    modified-only: true
 
+/system:
+    description: "nginx:1.20"
+    discover+:
+        filter: "component:nginx"
+
+/nginx1.22:
+    description: "nginx:1.22 module"
+    prepare+:
+        - name: Enable module
+          how: shell
+          script: dnf module enable -y nginx:1.22
+    adjust+:
+        - when: distro < rhel-8 or distro < rhel-9.2
+          enabled: false
+    discover+:
+          name: internal
+          how: fmf
+          filter: "tier:1&component:nginx:1.22"
+
+/nginx1.24:
+    description: "nginx:1.24 module"
+    prepare+:
+        - name: Enable module
+          how: shell
+          script: dnf module enable -y nginx:1.24
+    adjust+:
+        - when: distro < rhel-9.4
+          enabled: false
+    discover+:
+          name: internal
+          how: fmf
+          filter: "tier:1&component:nginx:1.24"
