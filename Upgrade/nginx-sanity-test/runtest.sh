@@ -87,5 +87,4 @@ rlJournalStart
     rlPhaseEnd
     distribution_mcase__run
 
-rlJournalPrintText
 rlJournalEnd
