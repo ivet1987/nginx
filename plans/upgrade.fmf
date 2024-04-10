@@ -4,6 +4,10 @@ summary: Basic upgrade test
 discover:
     how: fmf
     filter: tag:upgrade
+adjust:
+- when: trigger == commit
+  enabled: false
+  because: do not run the upgrade plan on PRs/MRs
 execute:
     how: upgrade
     url: https://gitlab.cee.redhat.com/oamg/rhel-major-upgrade
