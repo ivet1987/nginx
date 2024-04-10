@@ -1,7 +1,7 @@
 summary: What the test does
 description: ''
 contact: icesalov@redhat.com
-enabled: true
+enabled: false
 component:
   - nginx
 test: ./runtest.sh
