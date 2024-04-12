@@ -19,6 +19,9 @@ discover:
     description: "nginx:1.20"
     discover+:
         filter: "component:nginx"
+    adjust+:
+    -     when:  distro = rhel-8
+          enabled: false
 
 /nginx1.22:
     description: "nginx:1.22 module"
