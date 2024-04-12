@@ -32,7 +32,6 @@ discover:
     discover+:
           name: internal
           how: fmf
-          filter: "tier:1&component:nginx:1.22"
 
 /nginx1.24:
     description: "nginx:1.24 module"
@@ -46,4 +45,3 @@ discover:
     discover+:
           name: internal
           how: fmf
-          filter: "tier:1&component:nginx:1.24"
