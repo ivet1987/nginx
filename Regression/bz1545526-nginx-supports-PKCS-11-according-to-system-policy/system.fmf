@@ -25,6 +25,10 @@ adjust:
   - enabled: false
     when: distro == rhel-4, rhel-5, rhel-6, rhel-7, rhel-alt-7, rhel-8
     continue: false
+  - enabled: false
+    when: distro > rhel-9
+    continue: false
+    # openssl-pkcs11 is not available on RHEL-10
 component:
   - nginx
   - p11-kit
