@@ -30,7 +30,7 @@ discover:
           how: shell
           script: dnf module enable -y nginx:1.22
     adjust+:
-    -     when: distro < rhel-8 or distro ~< rhel-9.2
+    -     when: distro < rhel-8 or distro ~< rhel-9.2 or distro >= rhel-10
           enabled: false
     discover+:
           name: internal
@@ -44,7 +44,7 @@ discover:
           how: shell
           script: dnf module enable -y nginx:1.24
     adjust+:
-    -     when: distro < rhel-8.10 or distro ~< rhel-9.4
+    -     when: distro < rhel-8.10 or distro ~< rhel-9.4 or distro >= rhel-10
           enabled: false
     discover+:
           name: internal

@@ -43,8 +43,6 @@ rlJournalStart
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
         rlRun "wget $LOOKASIDE/$nginx_module_vts"
-        yum module list --available nginx && rlRun "yum module enable -y nginx"
-        rlRun "yum install -y nginx-mod-devel"
         rlRun "tar xzf $nginx_module_vts"
         rlRun "mkdir -p /root/rpmbuild/SOURCES/"
         rlRun "cp nginx-module-vts-*.tar.gz /root/rpmbuild/SOURCES/"
