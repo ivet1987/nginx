@@ -1,0 +1,30 @@
+summary: Sanity test for nginx instantiated services [nginx:1.26]
+description: ''
+contact: Joe Orton <jorton@redhat.com>
+enabled: true
+tier: '2'
+component:
+  - nginx:1.26
+environment:
+    MODSTREAMS: nginx:1.26
+test: ./runtest.sh
+path: /Sanity/instantiated-nginx-service
+framework: beakerlib
+require:
+  - library(nginx/nginx)
+  - library(selinux-policy/common)
+recommend:
+  - nginx
+adjust:
+  - enabled: false
+    when: distro ~< rhel-9.6
+    continue: false
+  - enabled: false
+    when: distro < rhel-9
+    continue: false
+  - enabled: false
+    when: distro > rhel-9
+    continue: false
+duration: 5m
+extra-summary: /CoreOS/nginx/Sanity/instantiated-nginx-service [nginx:1.26]
+extra-task: /CoreOS/nginx/Sanity/instantiated-nginx-service

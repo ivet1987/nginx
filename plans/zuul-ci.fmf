@@ -50,3 +50,17 @@ discover:
           name: internal
           how: fmf
           filter: "component:nginx:1.24"
+
+/nginx1.26:
+    description: "nginx:1.26 module"
+    prepare+:
+       -  name: Enable module
+          how: shell
+          script: dnf module enable -y nginx:1.26
+    adjust+:
+    -     when: distro <= rhel-8 or distro ~< rhel-9.6 or distro >= rhel-10
+          enabled: false
+    discover+:
+          name: internal
+          how: fmf
+          filter: "component:nginx:1.26"
