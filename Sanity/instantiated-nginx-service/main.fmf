@@ -1,0 +1,22 @@
+summary: Sanity test for nginx instantiated services
+description: ''
+contact: Joe Orton <jorton@redhat.com>
+enabled: true
+tier: '2'
+component:
+  - nginx
+test: ./runtest.sh
+path: /Sanity/instantiated-nginx-service
+framework: beakerlib
+require:
+  - library(nginx/nginx)
+  - library(selinux-policy/common)
+recommend:
+  - nginx
+adjust:
+  - enabled: false
+    when: distro < rhel-10
+    continue: false
+duration: 5m
+extra-summary: /CoreOS/nginx/Sanity/instantiated-nginx-service
+extra-task: /CoreOS/nginx/Sanity/instantiated-nginx-service
