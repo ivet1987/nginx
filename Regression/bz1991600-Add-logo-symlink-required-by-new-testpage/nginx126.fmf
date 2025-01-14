@@ -7,10 +7,8 @@ adjust:
     when: distro < rhel-9.4
     continue: false
 component:
-  - nginx:1.24
+  - nginx:1.26
 environment:
     MODSTREAMS: nginx:1.26
 extra-summary: /CoreOS/nginx/Regression/bz1991600-Add-logo-symlink-required-by-new-testpage
-    [nginx:1.24]
-extra-nitrate: TC#0618286
-id: 4dd12b72-cae7-4140-835d-526b04d426b9
+    [nginx:1.26]
