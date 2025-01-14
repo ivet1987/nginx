@@ -10,9 +10,7 @@ adjust:
     when: distro ~< rhel-9.6
     continue: false
 component:
-  - nginx:1.24
+  - nginx:1.26
 environment:
     MODSTREAMS: nginx:1.26
-extra-summary: /CoreOS/nginx/Regression/bz1931402-drop-gperftools-module [nginx:1.24]
-extra-nitrate: TC#0618285
-id: 2edc45c7-3c4b-4e09-9cb9-bdecb52e0eec
+extra-summary: /CoreOS/nginx/Regression/bz1931402-drop-gperftools-module [nginx:1.26]
