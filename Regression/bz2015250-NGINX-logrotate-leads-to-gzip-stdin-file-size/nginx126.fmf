@@ -1,7 +1,7 @@
 tag:
-  - TestCaseCopy
-  - Tier1
-  - nginx:1.24
+  - NoModularTier
+  - Tier2
+tier: '2'
 adjust:
   - enabled: false
     when: distro < rhel-8.10
@@ -13,7 +13,5 @@ component:
   - nginx:1.24
 environment:
     MODSTREAMS: nginx:1.26
-extra-summary: /CoreOS/nginx/Regression/bz1991796-Nginx-is-not-built-with-with-compat
+extra-summary: /CoreOS/nginx/Regression/bz2015250-NGINX-logrotate-leads-to-gzip-stdin-file-size
     [nginx:1.24]
-extra-nitrate: TC#0618288
-id: dce9410c-064c-4f39-823b-a47261cb7ef2
