@@ -4,7 +4,7 @@ description: |
 link:
   - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1545526
 tag:
-  - nginx:1.24
+  - nginx:1.26
   - rhel-buildroot
   - rhel8-buildroot
 tier: '1'
@@ -16,8 +16,6 @@ adjust:
     when: distro ~< rhel-9.6
     continue: false
 component:
-  - nginx:1.24
+  - nginx:1.26
 environment:
     MODSTREAMS: nginx:1.26
-extra-nitrate: TC#0618283
-id: 0053faf5-ad5a-4bd2-afb6-1e603e3032d5
