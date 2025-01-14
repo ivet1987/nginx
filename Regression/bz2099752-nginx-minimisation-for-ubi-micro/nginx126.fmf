@@ -7,10 +7,8 @@ adjust:
     when: distro < rhel-9.4
     continue: false
 component:
-  - nginx:1.24
+  - nginx:1.26
 environment:
     MODSTREAMS: nginx:1.26
 extra-summary: /CoreOS/nginx/Regression/bz2099752-nginx-minimisation-for-ubi-micro
-    [nginx:1.24]
-extra-nitrate: TC#0618290
-id: 1e58ec76-cd5b-416b-b173-23fceca1fa61
+    [nginx:1.26]
