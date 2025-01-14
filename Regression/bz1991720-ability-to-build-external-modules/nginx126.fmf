@@ -11,10 +11,8 @@ adjust:
     when: distro ~< rhel-9.6
     continue: false
 component:
-  - nginx:1.24
+  - nginx:1.26
 environment:
     MODSTREAMS: nginx:1.26
 extra-summary: /CoreOS/nginx/Regression/bz1991720-ability-to-build-external-modules
-    [nginx:1.24]
-extra-nitrate: TC#0618287
-id: a2ffdfd1-602a-4254-888d-3ef9cd225057
+    [nginx:1.26]
