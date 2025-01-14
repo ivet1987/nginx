@@ -1,0 +1,18 @@
+contact: Ondrej Ptak <optak@redhat.com>
+tag:
+  - Tier2
+adjust:
+  - enabled: false
+    when: distro < rhel-8.10
+    continue: false
+  - enabled: false
+    when: distro ~< rhel-9.6
+    continue: false
+  - enabled: false
+    when: arch != x86_64
+    continue: false
+component:
+  - nginx:1.24
+environment:
+    MODSTREAMS: nginx:1.26
+extra-summary: /CoreOS/nginx/Regression/bz1421927-nginx-perl-module-support [nginx:1.24]
