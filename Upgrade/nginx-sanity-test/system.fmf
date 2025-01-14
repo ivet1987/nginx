@@ -10,3 +10,4 @@ component:
   - nginx
 extra-nitrate: TC#0613143
 extra-summary: /CoreOS/nginx/Upgrade/nginx-sanity-test
+id: 83c260dc-2a28-4a91-9aec-33213b3ec9a5
