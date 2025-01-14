@@ -1,7 +1,7 @@
 tag:
   - TestCaseCopy
   - Tier3
-  - nginx:1.24
+  - nginx:1.26
 tier: '3'
 adjust:
   - enabled: false
@@ -11,11 +11,8 @@ adjust:
     when: distro ~< rhel-9.6
     continue: false
 component:
-  - nginx:1.24
+  - nginx:1.26
 environment:
     MODSTREAMS: nginx:1.26
-extra-summary: 
-    /CoreOS/nginx/Regression/bz1825683-Outdated-Red-Hat-branding-in-nginx-default-page
-    [nginx:1.24]
-extra-nitrate: TC#0618284
-id: 89b9dc71-fdcc-4bbb-bdc3-a8b8df79501f
+extra-summary: /CoreOS/nginx/Regression/bz1825683-Outdated-Red-Hat-branding-in-nginx-default-page
+    [nginx:1.26]
