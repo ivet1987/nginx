@@ -1,7 +1,7 @@
+contact: Ondrej Ptak <optak@redhat.com>
+link:
 tag:
-  - TestCaseCopy
   - Tier3
-  - nginx:1.24
 adjust:
   - enabled: false
     when: distro < rhel-8.10
@@ -13,6 +13,4 @@ component:
   - nginx:1.24
 environment:
     MODSTREAMS: nginx:1.26
-extra-summary: /CoreOS/nginx/Regression/bz1061451-scl-doc [nginx:1.24]
-extra-nitrate: TC#0618279
-id: 10f088fa-6089-4799-a8da-b0228d80139c
+extra-summary: /CoreOS/nginx/Regression/bz1065981-redhat-in-error-pages [nginx:1.24]
