@@ -19,3 +19,4 @@ component:
 extra-nitrate: TC#0614734
 extra-summary: /CoreOS/nginx/Regression/bz2086527-No-logrotating-nginx-logs-from-appstream
     [nginx:1.22]
+id: 91750652-6274-416e-a6f7-35dc9f9c7e98

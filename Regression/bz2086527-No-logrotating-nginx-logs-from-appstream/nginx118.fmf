@@ -18,3 +18,4 @@ environment:
 extra-nitrate: TC#0614732
 extra-summary: /CoreOS/nginx/Regression/bz2086527-No-logrotating-nginx-logs-from-appstream
     [nginx:1.18]
+id: a31aa916-1e63-491a-a2d6-a3c7a91fe46c

@@ -23,3 +23,5 @@ duration: 5m
 extra-summary: /CoreOS/nginx/Regression/bz2170808-Running-nginx-with-systemctl-and-entering-ssl
     [nginx:1.24]
 extra-task: /CoreOS/nginx/Regression/bz2170808-Running-nginx-with-systemctl-and-entering-ssl
+extra-nitrate: TC#0618276
+id: d5e451e2-f3c7-42fd-b194-bb8e535285dd

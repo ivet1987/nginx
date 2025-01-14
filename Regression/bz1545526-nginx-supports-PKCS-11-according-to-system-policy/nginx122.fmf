@@ -19,3 +19,5 @@ component:
   - nginx:1.22
 environment:
     MODSTREAMS: nginx:1.22
+extra-nitrate: TC#0618274
+id: 2c3767a4-1931-4f49-bef5-c3cac9c93317
