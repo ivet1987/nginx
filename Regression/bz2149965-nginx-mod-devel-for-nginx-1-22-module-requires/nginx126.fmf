@@ -1,0 +1,15 @@
+tag:
+  - TestCaseCopy
+adjust:
+  - enabled: false
+    when: distro < rhel-8.10
+    continue: false
+  - enabled: false
+    when: distro ~< rhel-9.6
+    continue: false
+component:
+  - nginx:1.24
+environment:
+    MODSTREAMS: nginx:1.26
+extra-summary: /CoreOS/nginx/Regression/bz2149965-nginx-mod-devel-for-nginx-1-22-module-requires
+    [nginx:1.24]
