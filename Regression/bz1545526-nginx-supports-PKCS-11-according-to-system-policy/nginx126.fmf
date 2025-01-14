@@ -1,0 +1,21 @@
+description: |
+    Bug summary: nginx supports PKCS#11 according to system policy
+    Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1545526
+link:
+  - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1545526
+tag:
+  - nginx:1.24
+  - rhel-buildroot
+  - rhel8-buildroot
+tier: '1'
+adjust:
+  - enabled: false
+    when: distro < rhel-8.10
+    continue: false
+  - enabled: false
+    when: distro ~< rhel-9.6
+    continue: false
+component:
+  - nginx:1.24
+environment:
+    MODSTREAMS: nginx:1.26
