@@ -19,3 +19,5 @@ component:
   - nginx:1.24
 environment:
     MODSTREAMS: nginx:1.26
+extra-nitrate: TC#0618283
+id: 0053faf5-ad5a-4bd2-afb6-1e603e3032d5
