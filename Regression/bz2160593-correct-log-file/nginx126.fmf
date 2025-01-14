@@ -8,9 +8,7 @@ adjust:
     when: distro ~< rhel-9.6
     continue: false
 component:
-  - nginx:1.24
+  - nginx:1.26
 environment:
     MODSTREAMS: nginx:1.26
-extra-summary: /CoreOS/nginx/Regression/bz2160593-correct-log-file [nginx:1.24]
-extra-nitrate: TC#0618292
-id: 55e262dd-fd86-4082-a853-04e6a7595b63
+extra-summary: /CoreOS/nginx/Regression/bz2160593-correct-log-file [nginx:1.26]
