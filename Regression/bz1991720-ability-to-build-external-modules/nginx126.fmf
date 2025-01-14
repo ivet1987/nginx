@@ -1,0 +1,18 @@
+tag:
+  - NoModularTier
+  - Tier3
+  - rhel-buildroot
+tier: '3'
+adjust:
+  - enabled: false
+    when: distro < rhel-8.10
+    continue: false
+  - enabled: false
+    when: distro ~< rhel-9.6
+    continue: false
+component:
+  - nginx:1.24
+environment:
+    MODSTREAMS: nginx:1.26
+extra-summary: /CoreOS/nginx/Regression/bz1991720-ability-to-build-external-modules
+    [nginx:1.24]
