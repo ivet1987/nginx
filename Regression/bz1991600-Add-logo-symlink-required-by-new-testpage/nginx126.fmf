@@ -1,0 +1,14 @@
+tag:
+  - NoModularTier
+  - Tier2
+tier: '2'
+adjust:
+  - enabled: false
+    when: distro < rhel-9.4
+    continue: false
+component:
+  - nginx:1.24
+environment:
+    MODSTREAMS: nginx:1.26
+extra-summary: /CoreOS/nginx/Regression/bz1991600-Add-logo-symlink-required-by-new-testpage
+    [nginx:1.24]
