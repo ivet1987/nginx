@@ -1,7 +1,7 @@
 tag:
   - TestCaseCopy
   - Tier1
-  - nginx:1.24
+  - nginx:1.26
 adjust:
   - enabled: false
     when: distro < rhel-8.10
@@ -10,10 +10,8 @@ adjust:
     when: distro ~< rhel-9.6
     continue: false
 component:
-  - nginx:1.24
+  - nginx:1.26
 environment:
     MODSTREAMS: nginx:1.26
 extra-summary: /CoreOS/nginx/Regression/bz1991796-Nginx-is-not-built-with-with-compat
-    [nginx:1.24]
-extra-nitrate: TC#0618288
-id: dce9410c-064c-4f39-823b-a47261cb7ef2
+    [nginx:1.26]
