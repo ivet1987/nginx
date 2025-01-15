@@ -13,4 +13,3 @@ component:
   - nginx:1.26
 environment:
     MODSTREAMS: nginx:1.26
-extra-summary: /CoreOS/nginx/Regression/bz1931402-drop-gperftools-module [nginx:1.26]
