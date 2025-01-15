@@ -13,4 +13,3 @@ component:
   - nginx:1.26
 environment:
     MODSTREAMS: nginx:1.26
-extra-summary: /CoreOS/nginx/Regression/bz1066056-variable-expansion-in-man  [nginx:1.26]
