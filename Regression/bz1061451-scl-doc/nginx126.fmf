@@ -13,4 +13,3 @@ component:
   - nginx:1.26
 environment:
     MODSTREAMS: nginx:1.26
-extra-summary: /CoreOS/nginx/Regression/bz1061451-scl-doc [nginx:1.26]
