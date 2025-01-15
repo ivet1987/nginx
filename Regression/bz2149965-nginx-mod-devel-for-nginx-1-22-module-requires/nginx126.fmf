@@ -11,4 +11,3 @@ component:
   - nginx:1.26
 environment:
     MODSTREAMS: nginx:1.26
-    [nginx:1.26]
