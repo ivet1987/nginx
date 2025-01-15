@@ -11,4 +11,3 @@ component:
   - nginx:1.26
 environment:
     MODSTREAMS: nginx:1.26
-extra-summary: /CoreOS/nginx/Regression/bz2160593-correct-log-file [nginx:1.26]
