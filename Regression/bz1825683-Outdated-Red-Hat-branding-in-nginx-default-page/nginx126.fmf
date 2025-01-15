@@ -14,5 +14,4 @@ component:
   - nginx:1.26
 environment:
     MODSTREAMS: nginx:1.26
-extra-summary: /CoreOS/nginx/Regression/bz1825683-Outdated-Red-Hat-branding-in-nginx-default-page
     [nginx:1.26]
