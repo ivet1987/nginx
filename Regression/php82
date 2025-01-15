@@ -1,16 +1,16 @@
 #!/bin/bash
 for dir in * ; do
     if [ -d "$dir" ]; then
-        pushd "$dir";
-        git pull
+        pushd "$dir"
+        # git pull
         cp nginx124.fmf nginx126.fmf
-        sed -e '/extra-nitrate/d' -e '/id:/d' -i nginx126.fmf
+        sed -e '/extra-nitrate/d' -e '/id/d' -e '/extra-summary/d' -i nginx126.fmf
         sed -i 's/1.24/1.26/g' nginx126.fmf
         sed -i 's/when: distro ~< rhel-9.4/when: distro ~< rhel-9.6/' nginx126.fmf
         git add -A
         git commit -m "create nginx126.fmf"
-    #    git push
-    #    tmt test export --create --general --how nitrate .
+        git push
+        #tmt test export --create --general --how nitrate .
         popd
     fi
 
