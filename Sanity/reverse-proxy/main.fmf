@@ -1,6 +1,5 @@
 summary: Checks the reverse proxy use case
 description: ''
-contact: Martin Frodl <mfrodl@redhat.com>
 component:
   - nginx
 test: ./runtest.sh
