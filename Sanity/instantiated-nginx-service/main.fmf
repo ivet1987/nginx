@@ -1,6 +1,5 @@
 summary: Sanity test for nginx instantiated services
 description: ''
-contact: Joe Orton <jorton@redhat.com>
 enabled: true
 tier: '2'
 component:

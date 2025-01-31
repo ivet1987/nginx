@@ -43,21 +43,24 @@ rlJournalStart
         rlRun "mkdir -p ${ROOTDIR}/beaker-{1,2,3}"
         rlRun "echo beaker-the-first > ${ROOTDIR}/beaker-1/index.html"
         rlRun "echo beaker-the-second > ${ROOTDIR}/beaker-2/index.html"
+        rlRun "echo beaker-the-third > ${ROOTDIR}/beaker-3/index.html"
 
-        rlRun "rm -f ${nginxLOGDIR}/*_log"
+        rlRun "rm -f ${nginxLOGDIR}/*.log"
         rlRun "rlServiceStop nginx"
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
 
         # Set up instance config files for services nginx@beaker-1 and httpd@beaker-2
-        if test -d $httpROOTPREFIX/usr/share/doc/nginx-core; then
-            rlRun "INSTCONF=$httpROOTPREFIX/usr/share/doc/${httpHTTPD}-core/instance.conf"
+        if test -d $nginxROOTPREFIX/usr/share/doc/nginx-core; then
+            rlRun "INSTCONF=$nginxROOTPREFIX/usr/share/doc/${nginxHTTPD}-core/instance.conf"
         else
-            rlRun "INSTCONF=$httpROOTPREFIX/usr/share/doc/$httpHTTPD/instance.conf"
+            rlRun "INSTCONF=$nginxROOTPREFIX/usr/share/doc/$nginxHTTPD/instance.conf"
         fi
         rlAssertExists "$INSTCONF"
-        rlRun "sed '/^ *listen/s/80/81/;/^ *root/s,/usr.*,/srv/beaker-1,' < $INSTCONF > ${CONF}/beaker-1.conf"
-        rlRun "sed '/^Listen/s/80/82/;/^DocumentRoot/s,html,html/beaker-2,' < $INSTCONF > ${CONF}/beaker-2.conf"
+        rlRun "sed '/^ *listen/s/80/81/;/^ *root/s,/usr.*,/srv/www/beaker-1;,' < $INSTCONF > ${CONF}/beaker-1.conf"
+        rlRun "sed -i 's/@INSTANCE@/beaker-1/g' ${CONF}/beaker-1.conf"
+        rlRun "sed '/^ *listen/s/80/82/;/^ *root/s,/usr.*,/srv/www/beaker-2;,' < $INSTCONF > ${CONF}/beaker-2.conf"
+        rlRun "sed -i 's/@INSTANCE@/beaker-2/g' ${CONF}/beaker-2.conf"
 
         if selinuxenabled; then
             rlRun "rlSEPortAdd tcp 81 http_port_t"
@@ -88,16 +91,16 @@ rlJournalStart
 
         rlRun "sleep 1"
         # Check only the instance-specific error logs are there
-        rlAssertNotExists "$httpLOGDIR/error_log"
-        rlAssertNotExists "$httpLOGDIR/access_log"
-        rlAssertExists "$httpLOGDIR/beaker-1_error_log"
-        rlAssertExists "$httpLOGDIR/beaker-2_error_log"
-        rlAssertGrep 'start worker processes' "$httpLOGDIR/beaker-1_error_log"
-        rlAssertGrep 'start worker processes' "$httpLOGDIR/beaker-2_error_log"
+        rlAssertNotExists "$nginxLOGDIR/error.log"
+        rlAssertNotExists "$nginxLOGDIR/access.log"
+        rlAssertExists "$nginxLOGDIR/beaker-1_error.log"
+        rlAssertExists "$nginxLOGDIR/beaker-2_error.log"
+        rlAssertGrep 'start worker processes' "$nginxLOGDIR/beaker-1_error.log"
+        rlAssertGrep 'start worker processes' "$nginxLOGDIR/beaker-2_error.log"
     rlPhaseEnd
 
-    rlPhaseStartTest "Requests and access_logs"
-        # Test the docroot config is right, and the right access_log is used
+    rlPhaseStartTest "Requests and access.logs"
+        # Test the docroot config is right, and the right access.log is used
         rlRun "curl http://localhost:81/?beaker-test-1 > output.1"
         rlRun "curl http://localhost:82/?beaker-test-2 > output.2"
         rlAssertGrep beaker-the-first output.1
@@ -105,18 +108,19 @@ rlJournalStart
 
         # Check the access logging works
         rlRun "sleep 1"
-        rlAssertExists "$httpLOGDIR/beaker-1_access_log"
-        rlAssertExists "$httpLOGDIR/beaker-2_access_log"
-        rlAssertGrep 'GET /?beaker-test-1' "$httpLOGDIR/beaker-1_access_log"
-        rlAssertGrep 'GET /?beaker-test-2' "$httpLOGDIR/beaker-2_access_log"
+        rlAssertExists "$nginxLOGDIR/beaker-1_access.log"
+        rlAssertExists "$nginxLOGDIR/beaker-2_access.log"
+        rlAssertGrep 'GET /?beaker-test-1' "$nginxLOGDIR/beaker-1_access.log"
+        rlAssertGrep 'GET /?beaker-test-2' "$nginxLOGDIR/beaker-2_access.log"
     rlPhaseEnd
 
     rlPhaseStartTest "Service reload tests"
         # Now adjust the config for both services and reload, ensure
         # ONLY one running service actually reloads the new config.
-        rlRun "sed '/^DocumentRoot/s,html/beaker-1,html/beaker-3,' -i ${CONF}/beaker-1.conf"
-        rlRun "sed '/^DocumentRoot/s,html/beaker-2,html,' -i ${CONF}/beaker-2.conf"
+        rlRun "sed '/^ *root/s,www/beaker-1,www/beaker-3,' -i ${CONF}/beaker-1.conf"
+        rlRun "sed '/^ *root/s,www/beaker-2,www,' -i ${CONF}/beaker-2.conf"
         rlRun "systemctl reload nginx@beaker-1"
+        rlRun "sleep 2"
 
         rlRun "curl http://localhost:81/ > output.3"
         rlRun "curl http://localhost:82/ > output.4"
@@ -135,7 +139,7 @@ rlJournalStart
         fi
         rlRun "rm -r $TmpDir" 0 "Removing tmp directory"
         rlRun "rm -f ${CONF}/beaker-{1,2}.conf"
-        rlRun "rm -f ${httpLOGDIR}/beaker-*_log"
+        rlRun "rm -f ${nginxLOGDIR}/beaker-*.log"
         rlRun "rm -rf ${ROOTDIR}"
     rlPhaseEnd
 rlJournalPrintText
