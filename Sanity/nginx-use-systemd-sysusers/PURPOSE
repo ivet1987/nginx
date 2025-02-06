@@ -1,0 +1,3 @@
+PURPOSE of /CoreOS/nginx/Sanity/nginx-use-systemd-sysusers
+Description: Test checks if nginx uses systemd-sysusers
+Author: Lubos Uhliarik <luhliari@redhat.com>
