@@ -3,7 +3,6 @@ summary: Zuul CI test plan that runs only modified tests
 /:
     inherit: false
 
-enabled: false
 adjust:
 - when: trigger == commit
   enabled: true
@@ -13,7 +12,7 @@ execute:
 
 discover:
     how: fmf
-    modified-only: true
+#    modified-only: true
 
 /system:
     description: "nginx:1.20"
