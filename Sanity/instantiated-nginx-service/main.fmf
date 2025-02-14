@@ -21,5 +21,3 @@ adjust:
 duration: 5m
 extra-summary: /CoreOS/nginx/Sanity/instantiated-nginx-service
 extra-task: /CoreOS/nginx/Sanity/instantiated-nginx-service
-extra-nitrate: TC#0618277
-id: 6901ca0c-0dc6-497c-a526-684fdd062936
