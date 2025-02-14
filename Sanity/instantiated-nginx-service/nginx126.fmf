@@ -1,0 +1,16 @@
+contact: Joe Orton <jorton@redhat.com>
+tag:
+  - TestCaseCopy
+  - Tier2
+  - nginx:1.26
+tier: '2'
+adjust:
+  - enabled: false
+    when: distro < rhel-8
+    continue: false
+component:
+  - nginx:1.26
+environment:
+    MODSTREAMS: nginx:1.26
+extra-nitrate: TC#0618570
+extra-summary: /CoreOS/nginx/Sanity/instantiated-nginx-service [nginx:1.26]

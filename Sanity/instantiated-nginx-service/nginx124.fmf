@@ -1,0 +1,16 @@
+contact: Therese Cornell <azelinka+tcms_anon@redhat.com>
+tag:
+  - TestCaseCopy
+adjust:
+  - enabled: false
+    when: distro ~< rhel-8.10
+    continue: false
+  - enabled: false
+    when: distro ~< rhel-9.5
+    continue: false
+component:
+  - nginx:1.24
+environment:
+    MODSTREAMS: nginx:1.24
+extra-nitrate: TC#0618583
+extra-summary: /CoreOS/nginx/Sanity/instantiated-nginx-service [nginx:1.24]

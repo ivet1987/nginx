@@ -1,0 +1,13 @@
+contact: Joe Orton <jorton@redhat.com>
+tag:
+  - NoModularTier
+  - Tier2
+tier: '2'
+adjust:
+  - enabled: false
+    when: product == rhel and distro < rhel-8
+    continue: false
+component:
+  - nginx
+extra-nitrate: TC#0618277
+extra-summary: /CoreOS/nginx/Sanity/instantiated-nginx-service
