@@ -3,7 +3,6 @@ description: |
     Bug summary: Running nginx with systemctl and entering ssl private key's pass phrase
 contact: Iveta Cesalova <icesalov@redhat.com>
 enabled: true
-link:
 tag:
   - TestCaseCopy
 adjust:
