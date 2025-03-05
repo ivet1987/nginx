@@ -1,6 +1,5 @@
 description: |
     Bug summary: nginx supports PKCS#11 according to system policy
-link:
 tag:
   - nginx:1.26
   - rhel-buildroot
