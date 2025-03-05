@@ -11,7 +11,6 @@ framework: beakerlib
 require:
   - library(nginx/nginx)
   - library(openssl/certgen)
-  - library(distribution/nvr)
 recommend:
   - p11-kit
   - nginx

@@ -40,7 +40,6 @@ rlJournalStart
     rlPhaseStartSetup
         rlRun "rlImport nginx/nginx" || rlDie
         rlRun "rlImport openssl/certgen" || rlDie
-        rlRun "rlImport distribution/nvr" || rlDie
 
         rlAssertRpm --all
         # softhsm is in Buildroot repo
@@ -94,19 +93,11 @@ rlJournalStart
         rlAssertGrep "URL:.*object=$LABEL;type=private" $rlRun_LOG
         KEYURL=$(cat $rlRun_LOG |grep "URL:.*object=$LABEL;type=private" |awk '{ print $NF }')?pin-value=$PIN
 
-        if nvrTestPackage nginx '<' 1.18.0; then
-            # Support to load certificates from PKCS#11 devices was introduced
-            # in nginx:1.18. For previous versions use certificate in file system.
-            # See bz1668717
-            # The slashes in the path are escaped to be used in sed
-            CERTURL=$(echo $servercert | sed 's/\//\\\//g')
-        else
-            # Import certificate into PKCS#11 device and list to obtain URI
-            rlRun "runuser -u nginx -- p11tool --write --load-certificate $servercert --label $LABEL --login --set-pin $PIN $TOKENURL"
-            rlRun -s "runuser -u nginx -- p11tool --list-all-certs $TOKENURL"
-            rlAssertGrep "URL:.*object=$LABEL;type=cert" $rlRun_LOG
-            CERTURL="engine:pkcs11:$(cat $rlRun_LOG |grep "URL:.*object=$LABEL;type=cert" |awk '{ print $NF }')"
-        fi
+        # Import certificate into PKCS#11 device and list to obtain URI
+        rlRun "runuser -u nginx -- p11tool --write --load-certificate $servercert --label $LABEL --login --set-pin $PIN $TOKENURL"
+        rlRun -s "runuser -u nginx -- p11tool --list-all-certs $TOKENURL"
+        rlAssertGrep "URL:.*object=$LABEL;type=cert" $rlRun_LOG
+        CERTURL="engine:pkcs11:$(cat $rlRun_LOG |grep "URL:.*object=$LABEL;type=cert" |awk '{ print $NF }')"
 
         rm -f $rlRun_LOG
     rlPhaseEnd
