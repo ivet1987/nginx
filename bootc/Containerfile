@@ -5,5 +5,5 @@ FROM images.paas.redhat.com/testingfarm/rhel-bootc:10.0
 #ADD http://download.eng.bos.redhat.com/rhel-10/nightly/RHEL-10/latest-RHEL-10/repofile.repo /etc/yum.repos.d/
 #ADD http://download.eng.bos.redhat.com/rhel-10/nightly/RHEL-10/latest-RHEL-10.0/repofile.repo /etc/yum.repos.d/
 
-RUN dnf -y install nginx && dnf clean all
+RUN dnf -y install nginx* && dnf clean all
 RUN sed -ie 's|/usr/share/nginx/html|/var/www/html|' /etc/nginx/nginx.conf
