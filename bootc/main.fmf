@@ -1,0 +1,49 @@
+/Jachym:
+  summary: Setup machine for the ImageMode testing
+  provision:
+    hardware:
+      cpu:
+        processors: ">= 2"
+      memory: ">= 6 GB"
+      virtualization:
+        is-supported: true
+  prepare:
+    - how: install
+      package:
+        - git
+        - podman
+        - skopeo
+        - rsync
+        - tmt+provision-virtual
+        - tmt+provision-bootc
+    - how: shell
+      script: |
+        systemctl start libvirtd
+        systemctl status libvirtd
+  environment:
+    TMT_VERBOSE: 1
+  execute:
+    how: tmt
+  discover:
+    - how: shell
+      tests:
+        - name: /bootc/spousti
+          duration: 120m
+          test: |
+            TMT_RUN_ID=${TMT_PLAN_DATA%*/bootc/Jachym/data}
+            tmt -c deploymentmode=image run --id ${TMT_RUN_ID} -a -vvvvv plans --name /bootc/stroj
+            mkdir -p ${TMT_PLAN_DATA}/stroj-tmt-run
+            mv -f ${TMT_RUN_ID}/bootc/stroj ${TMT_PLAN_DATA}/stroj-tmt-run/
+
+/stroj:
+  summary: Execute tests inside the booted container
+  provision:
+    how: bootc
+    container-file: bootc/Containerfile
+    container-file-workdir: .
+    disk: 20
+  discover:
+    how: fmf
+    filter: 'tier:1 | tier:2 | tier:3'
+  execute:
+    how: tmt
