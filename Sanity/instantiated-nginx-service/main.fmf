@@ -15,7 +15,7 @@ recommend:
   - curl
 adjust:
   - enabled: false
-    when: distro < rhel-10
+    when: distro < rhel-9.6
     continue: false
 /:
     select: true
