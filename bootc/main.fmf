@@ -1,3 +1,6 @@
+/:
+    inherit: false
+
 /Jachym:
   summary: Setup machine for the ImageMode testing
   provision:
