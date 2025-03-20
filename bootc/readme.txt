@@ -1,11 +1,8 @@
-# login to registry.stage
-sudo podman login registry.stage.redhat.io
-
 # build image from Containerfile
 sudo podman build --tag nginx-test .
 
-# get bootc-image-builder
-sudo podman pull registry.stage.redhat.io/rhel10/bootc-image-builder:10.0
+# login to registry.stage (https://account-manager-stage.app.eng.rdu2.redhat.com/#create - use <login>_stage) for being able to download bootc-image-builder in the next step.
+sudo podman login registry.stage.redhat.io
 
 # create disk image
 mkdir output
@@ -14,9 +11,8 @@ sudo podman run --rm -it --privileged --pull=newer --security-opt label=type:unc
 # run testing on image
 tmt --context "distro=rhel-10.0 product=rhel arch=x86_64" run -a provision -h virtual --image /home/bnater/git/gitlab.com/rhel/tests/nginx/bootc/output/qcow2/disk.qcow2 tests --filter 'tier:1&component:nginx' plans --name all-non-buildroot report --how reportportal --project baseosqe --launch image-mode-nginx-tier1
 
-
 ### using tmt-bootc plugin ####################################
-https://gitlab.cee.redhat.com/toolchain-qe/tests/python-jsonpointer/-/tree/master/Imagemode
+Reference: https://gitlab.cee.redhat.com/toolchain-qe/tests/python-jsonpointer/-/tree/master/Imagemode
 
 # scheduling testing in TF
 testing-farm request --no-wait --plan /bootc/Jachym --git-ref master --compose Fedora-41 --arch x86_64 --git-url https://gitlab.com/redhat/rhel/tests/nginx.git
@@ -26,4 +22,3 @@ testing-farm reserve --arch x86_64 --compose Fedora-41 --hardware 'cpu.processor
 
 # reserve machine in 1mt
 1minutetip --flavor ocp-master fedora-41
-
