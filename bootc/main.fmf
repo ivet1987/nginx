@@ -50,3 +50,5 @@
     filter: 'tier:1 & component:nginx'
   execute:
     how: tmt
+  context:
+    distro: rhel-10.0
