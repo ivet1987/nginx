@@ -1,0 +1,9 @@
+component:
+  - nginx
+adjust:
+  - enabled: false
+    when: distro < rhel-9.6
+    continue: false
+    because: RHEL-77486 and RHEL-6770 are fixed in RHEL-9.6 and RHEL-10
+extra-summary: /CoreOS/nginx/Sanity/nginx-use-systemd-sysusers
+extra-nitrate: TC#0618585

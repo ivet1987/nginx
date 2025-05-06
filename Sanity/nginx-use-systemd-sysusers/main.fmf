@@ -5,17 +5,12 @@ link:
   - relates: https://issues.redhat.com/browse/RHEL-77486
   - relates: https://issues.redhat.com/browse/RHEL-6770
   - relates: https://issues.redhat.com/browse/RHEL-78091
-component:
-  - nginx
 test: ./runtest.sh
+path: /Sanity/nginx-use-systemd-sysusers
 framework: beakerlib
 recommend:
   - nginx
 duration: 5m
-adjust:
-  - enabled: false
-    when: distro < rhel-9.6
-    continue: false
-    because: RHEL-77486 and RHEL-6770 are fixed in RHEL-9.6 and RHEL-10
+enabled: true
 extra-summary: /CoreOS/nginx/Sanity/nginx-use-systemd-sysusers
 extra-task: /CoreOS/nginx/Sanity/nginx-use-systemd-sysusers
