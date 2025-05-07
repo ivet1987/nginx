@@ -1,6 +1,11 @@
 /:
     inherit: false
 
+adjust:
+  - when: trigger == commit
+    enabled: false
+    because: do not run this plan on MRs
+
 /Jachym:
   summary: Setup machine for the ImageMode testing
   provision:
