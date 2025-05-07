@@ -1,12 +1,16 @@
 summary: Test checks if nginx uses systemd-sysusers
 description: ''
 contact: Lubos Uhliarik <luhliari@redhat.com>
-component:
-  - nginx
+link:
+  - relates: https://issues.redhat.com/browse/RHEL-77486
+  - relates: https://issues.redhat.com/browse/RHEL-6770
+  - relates: https://issues.redhat.com/browse/RHEL-78091
 test: ./runtest.sh
+path: /Sanity/nginx-use-systemd-sysusers
 framework: beakerlib
 recommend:
   - nginx
 duration: 5m
+enabled: true
 extra-summary: /CoreOS/nginx/Sanity/nginx-use-systemd-sysusers
 extra-task: /CoreOS/nginx/Sanity/nginx-use-systemd-sysusers
