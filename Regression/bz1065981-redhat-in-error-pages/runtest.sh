@@ -36,14 +36,14 @@ rlJournalStart
     rlPhaseStartSetup
         rlAssertRpm --all
         rlRun "rlImport nginx/nginx"
-        NGINX_HTML_DIR=$nginxROOTPREFIX/usr/share/nginx/html/
+        NGINX_HTML_DIR=$nginxROOTPREFIX/usr/share/nginx/html
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
     rlPhaseEnd
 
     rlPhaseStartTest
-	rlRun "PAGES=index.html 50x.html"
-	rlTestVersion $NGINX_VER "<=" 1.24.0 && PAGES="$PAGES 404.html"
+	PAGES="index.html"
+	rlTestVersion $NGINX_VER "<" 1.26.0 && PAGES="$PAGES 404.html 50x.html"
 	for page in $PAGES; do
             rlAssertNotGrep "Fedora" $NGINX_HTML_DIR/$page
             rlAssertGrep "Red Hat" $NGINX_HTML_DIR/$page
