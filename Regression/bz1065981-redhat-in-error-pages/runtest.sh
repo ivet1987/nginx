@@ -30,6 +30,7 @@
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 
 PACKAGES=${PACKAGES:-"nginx"}
+NGINX_VER=$(rpm -q --qf "%{VERSION}\n" nginx)
 
 rlJournalStart
     rlPhaseStartSetup
@@ -41,8 +42,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest
-        for page in index.html 404.html 50x.html
-        do
+	rlRun "PAGES=index.html 50x.html"
+	rlTestVersion $NGINX_VER "<=" 1.24.0 && PAGES="$PAGES 404.html"
+	for page in $PAGES; do
             rlAssertNotGrep "Fedora" $NGINX_HTML_DIR/$page
             rlAssertGrep "Red Hat" $NGINX_HTML_DIR/$page
         done
