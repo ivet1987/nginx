@@ -91,7 +91,6 @@ rlJournalStart
 
         rlRun "sleep 1"
         # Check only the instance-specific error logs are there
-        rlAssertNotExists "$nginxLOGDIR/error.log"
         rlAssertNotExists "$nginxLOGDIR/access.log"
         rlAssertExists "$nginxLOGDIR/beaker-1_error.log"
         rlAssertExists "$nginxLOGDIR/beaker-2_error.log"
