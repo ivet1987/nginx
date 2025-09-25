@@ -56,7 +56,6 @@ $(METADATA): Makefile
 	@echo "Requires:        p11-kit nginx mod_ssl openssl-pkcs11 openssl softhsm gnutls-utils" >> $(METADATA)
 	@echo "RhtsRequires:    library(nginx/nginx)" >> $(METADATA)
 	@echo "RhtsRequires:    library(openssl/certgen)" >> $(METADATA)
-	@echo "RhtsRequires:    library(distribution/nvr)" >> $(METADATA)
 	@echo "Priority:        Normal" >> $(METADATA)
 	@echo "License:         GPLv2+" >> $(METADATA)
 	@echo "Confidential:    no" >> $(METADATA)
