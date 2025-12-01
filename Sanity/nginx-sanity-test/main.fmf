@@ -11,6 +11,10 @@ framework: beakerlib
 require:
   - library(nginx/nginx)
   - library(selinux-policy/common)
+adjust:
+- when: deployment-mode == image
+  enabled: false
+  continue: false
 recommend:
   - nginx
   - curl

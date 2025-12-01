@@ -14,9 +14,12 @@ recommend:
   - nginx
   - curl
 adjust:
-  - enabled: false
-    when: distro < rhel-9.6
-    continue: false
+- enabled: false
+  when: distro < rhel-9.6
+  continue: false
+- when: deployment-mode == image
+  enabled: false
+  continue: false
 duration: 5m
 extra-summary: /CoreOS/nginx/Sanity/instantiated-nginx-service
 extra-task: /CoreOS/nginx/Sanity/instantiated-nginx-service
