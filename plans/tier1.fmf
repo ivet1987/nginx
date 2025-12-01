@@ -1,0 +1,11 @@
+summary: Test plan for tier1 tests
+
+execute:
+    how: tmt
+
+discover:
+  - name: tier1
+    how: fmf
+    filter: "component:nginx & tag:tier1"
+
+
