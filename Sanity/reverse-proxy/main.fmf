@@ -5,6 +5,11 @@ component:
 test: ./runtest.sh
 path: /Sanity/reverse-proxy
 framework: beakerlib
+adjust:
+adjust:
+- when: deployment-mode == image
+  enabled: false
+  continue: false
 require:
   - library(nginx/nginx)
   - library(selinux-policy/common)
