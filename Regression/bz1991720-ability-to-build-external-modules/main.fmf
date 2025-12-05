@@ -13,6 +13,11 @@ path: /Regression/bz1991720-ability-to-build-external-modules
 framework: beakerlib
 require:
   - library(nginx/nginx)
+adjust:
+  - when: deployment-mode == image
+    enabled: false
+    continue: false
+    because: This test requires epel to work
 recommend:
   - nginx
   - wget
