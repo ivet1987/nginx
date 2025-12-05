@@ -12,6 +12,10 @@ adjust:
   - enabled: false
     when: distro == rhel-alt
     continue: false
+  - when: deployment-mode == image
+    enabled: false
+    continue: false
+    because: This test requires epel to work
 component:
   - nginx
 extra-nitrate: TC#0326941
