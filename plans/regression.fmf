@@ -23,5 +23,5 @@ discover:
 adjust:
   - when: deployment-mode == image
     environment:
-      nginxROOTDIR=/tmp/
+      nginxROOTDIRi:/tmp/
 
