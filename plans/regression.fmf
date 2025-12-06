@@ -21,6 +21,6 @@ discover:
     filter: "component:nginx & tag:.*buildroot & tag:-nonewa & tag:-destructive"
 
 adjust:
-    - when: deployment-mode == image
-      environment: nginxROOTDIR:'\/tmp\/'
+  - when: deployment-mode == image
+    environment: nginxROOTDIR:'\/tmp\/'
 
