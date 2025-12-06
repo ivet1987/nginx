@@ -20,8 +20,8 @@ discover:
     how: fmf
     filter: "component:nginx & tag:.*buildroot & tag:-nonewa & tag:-destructive"
 
-adjust:
-  - when: deployment-mode == image
-    environment:
-      nginxROOTDIRi:/tmp/
+environment:
+-  when: deployment-mode == image
+   nginxROOTDIR: /tmp/
+
 
