@@ -5,23 +5,21 @@ execute:
     how: tmt
 
 discover:
-
   - name: non_buildroot
     how: fmf
     filter: "component:nginx & tag:-.*buildroot & tag:-upgrade & tag:-nonewa & tag:-destructive & tag:-multihost"
-
   - name: enable_RHEL_buildroot
     url: https://gitlab.cee.redhat.com/rhel-tests/distribution.git
     how: fmf
     test:
       - setup/rhel-buildroot
-
   - name: buildroot
     how: fmf
     filter: "component:nginx & tag:.*buildroot & tag:-nonewa & tag:-destructive"
-
-
 adjust:
-   - when: deployment-mode == image
-     environment:
-       nginxROOTDIR: /tmp
+  - when: deployment-mode == image
+    environment:
+      nginxROOTDIR: /tmp/
+      nginxCONFDIR: /tmp/
+      nginxLOGDIR: /tmp/
+
