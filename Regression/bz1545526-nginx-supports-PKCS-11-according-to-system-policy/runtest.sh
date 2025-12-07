@@ -44,7 +44,7 @@ rlJournalStart
         rlAssertRpm --all
         # softhsm is in Buildroot repo
         rlAssertRpm softhsm
-
+        rlRun "mkdir -p $nginxCONFDIR/conf.d/"
         nginxSSLCONF=${nginxCONFDIR}/conf.d/bz1545526.conf
 
         rlRun "rlFileBackup --clean /var/lib/softhsm/tokens/"

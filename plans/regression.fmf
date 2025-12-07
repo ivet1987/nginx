@@ -3,7 +3,6 @@ tag: newa
 
 execute:
     how: tmt
-
 discover:
   - name: non_buildroot
     how: fmf
