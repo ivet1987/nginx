@@ -22,7 +22,6 @@ recommend:
   - python2-devel
   - python-devel
   - openssl-devel
-  - python2
   - python3
   - python
   - nginx-all-modules

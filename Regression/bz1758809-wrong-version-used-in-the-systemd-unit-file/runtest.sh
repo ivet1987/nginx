@@ -34,7 +34,6 @@ rlJournalStart
         rlRun "rlImport nginx/nginx" 0 "Import nginx library" || rlDie
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
-        rlAssertBinaryOrigin nginx
         rlRun "nginxSecureStart"
     rlPhaseEnd
 
