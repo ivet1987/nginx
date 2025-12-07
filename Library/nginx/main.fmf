@@ -12,6 +12,10 @@ recommend:
 duration: 5m
 enabled: true
 tag: []
+adjust:
+ - when: deployment-mode == image
+   enabled: false
+   continue: false
 extra-nitrate: TC#0393151
 extra-summary: '[nginx] Basic library for nginx testing (nginx/nginx)'
 extra-task: /CoreOS/nginx/Library/nginx
