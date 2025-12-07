@@ -22,4 +22,4 @@ adjust:
       nginxROOTDIR: /tmp
       nginxCONFDIR: /tmp
       nginxLOGDIR: /tmp
-
+      nginxROOTPREFIX:""
