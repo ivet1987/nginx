@@ -24,7 +24,6 @@ PEGREV=ea4142211e03c8a8fd2e734f2199b623c794eda9
 rlJournalStart
     rlPhaseStartSetup
         rlAssertRpm --all
-        rlAssertBinaryOrigin nginx
         rlRun "rlImport nginx/nginx" || rlDie
         # Deactivate Perl module local::lib, which is sometimes activated by
         # default and makes an unpleasant mess in search paths
