@@ -19,3 +19,4 @@ adjust:
   - when: deployment-mode == image
     environment:
       nginxROOTDIR: /tmp
+      nginxCONFDIR: /tmp
