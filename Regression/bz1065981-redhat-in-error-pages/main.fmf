@@ -13,6 +13,10 @@ link:
 tier: '3'
 component:
   - nginx
+adjust:
+ - when: deployment-mode == image
+   enabled: false
+   continue: false
 test: ./runtest.sh
 path: /Regression/bz1065981-redhat-in-error-pages
 framework: beakerlib

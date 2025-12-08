@@ -34,6 +34,7 @@ PACKAGES=${PACKAGES:-"nginx nginx-mod-http-perl"}
 rlJournalStart
     rlPhaseStartSetup
         rlRun "rlImport nginx/nginx"
+        rlRun "mkdir -p $nginxCONFDIR/conf.d"
         rlRun "GLOBAL_CONF=$nginxCONFDIR/conf.d/rhts-bz1421927.conf"
         rlRun "SERVER_CONF=$nginxCONFDIR/default.d/rhts-bz1421927.conf"
         rlRun "SSIDIR=${nginxROOTDIR}/rhts-ssi"
