@@ -15,6 +15,10 @@ path: /Regression/bz1421927-nginx-perl-module-support
 framework: beakerlib
 require:
   - library(nginx/nginx)
+adjust:
+  - when: deployment-mode == image
+    enabled: false
+    continue: false
 recommend:
   - nginx
   - nginx-mod-http-perl

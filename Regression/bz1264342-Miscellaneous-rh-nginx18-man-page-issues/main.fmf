@@ -19,6 +19,9 @@ adjust:
   - enabled: false
     when: product != rhscl
     continue: false
+  - when: deployment-mode == image
+    enabled: false
+    continue: false
 component:
   - nginx
 test: ./runtest.sh

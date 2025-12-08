@@ -7,6 +7,10 @@ link:
 tier: '3'
 component:
   - nginx
+adjust:
+ - when: deployment-mode == image
+   enabled: false
+   continue: false
 test: ./runtest.sh
 path: /Regression/bz1052935-selinux-context-of-nginx
 framework: beakerlib

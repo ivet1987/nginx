@@ -36,7 +36,7 @@ rlJournalStart
     rlPhaseStartSetup
         rlAssertRpm --all
         rlRun "rlImport nginx/nginx"
-
+        rlRun "mkdir -p ${nginxCONFDIR}/conf.d"
         MYCONF=${nginxCONFDIR}/conf.d/rhts-nginx-mod-vts.conf
         rlRun "cp nginx.conf ${MYCONF}"
 

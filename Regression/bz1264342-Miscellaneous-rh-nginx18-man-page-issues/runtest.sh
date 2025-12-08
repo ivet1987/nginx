@@ -35,6 +35,7 @@ PACKAGES="${PACKAGES:-nginx}"
 rlJournalStart
     rlPhaseStartSetup
         rlAssertRpm --all
+        rlRun "mkdir -p $nginxCONFDIR/conf.d"
         rlRun "rlImport nginx/nginx" || rlDie
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
