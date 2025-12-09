@@ -3,7 +3,8 @@ description: |
     Bug summary: RFE: Please add the ability to build external nginx modules
     Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1991720
 contact: Iveta Cesalova <icesalov@redhat.com>
-enabled: true
+enabled: false
+#lookaside no longer available
 link:
   - relates: https://bugzilla.redhat.com/show_bug.cgi?id=1991720
 component:
