@@ -1,0 +1,3 @@
+PURPOSE of /CoreOS/nginx/Sanity/man-page-t-option-binding-behavior
+Description: Ensures the manpage clarifies binding behavior during configuration testing with -t
+Author: Lubos Uhliarik <luhliari@redhat.com>
