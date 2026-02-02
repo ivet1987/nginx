@@ -13,6 +13,7 @@ require:
   - library(nginx/nginx)
 recommend:
   - nginx
+  - wget
 duration: 5m
 extra-summary: /CoreOS/nginx/Sanity/ALPN_with_http2
 extra-task: /CoreOS/nginx/Sanity/ALPN_with_http2
