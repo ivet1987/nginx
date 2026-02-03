@@ -1,0 +1,13 @@
+summary: Ensures the manpage clarifies binding behavior during configuration testing
+    with -t
+description: ''
+contact: Lubos Uhliarik <luhliari@redhat.com>
+component:
+  - nginx
+test: ./runtest.sh
+framework: beakerlib
+recommend:
+  - nginx
+duration: 5m
+extra-summary: /CoreOS/nginx/Sanity/man-page-t-option-binding-behavior
+extra-task: /CoreOS/nginx/Sanity/man-page-t-option-binding-behavior
