@@ -1,0 +1,24 @@
+prepare+:
+  - name: enable module
+    how: shell
+    script: dnf module enable -y nginx:1.26
+    order: 55
+
+discover:
+
+  - name: appstream
+    how: fmf
+    filter: "component:nginx:1.26 & tag:-.*buildroot & tag:-upgrade & tag:-nonewa & tag:-destructive & tag:-multihost"
+
+  - name: enable_RHEL_buildroot
+    url: https://gitlab.cee.redhat.com/rhel-tests/distribution.git
+    how: fmf
+    test:
+      - setup/rhel-buildroot
+
+  - name: crb
+    how: fmf
+    filter: "component:nginx:1.26 & tag:.*buildroot & tag:-nonewa & tag:-destructive"
+
+execute:
+    how: tmt
