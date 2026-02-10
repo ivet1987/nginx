@@ -1,0 +1,17 @@
+discover:
+
+  - name: appstream
+    how: fmf
+    filter: "component:nginx & tag:-.*buildroot & tag:-upgrade & tag:-nonewa & tag:-destructive & tag:-multihost"
+
+  - name: enable_RHEL_buildroot
+    url: https://gitlab.cee.redhat.com/rhel-tests/distribution.git
+    how: fmf
+    test:
+      - setup/rhel-buildroot
+
+  - name: crb
+    how: fmf
+    filter: "component:nginx & tag:.*buildroot & tag:-nonewa & tag:-destructive"
+execute:
+    how: tmt

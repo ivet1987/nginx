@@ -1,0 +1,8 @@
+adjust:
+  # configure brew repo for module erratum
+  - when: brew_repo is defined and module is defined
+    prepare+:
+    - how: shell
+      name: Get the repo with the module
+      script:
+      - https://gitlab.cee.redhat.com/python-maint/prndl-qa/-/raw/main/tmt-plans/_setup/cmr-repo/run.sh
