@@ -4,5 +4,5 @@ adjust:
     prepare+:
     - how: shell
       name: Get the repo with the module
-      script:
-      - https://gitlab.cee.redhat.com/python-maint/prndl-qa/-/raw/main/tmt-plans/_setup/cmr-repo/run.sh
+      url: https://gitlab.cee.redhat.com/python-maint/prndl-qa
+      script: cd $TMT_PREPARE_SHELL_URL_REPOSITORY && ./tmt-plans/_setup/cmr-repo/run.sh
