@@ -1,0 +1,46 @@
+/:
+    inherit: false
+
+adjust:
+  - when: trigger != commit
+    enabled: false
+  - when: initiator == newa
+    enabled: false
+    because: do not run for errata testing
+
+summary: RoG test plan that runs only modified tests
+
+execute:
+    how: tmt
+
+discover:
+    how: fmf
+    modified-only: true
+
+prepare:
+    - name: Note rpm -qa
+      how: shell
+      order: 100
+      script: rpm -qa | sort
+
+/system:
+    description: "'ursine' (not modular) nginx"
+    discover+:
+        filter: "component:nginx"
+    adjust+:
+    -   when: distro = rhel-8
+        enabled: false
+
+# https://issues.redhat.com/browse/OSCI-9283
+#/nginx124:
+#    description: "nginx 1.24 module (default)"
+#    discover+:
+#        filter: "component:nginx:1.24"
+#    adjust+:
+#    -   when: distro != rhel-8
+#        enabled: false
+#    prepare+:
+#        - name: Enable the module
+#          how: shell
+#          script: |
+#            dnf module enable -y nginx:1.24

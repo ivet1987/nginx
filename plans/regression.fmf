@@ -1,5 +1,9 @@
 summary: Test plan for regression testing
-tag: newa
+
+adjust:
+  - when: trigger == commit
+    enabled: false
+    because: do not run on PRs/MRs
 
 execute:
     how: tmt
