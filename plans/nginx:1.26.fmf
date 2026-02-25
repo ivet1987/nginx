@@ -1,3 +1,8 @@
+adjust:
+  - when: trigger == commit
+    enabled: false
+    because: do not run on PRs/MRs
+
 prepare+:
   - name: enable module
     how: shell
@@ -5,7 +10,6 @@ prepare+:
     order: 55
 
 discover:
-
   - name: appstream
     how: fmf
     filter: "component:nginx:1.26 & tag:-.*buildroot & tag:-upgrade & tag:-nonewa & tag:-destructive & tag:-multihost"
