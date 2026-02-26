@@ -46,7 +46,7 @@ rlJournalStart
     rlPhaseStartTest
 	rlRun "curl --http2 -v -k -D headers https://`hostname`/ > /dev/null 2> log"
 	cat log
-	rlAssertGrep "ALPN, server accepted to use h2" log
+	rlAssertGrep "ALPN.* server accepted.*h2" log
 	rlAssertNotGrep "ALPN/NPN, server did not agree to a protocol" log
 	#bash
     rlPhaseEnd
