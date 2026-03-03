@@ -71,6 +71,11 @@ rlJournalStart
         ERR_LOG=$nginxLOGDIR/error.log
         rlRun "rlFileBackup --missing-ok $ERR_LOG" 0,8
         rlRun "> $ERR_LOG" 0 "Cleaning nginx error log"
+
+        # Backup and remove SSL configuration to avoid password prompt on RHEL 9.7+
+        # See BZ#2170808 - SSL keys are password-protected by default
+        rlRun "rlFileBackup --namespace nginx_ssl /etc/nginx/conf.d/ssl.conf" 0,1
+        rlRun "rm -f /etc/nginx/conf.d/ssl.conf" 0,1
     rlPhaseEnd
 
     rlPhaseStartTest
@@ -107,6 +112,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartCleanup
+        # Restore SSL configuration if it was backed up
+        rlRun "rlFileRestore --namespace nginx_ssl" 0,1
         rlRun "rlFileRestore" 0,8,16
         rlRun "echo $BACKUP_PORT_RANGE > /proc/sys/net/ipv4/ip_local_port_range"
         rlRun "sysctl -w net.ipv4.tcp_tw_reuse=0"
