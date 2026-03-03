@@ -4,6 +4,10 @@ adjust:
   - when: trigger == commit
     enabled: false
     because: do not run on PRs/MRs
+  - when: deployment-mode == image
+    environment:
+      nginxROOTDIR: /tmp
+      nginxCONFDIR: /tmp
 
 execute:
     how: tmt
@@ -19,8 +23,3 @@ discover:
   - name: buildroot
     how: fmf
     filter: "component:nginx & tag:.*buildroot & tag:-nonewa & tag:-destructive"
-adjust:
-  - when: deployment-mode == image
-    environment:
-      nginxROOTDIR: /tmp
-      nginxCONFDIR: /tmp
