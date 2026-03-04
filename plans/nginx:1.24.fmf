@@ -1,4 +1,4 @@
-adjust:
+adjust+:
   - when: trigger == commit
     enabled: false
     because: do not run on PRs/MRs
