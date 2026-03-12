@@ -74,7 +74,7 @@ rlJournalStart
 
         # Backup and remove SSL configuration to avoid password prompt on RHEL 9.7+
         # See BZ#2170808 - SSL keys are password-protected by default
-        rlRun "rlFileBackup --namespace nginx_ssl /etc/nginx/conf.d/ssl.conf" 0,1
+        rlRun "rlFileBackup --namespace nginx_ssl /etc/nginx/conf.d/ssl.conf" 0,1,8
         rlRun "rm -f /etc/nginx/conf.d/ssl.conf" 0,1
     rlPhaseEnd
 
@@ -113,7 +113,7 @@ rlJournalStart
 
     rlPhaseStartCleanup
         # Restore SSL configuration if it was backed up
-        rlRun "rlFileRestore --namespace nginx_ssl" 0,1
+        rlRun "rlFileRestore --namespace nginx_ssl" 0,1,16
         rlRun "rlFileRestore" 0,8,16
         rlRun "echo $BACKUP_PORT_RANGE > /proc/sys/net/ipv4/ip_local_port_range"
         rlRun "sysctl -w net.ipv4.tcp_tw_reuse=0"
