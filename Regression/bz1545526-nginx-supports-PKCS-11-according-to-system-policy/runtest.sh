@@ -110,7 +110,7 @@ rlJournalStart
         rlRun "cat $nginxSSLCONF" 0 "Show ssl config file"
         # Remove default SSL config to avoid conflict with test's default_server on port 443
         # On RHEL 9.7+, /etc/nginx/conf.d/ssl.conf also defines default_server for 443
-        rlRun "rlFileBackup --namespace pkcs11_ssl /etc/nginx/conf.d/ssl.conf" 0,1
+        rlRun "rlFileBackup --namespace pkcs11_ssl /etc/nginx/conf.d/ssl.conf" 0,1,8
         rlRun "rm -f /etc/nginx/conf.d/ssl.conf" 0,1
         rlRun "rlServiceStart $nginxHTTPD"
         rlRun "rlWaitForSocket 443 -t 5"
@@ -124,7 +124,7 @@ rlJournalStart
     rlPhaseStartCleanup
         rlRun "rlServiceRestore $nginxHTTPD"
         # Restore system SSL config if it was backed up
-        rlRun "rlFileRestore --namespace pkcs11_ssl" 0,1
+        rlRun "rlFileRestore --namespace pkcs11_ssl" 0,1,16
         rlRun "rm -fr $nginxdir" 0 "Removing certificates"
         rlRun "rm -f ${nginxSSLCONF}" 0 "Removing nginx ssl config file"
         rlRun "rlFileRestore" 0 "Restoring files"
