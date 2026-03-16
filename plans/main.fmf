@@ -1,6 +1,6 @@
 adjust:
   # configure brew repo for module erratum
-  - when: brew_repo is defined and module is defined
+  - when: brew_repo is defined and module_name is defined
     prepare+:
     - how: shell
       name: Get the repo with the module
