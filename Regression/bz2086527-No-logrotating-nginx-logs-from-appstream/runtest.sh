@@ -39,7 +39,8 @@ rlJournalStart
         rlRun "rm -f /var/log/nginx/access.log" 0 "Clearing access log"
         # Backup and remove SSL configuration to avoid password prompt on RHEL 9.7+
         # See BZ#2170808 - SSL keys are password-protected by default
-        rlRun "rlFileBackup --namespace nginx_ssl /etc/nginx/conf.d/ssl.conf" 0,1
+        # Exit code 8 = file doesn't exist (OK - nothing to backup)
+        rlRun "rlFileBackup --namespace nginx_ssl /etc/nginx/conf.d/ssl.conf" 0,1,8
         rlRun "rm -f /etc/nginx/conf.d/ssl.conf" 0,1
         rlRun "rlServiceStart $nginxHTTPD"
     rlPhaseEnd
@@ -57,7 +58,8 @@ rlJournalStart
 
     rlPhaseStartCleanup
         # Restore SSL configuration if it was backed up
-        rlRun "rlFileRestore --namespace nginx_ssl" 0,1
+        # Exit code 16 = nothing to restore (OK - file didn't exist originally)
+        rlRun "rlFileRestore --namespace nginx_ssl" 0,1,16
         rlRun "rlServiceStop $nginxHTTPD"
         rlRun "popd"
         rlRun "rm -r $TmpDir" 0 "Removing tmp directory"
