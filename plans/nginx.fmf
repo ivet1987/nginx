@@ -2,6 +2,9 @@ adjust:
   - when: trigger == commit
     enabled: false
     because: do not run on PRs/MRs
+  - when: module_name is defined
+    enabled: false
+    beause: Run for system nginx
 
 discover:
   - name: appstream

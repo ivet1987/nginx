@@ -2,6 +2,9 @@ adjust+:
   - when: trigger == commit
     enabled: false
     because: do not run on PRs/MRs
+  - when: module_stream is not defined or module_stream != 1.24
+    enabled: false
+    because: Run only for nginx:1.24
 
 prepare+:
   - name: enable module
