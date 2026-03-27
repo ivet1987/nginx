@@ -5,6 +5,9 @@ adjust:
   - when: trigger == commit
     enabled: false
     because: do not run this plan on MRs
+  - when: initiator == newa
+    enabled: false
+    because: do not run for errata testing
 
 /Jachym:
   summary: Setup machine for the ImageMode testing
