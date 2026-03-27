@@ -17,7 +17,7 @@ adjust:
     when: distro == rhel-4, rhel-5
     continue: false
   - enabled: false
-    when: product != rhscl
+    when: product is not defined or product != rhscl
     continue: false
   - when: deployment-mode == image
     enabled: false
