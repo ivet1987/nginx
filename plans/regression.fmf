@@ -8,6 +8,9 @@ adjust:
     environment:
       nginxROOTDIR: /tmp
       nginxCONFDIR: /tmp
+  - when: initiator == newa
+    enabled: false
+    because: do not run for errata testing
 
 execute:
     how: tmt
