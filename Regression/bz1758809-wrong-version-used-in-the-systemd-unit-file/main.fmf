@@ -13,7 +13,7 @@ tag:
 tier: '3'
 adjust:
   - enabled: false
-    when: product != rhscl
+    when: product is not defined or product != rhscl
     continue: false
   - enabled: false
     when: distro == fedora
