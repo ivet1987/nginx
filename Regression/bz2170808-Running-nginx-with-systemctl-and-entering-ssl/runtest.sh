@@ -33,6 +33,7 @@ PACKAGES="nginx"
 rlJournalStart
     rlPhaseStartSetup
         rlAssertRpm --all
+        rlRun "rlFileBackup /etc/nginx/nginx.conf"
         rlRun "mkdir -p /etc/pki/nginx /etc/pki/nginx/private"
         rlRun "cp server.crt /etc/pki/nginx/server.crt"
         rlRun "cp server.key /etc/pki/nginx/private/server.key"
@@ -48,8 +49,14 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartCleanup
+        rlRun "systemctl stop nginx" 0,1
         rlRun "popd"
         rlRun "rm -r $TmpDir" 0 "Removing tmp directory"
+        rlRun "rm -f /etc/pki/nginx/server.crt"
+        rlRun "rm -f /etc/pki/nginx/private/server.key"
+        rlRun "rmdir /etc/pki/nginx/private" 0,1
+        rlRun "rmdir /etc/pki/nginx" 0,1
+        rlRun "rlFileRestore"
     rlPhaseEnd
 rlJournalPrintText
 rlJournalEnd
