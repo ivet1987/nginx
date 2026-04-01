@@ -33,28 +33,27 @@ PACKAGES=${PACKAGES:-"nginx"}
 rlJournalStart
     rlPhaseStartSetup
         rlAssertRpm --all
-	rlRun "rlImport nginx/nginx" 0 "Import nginx library" || rlDie
-	nginxsStart
-	rlRun "sed -i 's/443;/443 http2;/' $nginxCONFDIR/conf.d/ssl.conf"
-	rlRun "rlServiceStop $nginxHTTPD"
-	rlRun "rlServiceStart $nginxHTTPD"
-	nginxInstallCa `hostname`
+        rlRun "rlImport nginx/nginx" 0 "Import nginx library" || rlDie
+        nginxsStart
+        rlRun "sed -i 's/443;/443 http2;/' $nginxCONFDIR/conf.d/ssl.conf"
+        rlRun "rlServiceStop $nginxHTTPD"
+        rlRun "rlServiceStart $nginxHTTPD"
+        nginxInstallCa `hostname`
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
     rlPhaseEnd
 
     rlPhaseStartTest
-	rlRun "curl --http2 -v -k -D headers https://`hostname`/ > /dev/null 2> log"
-	cat log
-	rlAssertGrep "ALPN.* server accepted.*h2" log
-	rlAssertNotGrep "ALPN/NPN, server did not agree to a protocol" log
-	#bash
+        rlRun "curl --http2 -v -k -D headers https://`hostname`/ > /dev/null 2> log"
+        cat log
+        rlAssertGrep "ALPN.* server accepted.*h2" log
+        rlAssertNotGrep "ALPN/NPN, server did not agree to a protocol" log
     rlPhaseEnd
 
     rlPhaseStartCleanup
         rlRun "popd"
-	nginxsStop
-	nginxRemoveCa
+        nginxsStop
+        nginxRemoveCa
         rlRun "rm -r $TmpDir" 0 "Removing tmp directory"
     rlPhaseEnd
 rlJournalPrintText
