@@ -12,7 +12,7 @@ component:
 test: ./runtest.sh
 path: /Regression/bz1991796-Nginx-is-not-built-with-with-compat
 framework: beakerlib
-recommend:
+require:
   - nginx
 duration: 5m
 extra-summary: /CoreOS/nginx/Regression/bz1991796-Nginx-is-not-built-with-with-compat
