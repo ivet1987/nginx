@@ -29,6 +29,9 @@ adjust:
     when: distro > rhel-9
     continue: false
     # openssl-pkcs11 is not available on RHEL-10
+  - enabled: false
+    when: deployment-mode == image
+    continue: false
 component:
   - nginx
   - p11-kit
