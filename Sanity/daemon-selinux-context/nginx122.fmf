@@ -12,6 +12,9 @@ adjust:
   - enabled: false
     when: distro ~< rhel-9.2
     continue: false
+  - enabled: false
+    when: deployment-mode == image
+    continue: false
 component:
   - nginx:1.22
 environment:
