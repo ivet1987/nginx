@@ -14,6 +14,9 @@ adjust:
   - enabled: false
     when: arch != x86_64
     continue: false
+  - enabled: false
+    when: deployment-mode == image
+    continue: false
 component:
   - nginx:1.22
 environment:
