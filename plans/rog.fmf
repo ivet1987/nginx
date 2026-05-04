@@ -28,7 +28,7 @@ prepare:
     discover+:
         filter: "component:nginx"
     adjust+:
-    -   when: distro = rhel-8
+    -   when: distro == rhel-8
         enabled: false
 
 # https://issues.redhat.com/browse/OSCI-9283
