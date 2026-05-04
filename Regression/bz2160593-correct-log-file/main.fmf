@@ -4,6 +4,10 @@ contact: Iveta Cesalova <icesalov@redhat.com>
 enabled: true
 link:
   - relates: https://bugzilla.redhat.com/show_bug.cgi?id=2160593
+adjust+:
+  - enabled: false
+    when: distro < rhel-9.2
+    continue: false
 component:
   - nginx
 test: ./runtest.sh
