@@ -1,8 +1,13 @@
+/:
+  inherit: false
+
 adjust:
   # configure brew repo for module erratum
   - when: brew_repo is defined and module_name is defined
     prepare+:
     - how: shell
+      order: 40
       name: Get the repo with the module
       url: https://gitlab.cee.redhat.com/python-maint/prndl-qa
-      script: cd $TMT_PREPARE_SHELL_URL_REPOSITORY && ./tmt-plans/_setup/cmr-repo/run.sh
+      script: |
+          foo=$TMT_PREPARE_SHELL_URL_REPOSITORY && cd ${foo:-\$TMT_PREPARE_SHELL_URL_REPOSITORY} && ./tmt-plans/_setup/cmr-repo/run.sh
