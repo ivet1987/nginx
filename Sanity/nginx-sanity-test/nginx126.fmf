@@ -7,6 +7,9 @@ adjust:
   - enabled: false
     when: distro ~< rhel-9.6
     continue: false
+  - when: deployment-mode == image
+    enabled: false
+    continue: false
 component:
   - nginx:1.26
 environment:
