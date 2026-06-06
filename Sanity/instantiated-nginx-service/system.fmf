@@ -7,6 +7,9 @@ adjust:
   - enabled: false
     when: distro < rhel-10
     continue: false
+  - enabled: false
+    when: deployment-mode == image
+    continue: false
 component:
   - nginx
 extra-nitrate: TC#0618277

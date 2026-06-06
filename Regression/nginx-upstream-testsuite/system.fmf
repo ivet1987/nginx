@@ -8,6 +8,9 @@ adjust:
   - enabled: false
     when: product != rhscl
     continue: false
+  - enabled: false
+    when: deployment-mode == image
+    continue: false
 component:
   - nginx
 extra-nitrate: TC#0326943

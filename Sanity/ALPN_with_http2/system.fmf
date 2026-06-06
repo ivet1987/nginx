@@ -12,6 +12,9 @@ adjust:
   - enabled: false
     when: collection != rh-nginx112
     continue: false
+  - enabled: false
+    when: deployment-mode == image
+    continue: false
 component:
   - nginx
 extra-nitrate: TC#0560589
