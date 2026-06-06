@@ -5,17 +5,13 @@ component:
 test: ./runtest.sh
 path: /Sanity/reverse-proxy
 framework: beakerlib
-adjust:
-- when: deployment-mode == image
-  enabled: false
-  continue: false
 require:
   - library(nginx/nginx)
   - library(selinux-policy/common)
+  - wget
 recommend:
   - nginx
   - httpd-tools
-  - wget
 duration: 30m
 extra-summary: /CoreOS/nginx/Sanity/reverse-proxy
 extra-task: /CoreOS/nginx/Sanity/reverse-proxy
