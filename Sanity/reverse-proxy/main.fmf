@@ -12,6 +12,7 @@ require:
 recommend:
   - nginx
   - httpd-tools
+  - git
 duration: 30m
 extra-summary: /CoreOS/nginx/Sanity/reverse-proxy
 extra-task: /CoreOS/nginx/Sanity/reverse-proxy
