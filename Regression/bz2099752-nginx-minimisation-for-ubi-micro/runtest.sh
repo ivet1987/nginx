@@ -40,6 +40,13 @@ rlJournalStart
     rlPhaseStartTest
         rlRun "rpm -qR nginx | tee output" 0 "List nginx requires"
         rlAssertGrep "nginx-core" output
+        # In image mode, RPM scriptlets don't run so nginx user/dirs may be missing
+        if ! id nginx &>/dev/null; then
+            useradd -r -d /var/lib/nginx -s /sbin/nologin nginx
+        fi
+        rlRun "mkdir -p /var/log/nginx /var/lib/nginx/tmp/client_body"
+        rlRun "chown nginx:nginx /var/log/nginx"
+        rlRun "chown -R nginx:nginx /var/lib/nginx"
         rlRun "systemctl start nginx"
     rlPhaseEnd
 

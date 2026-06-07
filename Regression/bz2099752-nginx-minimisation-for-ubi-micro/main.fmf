@@ -11,7 +11,7 @@ component:
 test: ./runtest.sh
 path: /Regression/bz2099752-nginx-minimisation-for-ubi-micro
 framework: beakerlib
-recommend:
+require:
   - nginx
 duration: 5m
 extra-summary: /CoreOS/nginx/Regression/bz2099752-nginx-minimisation-for-ubi-micro

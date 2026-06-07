@@ -4,7 +4,7 @@ tag:
   - TestCaseCopy
   - Tier2
 tier: '2'
-adjust:
+adjust+:
   - enabled: false
     when: distro < rhel-9
     continue: false

@@ -4,7 +4,7 @@ tag:
   - NoRHEL5
   - Tier2
 tier: '2'
-adjust:
+adjust+:
   - enabled: false
     when: product == rhel and distro < rhel-9
     continue: false

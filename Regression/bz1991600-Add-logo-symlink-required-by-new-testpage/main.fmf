@@ -13,8 +13,8 @@ path: /Regression/bz1991600-Add-logo-symlink-required-by-new-testpage
 framework: beakerlib
 require:
   - library(nginx/nginx)
-recommend:
   - nginx
+recommend:
   - curl
 duration: 5m
 extra-summary: /CoreOS/nginx/Regression/bz1991600-Add-logo-symlink-required-by-new-testpage
