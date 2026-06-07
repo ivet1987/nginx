@@ -35,15 +35,23 @@ rlJournalStart
         rlRun "rlImport nginx/nginx" 0 "Import nginx library" || rlDie
         rlRun "rlImport selinux-policy/common" 0 "Import selinux library"
 
+        # Use a writable temp directory for test content ($nginxROOTDIR
+        # may live on a read-only filesystem in image mode deployments)
+        rlRun "TESTROOT=\$(mktemp -d /var/tmp/nginx-revproxy-XXXXXX)"
+        export nginxROOTDIR="$TESTROOT"
+        rlRun "chcon -R -t httpd_sys_content_t $nginxROOTDIR"
+
+        # Ensure nginx user and log directory exist (may be missing in image mode)
+        id nginx &>/dev/null || useradd -r -d /var/lib/nginx -s /sbin/nologin nginx
+        rlRun "mkdir -p $nginxLOGDIR"
+
         # Prepare directories and files to be tested
-        rlAssertExists "$nginxROOTDIR" && {
-            for DIR in default images scripts; do
-                rlRun "mkdir -p $nginxROOTDIR/$DIR" 0 "Creating directory $nginxROOTDIR/$DIR"
-            done
-            rlRun "touch $nginxROOTDIR/default/test.html" 0 "Creating test.html"
-            rlRun "touch $nginxROOTDIR/images/test.png" 0 "Creating test.png"
-            rlRun "touch $nginxROOTDIR/scripts/test.js" 0 "Creating test.js"
-        }
+        for DIR in default images scripts; do
+            rlRun "mkdir -p $nginxROOTDIR/$DIR" 0 "Creating directory $nginxROOTDIR/$DIR"
+        done
+        rlRun "touch $nginxROOTDIR/default/test.html" 0 "Creating test.html"
+        rlRun "touch $nginxROOTDIR/images/test.png" 0 "Creating test.png"
+        rlRun "touch $nginxROOTDIR/scripts/test.js" 0 "Creating test.js"
 
         rlRun "cp nginx.conf $nginxCONFDIR/conf.d" 0 \
               "Copying nginx.conf to conf.d"
@@ -120,12 +128,7 @@ rlJournalStart
 
         rlSEPortRestore
         rlSEBooleanRestore httpd_can_network_connect
-        rlAssertExists "$nginxROOTDIR" && {
-            for DIR in default images scripts; do
-                rlRun "rm -r $nginxROOTDIR/$DIR/" 0 \
-                    "Removing $nginxROOTDIR/$DIR/"
-            done
-        }
+        rlRun "rm -rf $TESTROOT" 0 "Removing test root directory"
         rlRun "rm -f $nginxCONFDIR/conf.d/nginx.conf $DROPIN/rhts-revproxy-limits.conf"
         rlRun "popd"
         rlRun "rm -r $TmpDir" 0 "Removing tmp directory"
