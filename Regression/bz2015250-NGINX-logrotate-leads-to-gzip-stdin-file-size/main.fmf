@@ -13,7 +13,6 @@ path: /Regression/bz2015250-NGINX-logrotate-leads-to-gzip-stdin-file-size
 framework: beakerlib
 require:
   - library(nginx/nginx)
-recommend:
   - nginx
 duration: 5m
 extra-summary: /CoreOS/nginx/Regression/bz2015250-NGINX-logrotate-leads-to-gzip-stdin-file-size

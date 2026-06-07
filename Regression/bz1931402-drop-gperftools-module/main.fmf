@@ -13,7 +13,6 @@ path: /Regression/bz1931402-drop-gperftools-module
 framework: beakerlib
 require:
   - library(nginx/nginx)
-recommend:
   - nginx
 duration: 5m
 extra-summary: /CoreOS/nginx/Regression/bz1931402-drop-gperftools-module

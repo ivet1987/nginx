@@ -3,7 +3,7 @@ tag:
   - NoModularTier
   - Tier2
 tier: '2'
-adjust:
+adjust+:
   - enabled: false
     when: distro < rhel-10
     continue: false
