@@ -1,6 +1,11 @@
 summary: Sanity test for nginx with php-fpm
 description: ''
 contact: Joe Orton <jorton@redhat.com>
+adjust:
+  - when: deployment-mode == image and distro == rhel-9
+    enabled: false
+    continue: false
+    because: php-fpm cannot start in image mode on RHEL 9
 enabled: true
 tier: '2'
 component:
