@@ -10,6 +10,9 @@ adjust:
   - enabled: false
     when: distro < rhel-9 and product != rhscl
     continue: false
+  - enabled: false
+    when: deployment-mode == image
+    continue: false
 component:
   - nginx
 extra-nitrate: TC#0393686
