@@ -41,9 +41,12 @@ rlJournalStart
         export nginxROOTDIR="$TESTROOT"
         rlRun "chcon -R -t httpd_sys_content_t $nginxROOTDIR"
 
-        # Ensure nginx user and log directory exist (may be missing in image mode)
+        # Ensure nginx user and required directories exist (may be missing in image mode)
         id nginx &>/dev/null || useradd -r -d /var/lib/nginx -s /sbin/nologin nginx
         rlRun "mkdir -p $nginxLOGDIR"
+        rlRun "chown nginx:nginx $nginxLOGDIR"
+        rlRun "mkdir -p /var/lib/nginx/tmp/client_body"
+        rlRun "chown -R nginx:nginx /var/lib/nginx"
 
         # Prepare directories and files to be tested
         for DIR in default images scripts; do
