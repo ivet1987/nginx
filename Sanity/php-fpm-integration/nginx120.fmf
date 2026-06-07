@@ -5,7 +5,7 @@ tag:
   - nginx:1.18
   - nginx:1.20
   - notip
-adjust:
+adjust+:
   - enabled: false
     when: distro < rhel-8
     continue: false

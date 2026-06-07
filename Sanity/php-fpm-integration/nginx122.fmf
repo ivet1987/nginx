@@ -2,7 +2,7 @@ contact: Ondrej Ptak <optak@redhat.com>
 tag:
   - Tier2
   - notip
-adjust:
+adjust+:
   - enabled: false
     when: distro ~< rhel-6.4
     continue: false

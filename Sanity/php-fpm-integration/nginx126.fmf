@@ -1,7 +1,7 @@
 contact: Ondrej Ptak <optak@redhat.com>
 tag:
   - Tier2
-adjust:
+adjust+:
   - enabled: false
     when: distro < rhel-8.10
     continue: false
