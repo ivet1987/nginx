@@ -457,6 +457,22 @@ nginxLibraryLoaded() {
     fi
     rlRun "rpm -q $nginxHTTPD" 0 "checking $nginxHTTPD rpm"
 
+    # In image mode, RPM scriptlets don't run so nginx user and directories may be missing
+    if ! id nginx &>/dev/null; then
+        useradd -r -d /var/lib/nginx -s /sbin/nologin nginx
+        rlLog "Created nginx user (missing in image mode)"
+    fi
+    if ! [ -d /var/log/nginx ]; then
+        mkdir -p /var/log/nginx
+        chown nginx:nginx /var/log/nginx
+        rlLog "Created /var/log/nginx (missing in image mode)"
+    fi
+    if ! [ -d /var/lib/nginx/tmp/client_body ]; then
+        mkdir -p /var/lib/nginx/tmp/client_body
+        chown -R nginx:nginx /var/lib/nginx
+        rlLog "Created /var/lib/nginx/tmp (missing in image mode)"
+    fi
+
     # setup path variables from configuration file
     rlRun "nginxROOTDIR_tmp=\$(grep '^[ \t]*root[ \t]*/' ${nginxCONFDIR}/nginx.conf|head -1|\
         awk '{print \$2}'|sed -e 's/\"//g;s/;//')" 0 "setup nginxROOTDIR"
